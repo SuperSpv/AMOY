@@ -1,0 +1,38 @@
+<div class="amoy-container" style="padding-top:56px;padding-bottom:90px">
+  <div class="amoy-grid--contact">
+    <div>
+      <div class="amoy-eyebrow">Contact</div>
+      <h1 class="amoy-display amoy-display--lg" style="margin:18px 0 0">{{ section.settings.heading }}</h1>
+      <p style="font-size:17px;line-height:1.7;color:var(--text-muted);margin:22px 0 36px;max-width:42ch">{{ section.settings.body }}</p>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px;flex:none"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="m4 6 8 6 8-6"/></svg>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text-heading)">Email</div><div style="font-size:14px;color:var(--text-muted)">{{ section.settings.email }}</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px;flex:none"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text-heading)">Showroom</div><div style="font-size:14px;color:var(--text-muted)">{{ section.settings.address }}</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:32px;box-shadow:var(--shadow-sm)">
+      {%- form 'contact' -%}
+        {%- if form.posted_successfully? -%}
+          <div style="padding:20px;background:var(--mist);border-radius:var(--radius-sm);text-align:center;margin-bottom:20px"><p style="color:var(--text-heading);font-weight:600">Thank you! We'll be in touch shortly.</p></div>
+        {%- endif -%}
+        <div class="amoy-contact-form-grid">
+          <div><label class="amoy-label" for="name">Full name</label><input class="amoy-input" type="text" id="name" name="contact[name]" placeholder="Layla Al-Harbi" required></div>
+          <div><label class="amoy-label" for="email">Work email</label><input class="amoy-input" type="email" id="email" name="contact[email]" placeholder="you@brand.com" required></div>
+          <div><label class="amoy-label" for="brand">Store / brand</label><input class="amoy-input" type="text" id="brand" name="contact[brand]" placeholder="Brand name"></div>
+          <div><label class="amoy-label" for="city">City</label><input class="amoy-input" type="text" id="city" name="contact[city]" placeholder="Riyadh"></div>
+        </div>
+        <div style="margin-top:16px"><label class="amoy-label" for="collection">Collection of interest</label><select class="amoy-input" id="collection" name="contact[collection]"><option>Grace — Female</option><option>Kids</option><option>Sport</option><option>Custom / mixed</option></select></div>
+        <div style="margin-top:16px"><label class="amoy-label" for="message">Tell us about your concept</label><textarea class="amoy-input" id="message" name="contact[body]" rows="4" placeholder="Quantities, finishes, timelines…"></textarea></div>
+        <div style="margin-top:22px"><button type="submit" class="amoy-btn amoy-btn--primary amoy-btn--full amoy-btn--lg">Send request</button></div>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{"name":"Contact","settings":[{"type":"text","id":"heading","label":"Heading","default":"Request a quote"},{"type":"textarea","id":"body","label":"Body","default":"Tell us about your store concept — finishes, poses and volumes. We'll prepare a bespoke quote and confirm delivery across the Kingdom."},{"type":"text","id":"email","label":"Email","default":"hello@amoylimited.com"},{"type":"text","id":"address","label":"Address","default":"Jeddah, Kingdom of Saudi Arabia"}],"presets":[{"name":"Contact"}]}
+{% endschema %}

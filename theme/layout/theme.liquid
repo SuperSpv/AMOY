@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{%- liquid
+  assign is_rtl = false
+  if request.locale.iso_code contains 'ar'
+    assign is_rtl = true
+  endif
+-%}
+<html lang="{{ request.locale.iso_code }}" dir="{% if is_rtl %}rtl{% else %}ltr{% endif %}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1C1B4D">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <title>{% if page_title == blank %}{{ shop.name }}{% else %}{{ page_title }}{% unless page_title contains shop.name %} | {{ shop.name }}{% endunless %}{% endif %}</title>
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+
+  {%- comment -%} Open Graph / social {%- endcomment -%}
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta property="og:type" content="{% if request.page_type == 'product' %}product{% elsif request.page_type == 'article' %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
+  {% if page_description %}<meta property="og:description" content="{{ page_description | escape }}">{% endif %}
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:locale" content="{{ request.locale.iso_code }}">
+  {%- if request.page_type == 'product' and product.featured_image -%}
+    <meta property="og:image" content="https:{{ product.featured_image | image_url: width: 1200 }}">
+    <meta name="twitter:card" content="summary_large_image">
+  {%- elsif request.page_type == 'article' and article.image -%}
+    <meta property="og:image" content="https:{{ article.image | image_url: width: 1200 }}">
+    <meta name="twitter:card" content="summary_large_image">
+  {%- endif -%}
+
+  {{ content_for_header }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  {%- if is_rtl -%}<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">{%- endif -%}
+  {{ 'amoy.css' | asset_url | stylesheet_tag }}
+  {%- if is_rtl -%}
+  <style>
+    :root{--font-display:'IBM Plex Sans Arabic',sans-serif;}
+    body,button,input,select,textarea{font-family:'IBM Plex Sans Arabic','Archivo',sans-serif}
+    body{text-align:right}
+  </style>
+  {%- endif -%}
+
+  {%- comment -%} Organization structured data {%- endcomment -%}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":{{ shop.name | json }},"url":{{ shop.url | json }},"logo":"https:{{ settings.share_image | default: '' }}","areaServed":"SA","address":{"@type":"PostalAddress","addressCountry":"SA","addressLocality":"Jeddah"}}
+  </script>
+  {%- if request.page_type == 'product' -%}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Product","name":{{ product.title | json }},"image":[{% if product.featured_image %}"https:{{ product.featured_image | image_url: width: 1200 }}"{% endif %}],"description":{{ product.description | strip_html | truncate: 300 | json }},"sku":{{ product.selected_or_first_available_variant.sku | default: product.handle | json }},"brand":{"@type":"Brand","name":{{ product.vendor | json }}},"offers":{"@type":"Offer","priceCurrency":{{ cart.currency.iso_code | json }},"price":"{{ product.price | divided_by: 100.0 }}","availability":"https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}","url":{{ canonical_url | json }}}}
+  </script>
+  {%- endif -%}
+</head>
+<body>
+  {%- render 'amoy-loader' -%}
+  {% section 'header' %}
+  <main id="main-content" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+  {% section 'footer' %}
+  <script src="{{ 'amoy.js' | asset_url }}" defer></script>
+  <div id="amoy-toast" class="amoy-toast" aria-live="polite"></div>
+</body>
+</html>

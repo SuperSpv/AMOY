@@ -1,0 +1,21 @@
+{
+  "general": {
+    "continue_shopping": "Continue shopping",
+    "close": "Close",
+    "loading": "Loading..."
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "checkout": "Proceed to checkout",
+    "subtotal": "Subtotal"
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable"
+  },
+  "contact": {
+    "submit": "Send request"
+  }
+}

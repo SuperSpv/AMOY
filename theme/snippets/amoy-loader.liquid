@@ -1,0 +1,118 @@
+<style>
+  #amoy-page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FBFBFD;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #amoy-page-loader.amoy-loader--hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  @keyframes amoy-arrow {
+    0%   { transform:translateX(-100px); opacity:0; }
+    10%  { transform:translateX(-100px); opacity:0; animation-timing-function:cubic-bezier(.4,0,.85,.6); }
+    11%  { transform:translateX(-76px);  opacity:1; animation-timing-function:cubic-bezier(.4,0,.85,.6); }
+    30%  { transform:translateX(-24px);  animation-timing-function:ease-in-out; }
+    34%  { transform:translateX(-32px);  animation-timing-function:cubic-bezier(.3,0,.85,.9); }
+    43%  { transform:translateX(18px);   animation-timing-function:cubic-bezier(.16,1,.3,1); }
+    50%  { transform:translateX(6px);    animation-timing-function:cubic-bezier(.16,1,.3,1); }
+    60%  { transform:translateX(0);      animation-timing-function:linear; }
+    79%  { transform:translateX(0);  opacity:1; animation-timing-function:ease-in; }
+    89%  { transform:translateX(0);  opacity:0; }
+    100% { transform:translateX(-100px); opacity:0; }
+  }
+  @keyframes amoy-flash {
+    0%,41%    { opacity:0; transform:scale(.2); }
+    43%       { opacity:.55; transform:scale(1); }
+    51%,100%  { opacity:0; transform:scale(2.6); }
+  }
+  @keyframes amoy-fbar {
+    0%,57%   { opacity:0; transform:scaleY(.1); }
+    66%      { opacity:1; transform:scaleY(1); animation-timing-function:linear; }
+    79%      { opacity:1; transform:scaleY(1); animation-timing-function:ease-in; }
+    89%,100% { opacity:0; transform:scaleY(1); }
+  }
+  @keyframes amoy-sheen {
+    0%,60%  { opacity:0; }
+    66%     { opacity:1; }
+    72%     { opacity:.55; }
+    79%,100%{ opacity:0; }
+  }
+</style>
+
+<div id="amoy-page-loader">
+  <div style="display:inline-flex;flex-direction:column;align-items:center;">
+    <div style="position:relative;">
+      <div style="position:absolute;top:-24px;right:-32px;bottom:-24px;left:-32px;
+                  background:radial-gradient(ellipse at 60% 50%,rgba(184,148,85,.18) 0%,transparent 65%);
+                  pointer-events:none;animation:amoy-sheen 2.6s linear infinite;"></div>
+      <svg viewBox="0 0 68 36" width="156" height="83" style="overflow:visible;display:block;">
+        <circle cx="36" cy="18" r="13"
+          style="fill:#B89455;opacity:0;transform-origin:36px 18px;
+                 animation:amoy-flash 2.6s linear infinite;"></circle>
+        <polygon points="0,2 18,18 0,34"
+          style="fill:#1C1B4D;opacity:0;
+                 animation:amoy-arrow 2.6s linear infinite;"></polygon>
+        <path id="amoy-chevron" d="M 36,3 L 36,18 L 36,33"
+          style="fill:none;stroke:#1C1B4D;stroke-width:3.5;
+                 stroke-linecap:round;stroke-linejoin:round;opacity:0;"></path>
+        <line x1="46" y1="3" x2="46" y2="33"
+          style="stroke:#1C1B4D;stroke-width:3.5;stroke-linecap:round;opacity:0;
+                 transform-origin:46px 18px;
+                 animation:amoy-fbar 2.6s linear infinite;"></line>
+      </svg>
+    </div>
+    <p style="margin:20px 0 0;font-family:'Archivo',sans-serif;
+              font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+              color:#A6ABBA;">Loading</p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var TOTAL = 2600;
+  var chevron = document.getElementById('amoy-chevron');
+  var t0 = null;
+  var raf = null;
+
+  function clamp(t) { return t < 0 ? 0 : t > 1 ? 1 : t; }
+  function easeOut3(t) { var u = 1 - t; return 1 - u*u*u; }
+  function barOpacity(p) {
+    if (p < 0.08) return 0;
+    if (p < 0.18) return clamp((p-0.08)/0.10);
+    if (p < 0.79) return 1;
+    if (p < 0.89) return clamp(1-(p-0.79)/0.10);
+    return 0;
+  }
+  function chevronT(p) {
+    if (p < 0.40) return 0;
+    if (p < 0.60) return easeOut3(clamp((p-0.40)/0.20));
+    return 1;
+  }
+
+  function tick(now) {
+    if (!t0) t0 = now;
+    var p = ((now - t0) % TOTAL) / TOTAL;
+    var tip = (36 - chevronT(p) * 12).toFixed(2);
+    chevron.setAttribute('d', 'M '+tip+',3 L 36,18 L '+tip+',33');
+    chevron.style.opacity = barOpacity(p);
+    raf = requestAnimationFrame(tick);
+  }
+
+  raf = requestAnimationFrame(tick);
+
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('amoy-page-loader');
+    loader.classList.add('amoy-loader--hidden');
+    loader.addEventListener('transitionend', function() {
+      cancelAnimationFrame(raf);
+      loader.remove();
+    }, { once: true });
+  });
+})();
+</script>

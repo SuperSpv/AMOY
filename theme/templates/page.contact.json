@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "amoy-contact",
+      "settings": {
+        "heading": "Request a quote",
+        "body": "Tell us about your store concept \u2014 finishes, poses and volumes. We'll prepare a bespoke quote and confirm delivery across the Kingdom.",
+        "email": "hello@amoylimited.com",
+        "address": "Jeddah, Kingdom of Saudi Arabia"
+      }
+    }
+  },
+  "order": ["main"]
+}

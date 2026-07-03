@@ -1,0 +1,95 @@
+{
+  "sections": {
+    "amoy-hero": {
+      "type": "amoy-hero",
+      "blocks": {
+        "stat-1": { "type": "stat", "settings": { "value": "13+", "label": "Years of craft" } },
+        "stat-2": { "type": "stat", "settings": { "value": "+25", "label": "Cities served" } },
+        "stat-3": { "type": "stat", "settings": { "value": "100%", "label": "KSA-made fiberglass" } }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3"],
+      "settings": {
+        "eyebrow": "Fiberglass Mannequins \u00b7 Saudi Arabia",
+        "heading_line1": "Elegance in",
+        "heading_em": "every",
+        "heading_line2": "curve.",
+        "subheading": "High-quality fiberglass mannequins for fashion brands and visual merchandisers across the Kingdom \u2014 buy online, or request a bespoke quote for your store concept.",
+        "primary_label": "Shop the collection",
+        "primary_url": "/collections/all",
+        "secondary_label": "Our story",
+        "secondary_url": "/pages/about",
+        "image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_07_21_34_PM.png",
+        "image_caption": "Grace 04 \u00b7 semi-matte white"
+      }
+    },
+    "amoy-collections": {
+      "type": "amoy-collections",
+      "blocks": {
+        "col-1": { "type": "collection_card", "settings": { "name": "Grace", "tag": "Female", "desc": "Lingerie, nightwear & luxury fashion.", "caption": "Grace collection", "url": "/collections/grace-collection", "image": "shopify://shop_images/A_Dual_Silhouette_in_Metallic_Grace.png" } },
+        "col-2": { "type": "collection_card", "settings": { "name": "Kids", "tag": "Child", "desc": "Playful forms for babywear & junior.", "caption": "Kids collection", "url": "/collections/kids-collection", "image": "shopify://shop_images/Sunlit_Playroom_with_Mannequin_and_Toys.png" } }
+      },
+      "block_order": ["col-1", "col-2"],
+      "settings": { "eyebrow": "The Collections", "heading": "A character for every brand" }
+    },
+    "amoy-why": {
+      "type": "amoy-why",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "title": "Hand-finished fiberglass", "body": "Durable, lightweight forms with a flawless, gallery-grade surface." } },
+        "f2": { "type": "feature", "settings": { "title": "Any finish you specify", "body": "Semi-matte white by default \u2014 or any colour and sheen to match your concept." } },
+        "f3": { "type": "feature", "settings": { "title": "Tempered-glass bases", "body": "Stable, near-invisible support with calf fittings that keep poses clean." } },
+        "f4": { "type": "feature", "settings": { "title": "Made in Saudi Arabia", "body": "Manufactured in Jeddah and delivered across the Kingdom, lead times short." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "settings": {
+        "eyebrow": "Why AMOY",
+        "heading": "Built by hand, finished like furniture.",
+        "body": "Every AMOY mannequin starts as fiberglass and ends as a considered object \u2014 sanded, sealed and finished to a calm semi-matte white. The kind of quality your windows can stand next to.",
+        "image": "shopify://shop_images/White_mannequin_being_adjusted_by_a_saudi_person_against_a_dark_background.png",
+        "image_caption": "workshop \u00b7 hand-finishing the semi-matte surface"
+      }
+    },
+    "amoy-how": {
+      "type": "amoy-how-it-works",
+      "blocks": {
+        "s1": { "type": "step", "settings": { "number": "01", "title": "Consult", "body": "Share your store concept, collection mix and the look you're chasing." } },
+        "s2": { "type": "step", "settings": { "number": "02", "title": "Customize", "body": "We tailor form, pose, finish and base to your brand's exact specification." } },
+        "s3": { "type": "step", "settings": { "number": "03", "title": "Craft", "body": "Hand-built in our Jeddah workshop, then finished and quality-checked." } },
+        "s4": { "type": "step", "settings": { "number": "04", "title": "Deliver", "body": "Packed, certified and delivered to Riyadh, Jeddah, Dammam and beyond." } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"],
+      "settings": { "eyebrow": "How it works", "heading": "From brief to window in four steps." }
+    },
+    "amoy-featured": {
+      "type": "amoy-featured-products",
+      "settings": { "eyebrow": "Featured pieces", "heading": "Ready to ship", "collection": "frontpage" }
+    },
+    "amoy-clients": {
+      "type": "amoy-clients",
+      "blocks": {
+        "c1": { "type": "client", "settings": { "logo": "shopify://shop_images/Adidas_logo.png", "name": "Adidas" } },
+        "c2": { "type": "client", "settings": { "logo": "shopify://shop_images/Next_2007-_logo_svg.png", "name": "Next" } },
+        "c3": { "type": "client", "settings": { "logo": "shopify://shop_images/Debenhams-logo.png", "name": "Debenhams" } }
+      },
+      "block_order": ["c1", "c2", "c3"],
+      "settings": { "eyebrow": "Our clients", "heading": "Trusted by retailers and brands across the Kingdom" }
+    },
+    "amoy-latest-blogs": {
+      "type": "amoy-latest-blogs",
+      "settings": { "eyebrow": "AMOY Insights", "heading": "From the journal.", "blog": "", "post_count": 3 }
+    },
+    "amoy-cta": {
+      "type": "amoy-cta",
+      "settings": {
+        "eyebrow": "Start a project",
+        "heading": "Request the 2026 catalog.",
+        "subheading": "Tell us about your store and we'll send the full collection, finishes and lead times for Saudi Arabia.",
+        "primary_label": "Request a catalog",
+        "primary_url": "/pages/contact",
+        "secondary_label": "Book a consultation",
+        "secondary_url": "/pages/contact",
+        "contact_line": "support@amoylimited.com \u00b7 +966547275228 \u00b7 Jeddah, Saudi Arabia"
+      }
+    }
+  },
+  "order": ["amoy-hero", "amoy-collections", "amoy-why", "amoy-how", "amoy-featured", "amoy-clients", "amoy-latest-blogs", "amoy-cta"]
+}

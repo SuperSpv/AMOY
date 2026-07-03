@@ -1,0 +1,15 @@
+<section style="min-height:64vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px;background:var(--paper)">
+  <div style="max-width:580px">
+    <div style="font-family:var(--font-display);font-weight:600;font-size:clamp(120px,24vw,220px);line-height:.86;color:var(--navy-700);letter-spacing:-.04em">404</div>
+    <div class="amoy-eyebrow amoy-eyebrow--brass" style="justify-content:center;margin-top:8px">{{ section.settings.eyebrow }}</div>
+    <h1 class="amoy-display amoy-display--md" style="margin:14px 0 14px">{{ section.settings.heading }}</h1>
+    <p style="font-size:16px;line-height:1.65;color:var(--text-muted);margin:0 auto 32px;max-width:44ch">{{ section.settings.subheading }}</p>
+    <div class="amoy-cta__btns">
+      <a href="/" class="amoy-btn amoy-btn--primary amoy-btn--lg">{{ section.settings.primary_label }}</a>
+      <a href="/collections/all" class="amoy-btn amoy-btn--secondary amoy-btn--lg">{{ section.settings.secondary_label }}</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"404 Page","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Page not found"},{"type":"text","id":"heading","label":"Heading","default":"This page has wandered off."},{"type":"textarea","id":"subheading","label":"Subheading","default":"The page you were looking for doesn't exist or has moved. Let's get you back to the collection."},{"type":"text","id":"primary_label","label":"Primary button","default":"Back to home"},{"type":"text","id":"secondary_label","label":"Secondary button","default":"Browse the shop"}],"presets":[{"name":"404 Page"}]}
+{% endschema %}

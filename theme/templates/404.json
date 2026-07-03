@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "main": { "type": "amoy-404", "settings": {} }
+  },
+  "order": ["main"]
+}

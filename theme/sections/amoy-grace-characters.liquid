@@ -1,0 +1,32 @@
+<style>
+  .grace-char__media{position:relative;overflow:hidden;background:var(--mist);height:340px;border-radius:var(--radius-md) var(--radius-md) 0 0}
+</style>
+<section class="amoy-block">
+  <div class="amoy-container">
+    <div class="amoy-eyebrow">Characters</div>
+    <h2 class="amoy-display amoy-display--md" style="margin:14px 0 36px">{{ section.settings.heading }}</h2>
+    <div class="amoy-grid--2">
+      {%- for i in (1..2) -%}
+        {%- assign img_key = 'char' | append: i | append: '_image' -%}
+        {%- assign name_key = 'char' | append: i | append: '_name' -%}
+        {%- assign desc_key = 'char' | append: i | append: '_desc' -%}
+        <div class="amoy-card">
+          <div class="grace-char__media">
+            {%- if section.settings[img_key] != blank -%}
+              {{ section.settings[img_key] | image_url: width: 800 | image_tag: style: 'width:100%;height:100%;object-fit:cover', alt: section.settings[name_key] }}
+            {%- else -%}
+              <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" opacity=".18"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+            {%- endif -%}
+          </div>
+          <div class="amoy-card__body" style="padding:24px">
+            <h3 style="font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--text-heading);margin:0">{{ section.settings[name_key] }}</h3>
+            <p style="font-size:14px;color:var(--text-muted);margin:6px 0 0">{{ section.settings[desc_key] }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Grace · Characters","settings":[{"type":"text","id":"heading","label":"Section heading","default":"The faces of Grace"},{"type":"image_picker","id":"char1_image","label":"Character 1 image"},{"type":"text","id":"char1_name","label":"Character 1 name","default":"Nova"},{"type":"text","id":"char1_desc","label":"Character 1 description","default":"Confident stance, strong presence."},{"type":"image_picker","id":"char2_image","label":"Character 2 image"},{"type":"text","id":"char2_name","label":"Character 2 name","default":"Lira"},{"type":"text","id":"char2_desc","label":"Character 2 description","default":"Elegant lines, poised grace."}],"presets":[{"name":"Grace · Characters"}]}
+{% endschema %}

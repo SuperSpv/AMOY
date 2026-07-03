@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "main": { "type": "amoy-contact", "settings": {} }
+  },
+  "order": ["main"]
+}

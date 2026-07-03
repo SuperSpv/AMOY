@@ -1,0 +1,40 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "AMOY Custom",
+    "theme_version": "1.0.0",
+    "theme_author": "AMOY Limited",
+    "theme_documentation_url": "https://amoylimited.com",
+    "theme_support_url": "https://amoylimited.com/pages/contact"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "color_primary", "label": "Primary", "default": "#1C1B4D" },
+      { "type": "color", "id": "color_accent", "label": "Accent (brass)", "default": "#B08A22" },
+      { "type": "color", "id": "color_background", "label": "Background", "default": "#FBFBFD" }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "type_header_font",
+        "label": "Display font",
+        "options": [
+          { "value": "cormorant", "label": "Cormorant Garamond" },
+          { "value": "archivo", "label": "Archivo" }
+        ],
+        "default": "cormorant"
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "range", "id": "logo_width", "min": 50, "max": 300, "step": 10, "default": 160, "unit": "px", "label": "Logo width" }
+    ]
+  }
+]

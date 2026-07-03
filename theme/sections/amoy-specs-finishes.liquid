@@ -1,0 +1,39 @@
+<section class="amoy-block--lg" style="background:var(--navy-900);color:#fff">
+  <div class="amoy-container">
+    <div class="amoy-grid--split" style="align-items:start">
+      <div>
+        <div class="amoy-eyebrow amoy-eyebrow--brass">{{ section.settings.eyebrow }}</div>
+        <h2 class="amoy-display amoy-display--lg" style="color:#fff;margin:18px 0 0">{{ section.settings.heading }}</h2>
+        <p style="font-size:16px;line-height:1.7;color:var(--navy-200);max-width:46ch;margin:20px 0 32px">{{ section.settings.body }}</p>
+        <div style="margin-top:8px">
+          {%- assign specs = section.settings.specs | split: '|' -%}
+          {%- for spec in specs -%}
+            {%- assign parts = spec | split: ':' -%}
+            <div class="amoy-spec-row amoy-spec-row--inv">
+              <span class="amoy-spec-row__key amoy-spec-row__key--inv">{{ parts[0] }}</span>
+              <span class="amoy-spec-row__val amoy-spec-row__val--inv" style="{% if parts[0] == 'Certificate' %}color:var(--brass-300){% endif %}">{{ parts[1] }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--navy-400);margin-bottom:22px">Available finishes</div>
+        <div class="amoy-grid--2">
+          {%- for block in section.blocks -%}
+            <div {{ block.shopify_attributes }}>
+              <div style="height:120px;border-radius:var(--radius-md);background:{{ block.settings.swatch_color }};border:1px solid var(--border-inverse)"></div>
+              <div style="font-size:13.5px;font-weight:600;color:#fff;margin-top:12px">{{ block.settings.name }}</div>
+              <div style="font-size:12px;color:var(--navy-300)">{{ block.settings.desc }}</div>
+            </div>
+          {%- endfor -%}
+          <div style="grid-column:span 2">
+            <div style="height:88px;border-radius:var(--radius-md);background:var(--navy-800);border:1px dashed var(--brass-500);display:flex;align-items:center;justify-content:center;color:var(--brass-300);font-size:13px;font-weight:600;letter-spacing:.04em">Custom — matched to your brand</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Specs & Finishes","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Specifications & Finishes"},{"type":"text","id":"heading","label":"Heading","default":"Engineered to spec."},{"type":"textarea","id":"body","label":"Body","default":"Every AMOY mannequin ships to a precise, unfussy spec sheet — and any of it can be tailored to your store."},{"type":"textarea","id":"specs","label":"Specs (Key:Value separated by |)","default":"Material:Fiberglass composite|Default finish:Semi-matte white|Base:Tempered glass + calf support|Height range:98 – 188 cm|Customization:Any colour or finish|Certificate:NFC — Certified line"}],"blocks":[{"type":"finish","name":"Finish swatch","settings":[{"type":"text","id":"name","label":"Name","default":"Semi-matte white"},{"type":"text","id":"desc","label":"Description","default":"Standard finish"},{"type":"color","id":"swatch_color","label":"Swatch colour","default":"#FBFBFD"}]}],"presets":[{"name":"Specs & Finishes","blocks":[{"type":"finish","settings":{"name":"Semi-matte white","desc":"Standard finish","swatch_color":"#FBFBFD"}},{"type":"finish","settings":{"name":"Matte black","desc":"Editorial contrast","swatch_color":"#2A2A32"}},{"type":"finish","settings":{"name":"Gloss ivory","desc":"Warm luxury","swatch_color":"#F0E4B8"}},{"type":"finish","settings":{"name":"Bronze","desc":"Premium metallic","swatch_color":"#B08A22"}}]}]}
+{% endschema %}

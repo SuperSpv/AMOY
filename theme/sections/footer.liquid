@@ -1,0 +1,68 @@
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+-%}
+<style>
+  .amoy-footer__logo{height:54px;width:auto;margin-bottom:18px}
+</style>
+<footer class="amoy-footer">
+  <div class="amoy-container">
+    <div class="amoy-footer__grid">
+      <div>
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 500 | image_tag: class: 'amoy-footer__logo', height: 54, alt: shop.name }}
+        {%- else -%}
+          <span style="font-family:var(--font-display);font-size:28px;font-weight:600;color:#fff;letter-spacing:-.02em;display:block;margin-bottom:18px">{{ shop.name }}</span>
+        {%- endif -%}
+        <p class="amoy-footer__tagline">{% if is_ar %}مجسّمات عرض فاخرة من الفايبرجلاس، تُصنع يدويًا في جدة وتُوصّل إلى جميع أنحاء المملكة.{% else %}{{ section.settings.tagline }}{% endif %}</p>
+      </div>
+      <div>
+        <div class="amoy-footer__col-title">{% if is_ar %}المجموعات{% else %}Collections{% endif %}</div>
+        <div class="amoy-footer__links">
+          <a href="/collections/grace-collection">{% if is_ar %}جرايس{% else %}Grace{% endif %}</a>
+          <a href="/collections/kids-collection">{% if is_ar %}مجموعة الأطفال{% else %}Kids Collection{% endif %}</a>
+          <a href="/collections/sport">{% if is_ar %}رياضي{% else %}Sport{% endif %}</a>
+          <a href="/collections/all">{% if is_ar %}عرض الكل{% else %}View all{% endif %}</a>
+        </div>
+      </div>
+      <div>
+        <div class="amoy-footer__col-title">{% if is_ar %}الشركة{% else %}Company{% endif %}</div>
+        <div class="amoy-footer__links">
+          <a href="/pages/about">{% if is_ar %}من نحن{% else %}About{% endif %}</a>
+          <a href="/pages/certified">{% if is_ar %}شهادة AMOY{% else %}AMOY Certified{% endif %}</a>
+          <a href="/blogs/news">{% if is_ar %}المدوّنة{% else %}Blog{% endif %}</a>
+          <a href="/pages/contact">{% if is_ar %}تواصل معنا{% else %}Contact{% endif %}</a>
+        </div>
+      </div>
+      <div>
+        <div class="amoy-footer__col-title">{% if is_ar %}تواصل{% else %}Contact{% endif %}</div>
+        <div class="amoy-footer__links">
+          <a href="tel:+966547275228" dir="ltr">{{ section.settings.phone }}</a>
+          <a href="https://wa.me/966547275228" target="_blank" rel="noopener">{% if is_ar %}واتساب{% else %}WhatsApp{% endif %}</a>
+          <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+          <a href="https://amoylimited.com">amoylimited.com</a>
+          <span>{{ section.settings.address }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="amoy-footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} AMOY Limited. {% if is_ar %}جميع الحقوق محفوظة.{% else %}All rights reserved.{% endif %}</span>
+      <span>{% if is_ar %}الأناقة في كل انحناءة.{% else %}Elegance in every curve.{% endif %}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Footer logo" },
+    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Premium fiberglass mannequins, hand-finished in Jeddah and delivered across the Kingdom of Saudi Arabia." },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "+966 54 727 5228" },
+    { "type": "text", "id": "email", "label": "Email", "default": "support@amoylimited.com" },
+    { "type": "text", "id": "address", "label": "Address", "default": "Al-Madinah Al-Munawwarah Rd, Ruwais 8278, Unit 2, Jeddah 23215, Kingdom of Saudi Arabia" }
+  ]
+}
+{% endschema %}

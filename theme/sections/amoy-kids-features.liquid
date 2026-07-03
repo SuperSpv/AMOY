@@ -1,0 +1,26 @@
+<style>
+  .kids-feat__media{position:relative;overflow:hidden;background:var(--mist);height:360px;border-radius:var(--radius-md)}
+</style>
+<section class="amoy-block" style="padding-top:0;padding-bottom:72px">
+  <div class="amoy-container">
+    <div class="amoy-grid--3">
+      {%- for i in (1..3) -%}
+        {%- assign img_key = 'f' | append: i | append: '_image' -%}
+        {%- assign lbl_key = 'f' | append: i | append: '_label' -%}
+        <div>
+          <div class="kids-feat__media">
+            {%- if section.settings[img_key] != blank -%}
+              {{ section.settings[img_key] | image_url: width: 700 | image_tag: style: 'width:100%;height:100%;object-fit:cover', alt: section.settings[lbl_key] }}
+            {%- else -%}
+              <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" opacity=".18"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+            {%- endif -%}
+            <span class="amoy-media-label">{{ section.settings[lbl_key] }}</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Kids · Featured Poses","settings":[{"type":"image_picker","id":"f1_image","label":"Image 1"},{"type":"text","id":"f1_label","label":"Label 1","default":"KA-01"},{"type":"image_picker","id":"f2_image","label":"Image 2"},{"type":"text","id":"f2_label","label":"Label 2","default":"KB-01"},{"type":"image_picker","id":"f3_image","label":"Image 3"},{"type":"text","id":"f3_label","label":"Label 3","default":"KC-01"}],"presets":[{"name":"Kids · Featured Poses"}]}
+{% endschema %}

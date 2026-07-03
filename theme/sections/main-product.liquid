@@ -1,0 +1,119 @@
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+-%}
+<style>
+  .amoy-product-tabbar{display:flex;gap:24px;margin:26px 0 16px;border-bottom:1px solid var(--border-default)}
+  .amoy-product-tab{background:none;border:none;cursor:pointer;padding:0 0 12px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s}
+  .amoy-product-tab.is-active{color:var(--text-heading);border-bottom-color:var(--accent)}
+  .amoy-recs{max-width:var(--container-max);margin:0 auto;padding:8px 40px 80px}
+  .amoy-recs__head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid var(--border-subtle);padding-top:38px;margin-bottom:22px}
+  .amoy-recs__title{font-family:var(--font-display);font-weight:600;font-size:26px;color:var(--text-heading);margin:0}
+  .amoy-recs__eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-600)}
+  .amoy-recs__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .amoy-recs__card .amoy-card__media{display:block;height:240px}
+  .amoy-recs__name{font-family:var(--font-display);font-weight:600;font-size:17px;color:var(--text-heading);margin:2px 0 0;line-height:1.15}
+  .amoy-recs__row{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:8px}
+  .amoy-recs__price{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+  @media (max-width:1000px){.amoy-recs__grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:768px){
+    .amoy-pdp{padding:18px 16px 60px !important}
+    .amoy-pdp__grid{grid-template-columns:1fr !important;gap:24px !important}
+    .amoy-pdp__gallery{flex-direction:column-reverse !important;gap:12px !important}
+    .amoy-pdp__thumbs{flex-direction:row !important}
+    .amoy-pdp__thumbs > div{width:60px !important;height:78px !important;flex:0 0 auto}
+    .amoy-pdp__mainimg{height:auto !important;aspect-ratio:4/5 !important}
+    .amoy-pdp__title{font-size:30px !important;line-height:1.1 !important;margin-top:12px !important}
+    .amoy-pdp__price{font-size:24px !important}
+    .amoy-pdp__buyrow{flex-wrap:wrap !important;gap:12px !important}
+    .amoy-pdp__buyrow .amoy-btn--lg{flex:1 1 auto !important}
+    .amoy-product-tabbar{gap:18px !important}
+    .amoy-recs{padding:8px 16px 64px}
+    .amoy-recs__card .amoy-card__media{height:200px}
+  }
+</style>
+<div class="amoy-pdp" style="max-width:var(--container-max);margin:0 auto;padding:32px 40px 70px">
+  <a href="{{ routes.collections_url }}" style="display:inline-flex;align-items:center;gap:8px;color:var(--text-muted);font-size:13.5px;font-weight:600;margin-bottom:24px"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>{% if is_ar %}العودة إلى المتجر{% else %}Back to shop{% endif %}</a>
+  <div class="amoy-pdp__grid" style="display:grid;grid-template-columns:1.1fr 1fr;gap:48px" data-product-form>
+    <div class="amoy-pdp__gallery" style="display:flex;gap:14px">
+      <div class="amoy-pdp__thumbs" style="display:flex;flex-direction:column;gap:12px">
+        {%- for image in product.images limit: 3 -%}
+          <div style="width:74px;height:96px;border-radius:var(--radius-sm);overflow:hidden;border:{% if forloop.first %}1.5px solid var(--accent){% else %}1px solid var(--border-default){% endif %};background:var(--mist);cursor:pointer">
+            {{ image | image_url: width: 150 | image_tag: style: 'width:100%;height:100%;object-fit:cover', alt: image.alt | default: product.title }}
+          </div>
+        {%- else -%}
+          {%- for i in (1..3) -%}
+            <div style="width:74px;height:96px;border-radius:var(--radius-sm);border:{% if forloop.first %}1.5px solid var(--accent){% else %}1px solid var(--border-default){% endif %};background:var(--mist)"></div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+      <div class="amoy-pdp__mainimg" style="flex:1;height:600px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);background:var(--mist);position:relative">
+        {%- if product.featured_image -%}
+          {{ product.featured_image | image_url: width: 800 | image_tag: style: 'width:100%;height:100%;object-fit:contain', loading: 'eager', alt: product.featured_image.alt | default: product.title }}
+        {%- else -%}
+          <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1" opacity=".2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+        {%- endif -%}
+        <span class="amoy-media-label">{{ product.type }} · front</span>
+      </div>
+    </div>
+    <div>
+      <div class="amoy-eyebrow">{{ product.type }}</div>
+      <h1 class="amoy-pdp__title" style="font-family:var(--font-display);font-weight:600;font-size:48px;letter-spacing:-.02em;line-height:1.04;color:var(--text-heading);margin:16px 0 0">{{ product.title }}</h1>
+      <div class="amoy-pdp__price" style="font-size:28px;font-weight:700;color:var(--text-heading);margin:22px 0 4px;font-variant-numeric:tabular-nums">{{ product.price | money }}</div>
+      <div style="font-size:12.5px;color:var(--text-faint)">{% if is_ar %}للوحدة · خصومات للكميات 4+{% else %}per unit · volume discounts on 4+{% endif %}</div>
+      <div data-tabs-root>
+        <div class="amoy-product-tabbar">
+          <button class="amoy-product-tab is-active" data-tab="overview">{% if is_ar %}نظرة عامة{% else %}Overview{% endif %}</button>
+          <button class="amoy-product-tab" data-tab="specs">{% if is_ar %}المواصفات{% else %}Specifications{% endif %}</button>
+        </div>
+        <div data-tab-panel="overview">
+          <p style="font-size:15px;line-height:1.7;color:var(--text-body)">{{ product.description }}</p>
+        </div>
+        <div data-tab-panel="specs" hidden>
+          <div class="amoy-spec-row"><span class="amoy-spec-row__key">{% if is_ar %}الخامة{% else %}Material{% endif %}</span><span class="amoy-spec-row__val">{% if is_ar %}فايبرجلاس مركّب{% else %}Fiberglass composite{% endif %}</span></div>
+          <div class="amoy-spec-row"><span class="amoy-spec-row__key">{% if is_ar %}التشطيب الافتراضي{% else %}Default finish{% endif %}</span><span class="amoy-spec-row__val">{% if is_ar %}أبيض نصف مطفي{% else %}Semi-matte white{% endif %}</span></div>
+          <div class="amoy-spec-row"><span class="amoy-spec-row__key">{% if is_ar %}القاعدة{% else %}Base{% endif %}</span><span class="amoy-spec-row__val">{% if is_ar %}زجاج مقوّى{% else %}Tempered glass{% endif %}</span></div>
+          <div class="amoy-spec-row"><span class="amoy-spec-row__key">{% if is_ar %}صُنع في{% else %}Made in{% endif %}</span><span class="amoy-spec-row__val">{% if is_ar %}السعودية{% else %}KSA{% endif %}</span></div>
+          {%- for variant in product.variants -%}
+            {%- if variant.title != 'Default Title' -%}
+              <div class="amoy-spec-row"><span class="amoy-spec-row__key">{% if is_ar %}خيار{% else %}Variant{% endif %}</span><span class="amoy-spec-row__val">{{ variant.title }}</span></div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="amoy-pdp__buyrow" style="display:flex;align-items:center;gap:14px;margin-top:32px">
+        <div class="amoy-qty" data-qty-wrap>
+          <button class="amoy-qty__btn" data-qty-step="-1" aria-label="Decrease"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+          <input class="amoy-qty__val" type="number" data-qty value="1" min="1" aria-label="Quantity">
+          <button class="amoy-qty__btn" data-qty-step="1" aria-label="Increase"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+        </div>
+        <button class="amoy-btn amoy-btn--primary amoy-btn--lg" data-add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}">{% if is_ar %}أضف إلى السلة{% else %}Add to cart{% endif %}</button>
+      </div>
+      <a href="/pages/contact" class="amoy-btn amoy-btn--secondary amoy-btn--full" style="margin-top:12px">{% if is_ar %}اطلب عرض سعر للجملة{% else %}Request a bulk quote instead{% endif %}</a>
+      <div style="display:flex;gap:24px;margin-top:26px;color:var(--text-muted);font-size:13px;flex-wrap:wrap">
+        <span style="display:inline-flex;align-items:center;gap:8px"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h12v9H3z"/><path d="M15 9h4l2 3v3h-6"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="18" cy="17.5" r="1.5"/></svg>{% if is_ar %}توصيل داخل السعودية{% else %}Delivery across KSA{% endif %}</span>
+        <span style="display:inline-flex;align-items:center;gap:8px"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="M9 12l2 2 4-4"/></svg>{% if is_ar %}تشطيب مخصص متاح{% else %}Custom finish available{% endif %}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="amoy-recs" data-recs data-product-id="{{ product.id }}" data-add-label="{% if is_ar %}أضف +{% else %}+ Add{% endif %}">
+  <div data-recs-complementary hidden>
+    <div class="amoy-recs__head">
+      <h2 class="amoy-recs__title">{% if is_ar %}أكمِل العرض{% else %}Complete the display{% endif %}</h2>
+      <span class="amoy-recs__eyebrow">{% if is_ar %}يُوصى به{% else %}Recommended{% endif %}</span>
+    </div>
+    <div class="amoy-recs__grid" data-recs-complementary-grid></div>
+  </div>
+  <div data-recs-related hidden>
+    <div class="amoy-recs__head">
+      <h2 class="amoy-recs__title">{% if is_ar %}قد يعجبك أيضًا{% else %}You may also like{% endif %}</h2>
+    </div>
+    <div class="amoy-recs__grid" data-recs-related-grid></div>
+  </div>
+</div>
+{% schema %}
+{"name":"Product","settings":[],"presets":[{"name":"Product"}]}
+{% endschema %}
