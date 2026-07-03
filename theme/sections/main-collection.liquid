@@ -54,7 +54,7 @@
     .amoy-collection__title{font-size:15px}
   }
 {% endstyle %}
-{% paginate collection.products by 24 %}
+{% paginate collection.products by 50 %}
 <div class="amoy-collection">
   <div class="amoy-eyebrow">{% if is_ar %}المتجر{% else %}Shop{% endif %}</div>
   <h1 class="amoy-display amoy-display--lg" style="margin:14px 0 0">{{ collection.title }}</h1>
@@ -130,7 +130,18 @@
     <div class="amoy-collection__main">
       {%- if collection.products.size > 0 -%}
         <div class="amoy-collection__grid">
+          {%- comment -%} Order: full mannequins → torso/bust → other forms (hand, foot, leg…) {%- endcomment -%}
+          {%- for tier in (0..2) -%}
           {%- for product in collection.products -%}
+            {%- liquid
+              assign ptier = 2
+              if product.type contains 'Mannequin'
+                assign ptier = 0
+              elsif product.handle contains 'torso' or product.handle contains 'bust' or product.handle contains 'hip'
+                assign ptier = 1
+              endif
+            -%}
+            {%- if ptier != tier -%}{%- continue -%}{%- endif -%}
             <div class="amoy-card amoy-card--interactive">
               <a href="{{ product.url }}" class="amoy-card__media amoy-collection__media">
                 {%- if product.featured_image -%}
@@ -153,6 +164,7 @@
                 </div>
               </div>
             </div>
+          {%- endfor -%}
           {%- endfor -%}
         </div>
         {%- if paginate.pages > 1 -%}

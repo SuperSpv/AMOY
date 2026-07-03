@@ -1,0 +1,75 @@
+<style>
+  .grace-prod__media{display:block;height:300px;background:var(--mist);position:relative;overflow:hidden}
+  .grace-prod__media img{width:100%;height:100%;object-fit:contain;padding:14px}
+  .grace-cust{margin-top:14px;border-top:1px solid var(--border-subtle);padding-top:12px}
+  .grace-cust summary{cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);list-style:none}
+  .grace-cust summary::-webkit-details-marker{display:none}
+  .grace-cust ul{margin:12px 0 2px;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+  .grace-cust li{font-size:13px;color:var(--text-muted)}
+  .grace-cust li b{color:var(--text-heading)}
+  .grace-prod__row{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:8px;flex-wrap:wrap}
+</style>
+{%- capture grace_cust -%}
+<details class="grace-cust">
+  <summary>What can be customized?</summary>
+  <ul>
+    <li><b>Face</b> — choose from our character options</li>
+    <li><b>Skin tone</b> — any colour you want</li>
+    <li><b>Finish</b> — matte, glossy or full fabric wrap</li>
+    <li><b>Base</b> — glass or metal</li>
+    <li><b>Arms</b> — optional in wood</li>
+  </ul>
+</details>
+{%- endcapture -%}
+<section class="amoy-block" style="background:var(--mist)">
+  <div class="amoy-container">
+    <div class="amoy-eyebrow">{{ section.settings.eyebrow }}</div>
+    <h2 class="amoy-display amoy-display--md" style="margin:14px 0 8px">{{ section.settings.heading }}</h2>
+    <p style="font-size:15px;color:var(--text-muted);margin:0 0 34px;max-width:54ch">{{ section.settings.subtext }}</p>
+    <div class="amoy-grid--4">
+      {%- if collection.products.size > 0 -%}
+        {%- comment -%} Order: full mannequins → torso/bust → other forms (hand, foot, leg…) {%- endcomment -%}
+        {%- for tier in (0..2) -%}
+        {%- for product in collection.products -%}
+          {%- liquid
+            assign ptier = 2
+            if product.type contains 'Mannequin'
+              assign ptier = 0
+            elsif product.handle contains 'torso' or product.handle contains 'bust' or product.handle contains 'hip'
+              assign ptier = 1
+            endif
+          -%}
+          {%- if ptier != tier -%}{%- continue -%}{%- endif -%}
+          <div class="amoy-card">
+            <a href="{{ product.url }}" class="grace-prod__media">
+              {%- if product.featured_image -%}
+                {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+              {%- else -%}
+                <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" opacity=".18"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+              {%- endif -%}
+            </a>
+            <div class="amoy-card__body">
+              <h3 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--text-heading);margin:0"><a href="{{ product.url }}" style="color:inherit">{{ product.title }}</a></h3>
+              <div class="grace-prod__row">
+                <span style="font-size:15px;font-weight:700;font-variant-numeric:tabular-nums">{{ product.price | money }}</span>
+                <button class="amoy-btn amoy-btn--secondary" style="padding:6px 12px;font-size:12.5px;border-radius:var(--radius-sm)" data-add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}">+ Add</button>
+              </div>
+              {{ grace_cust }}
+            </div>
+          </div>
+        {%- endfor -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..8) -%}
+          <div class="amoy-card">
+            <div class="grace-prod__media"><div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" opacity=".18"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div></div>
+            <div class="amoy-card__body"><div style="height:18px;width:62%;background:var(--border-default);border-radius:4px"></div>{{ grace_cust }}</div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Grace · Products","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"The collection"},{"type":"text","id":"heading","label":"Heading","default":"Full body & forms"},{"type":"textarea","id":"subtext","label":"Subtext","default":"Every piece can be tailored to your store concept. Pieces shown are from the Grace collection."}],"presets":[{"name":"Grace · Products"}]}
+{% endschema %}
