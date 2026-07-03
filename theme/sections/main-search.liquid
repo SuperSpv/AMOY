@@ -1,0 +1,83 @@
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+-%}
+{% style %}
+  .amoy-search{max-width:var(--container-max);margin:0 auto;padding:48px 40px 90px}
+  .amoy-search__form{display:flex;gap:10px;margin:20px 0 8px;max-width:620px}
+  .amoy-search__input{flex:1;font:inherit;font-size:15px;padding:13px 18px;border:1px solid var(--border-default);border-radius:999px;background:var(--white);color:var(--text-body)}
+  .amoy-search__input:focus{outline:none;border-color:var(--accent)}
+  .amoy-search__count{font-size:13px;color:var(--text-muted);margin:20px 0 22px}
+  .amoy-search__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .amoy-search__media{display:block;height:300px}
+  .amoy-search__type{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
+  .amoy-search__title{font-family:var(--font-display);font-weight:600;font-size:22px;color:var(--text-heading);margin:2px 0 0}
+  .amoy-search__row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:8px}
+  .amoy-search__price{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+  .amoy-search__page{display:flex;justify-content:center;gap:8px;margin-top:48px}
+  @media (max-width:900px){.amoy-search{padding:36px 24px 64px}.amoy-search__grid{grid-template-columns:repeat(2,1fr);gap:18px}.amoy-search__media{height:260px}}
+  @media (max-width:600px){.amoy-search{padding:22px 16px 56px}.amoy-search__grid{gap:12px}.amoy-search__media{height:auto;aspect-ratio:3/4}.amoy-search__title{font-size:16px}.amoy-search__form{flex-wrap:wrap}}
+{% endstyle %}
+<div class="amoy-search">
+  <div class="amoy-eyebrow">{% if is_ar %}بحث{% else %}Search{% endif %}</div>
+  <h1 class="amoy-display amoy-display--lg" style="margin:14px 0 0">{% if is_ar %}ابحث في المتجر{% else %}Search the store{% endif %}</h1>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="amoy-search__form">
+    <input type="search" name="q" value="{{ search.terms | escape }}" class="amoy-search__input" placeholder="{% if is_ar %}ابحث عن مانيكان، عرض...{% else %}Search mannequins, display forms…{% endif %}" aria-label="{% if is_ar %}بحث{% else %}Search{% endif %}">
+    <button type="submit" class="amoy-btn amoy-btn--primary">{% if is_ar %}بحث{% else %}Search{% endif %}</button>
+  </form>
+  {%- if search.performed -%}
+    {%- paginate search.results by 24 -%}
+      <div class="amoy-search__count">
+        {%- if search.results_count > 0 -%}
+          {{ search.results_count }} {% if is_ar %}نتيجة لـ{% else %}results for{% endif %} &ldquo;{{ search.terms | escape }}&rdquo;
+        {%- else -%}
+          {% if is_ar %}لا توجد نتائج لـ{% else %}No results for{% endif %} &ldquo;{{ search.terms | escape }}&rdquo;
+        {%- endif -%}
+      </div>
+      {%- if search.results_count > 0 -%}
+        <div class="amoy-search__grid">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              <div class="amoy-card amoy-card--interactive">
+                <a href="{{ item.url }}" class="amoy-card__media amoy-search__media">
+                  {%- if item.featured_image -%}
+                    {{ item.featured_image | image_url: width: 600 | image_tag: style: 'width:100%;height:100%;object-fit:contain', loading: 'lazy', alt: item.featured_image.alt | default: item.title }}
+                  {%- else -%}
+                    <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1" opacity=".2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+                  {%- endif -%}
+                  <span class="amoy-media-label">{{ item.type }}</span>
+                </a>
+                <div class="amoy-card__body">
+                  <div class="amoy-search__type">{{ item.type }}</div>
+                  <h3 class="amoy-search__title"><a href="{{ item.url }}" style="color:inherit">{{ item.title }}</a></h3>
+                  <div class="amoy-search__row">
+                    <span class="amoy-search__price">{%- if item.price_varies -%}{% if is_ar %}من {% else %}From {% endif %}{{ item.price_min | money }}{%- else -%}{{ item.price | money }}{%- endif -%}</span>
+                    <a href="{{ item.url }}" class="amoy-btn amoy-btn--secondary" style="padding:6px 12px;font-size:12.5px;border-radius:var(--radius-sm);white-space:nowrap">{% if is_ar %}عرض{% else %}View{% endif %}</a>
+                  </div>
+                </div>
+              </div>
+            {%- else -%}
+              <a href="{{ item.url }}" class="amoy-card amoy-card--interactive" style="padding:22px;display:block">
+                <div class="amoy-search__type">{{ item.object_type }}</div>
+                <h3 class="amoy-search__title">{{ item.title }}</h3>
+                {%- if item.content -%}<p style="font-size:14px;color:var(--text-muted);margin:8px 0 0;line-height:1.6">{{ item.content | strip_html | truncate: 140 }}</p>{%- endif -%}
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <div class="amoy-search__page">{{ paginate | default_pagination }}</div>
+        {%- endif -%}
+      {%- else -%}
+        <p style="color:var(--text-muted);padding:30px 0 60px;line-height:1.7">{% if is_ar %}جرّب كلمات مختلفة أو تصفّح{% else %}Try different keywords or browse{% endif %} <a href="{{ routes.all_products_collection_url }}" style="color:var(--accent);font-weight:600">{% if is_ar %}كل المنتجات{% else %}all products{% endif %}</a>.</p>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- else -%}
+    <p style="color:var(--text-muted);padding:24px 0 60px">{% if is_ar %}اكتب كلمة للبحث في منتجاتنا ومقالاتنا.{% else %}Enter a term to search our products and articles.{% endif %}</p>
+  {%- endif -%}
+</div>
+{% schema %}
+{"name":"Search","settings":[],"presets":[{"name":"Search"}]}
+{% endschema %}

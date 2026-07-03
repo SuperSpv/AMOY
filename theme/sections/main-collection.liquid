@@ -1,0 +1,173 @@
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+-%}
+{% style %}
+  .amoy-collection{max-width:var(--container-max);margin:0 auto;padding:48px 40px 90px}
+  .amoy-collection__meta{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:28px 0 22px;border-bottom:1px solid var(--border-subtle);padding-bottom:18px;flex-wrap:wrap}
+  .amoy-collection__controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .amoy-sort,.amoy-filter-toggle{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-body);background:var(--white);border:1px solid var(--border-default);border-radius:var(--radius-sm);padding:9px 14px;cursor:pointer}
+  .amoy-sort select{border:none;background:none;font:inherit;color:inherit;cursor:pointer;outline:none}
+  .amoy-filter-toggle{display:none}
+  .amoy-filter-toggle.is-active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .amoy-filter-toggle.is-active svg{stroke:#fff}
+  .amoy-collection__layout{display:grid;grid-template-columns:230px 1fr;gap:36px;align-items:start}
+  .amoy-filters{position:sticky;top:112px}
+  .amoy-filters__group{border-bottom:1px solid var(--border-subtle);padding:0 0 18px;margin:0 0 18px}
+  .amoy-filters__title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:0 0 12px}
+  .amoy-chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--text-body);background:var(--white);border:1px solid var(--border-default);border-radius:999px;padding:7px 13px;margin:0 6px 8px 0;cursor:pointer;transition:all .15s}
+  .amoy-chip:hover{border-color:var(--accent)}
+  .amoy-chip.is-active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .amoy-filters__close{display:none}
+  .amoy-collection__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .amoy-collection__media{display:block;height:300px}
+  .amoy-collection__type{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
+  .amoy-collection__title{font-family:var(--font-display);font-weight:600;font-size:22px;color:var(--text-heading);margin:2px 0 0}
+  .amoy-collection__row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:8px}
+  .amoy-collection__price{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+  .amoy-collection__add{padding:6px 12px;font-size:12.5px;border-radius:var(--radius-sm);white-space:nowrap}
+  .amoy-filter-backdrop{display:none}
+  @media (max-width:900px){
+    .amoy-collection{padding:36px 24px 64px}
+    .amoy-collection__layout{grid-template-columns:1fr;gap:0}
+    .amoy-filter-toggle{display:inline-flex}
+    .amoy-filters{position:fixed;top:0;bottom:0;left:0;width:300px;max-width:86vw;background:var(--white);z-index:120;padding:22px 22px 40px;overflow-y:auto;transform:translateX(-105%);transition:transform .26s cubic-bezier(.23,1,.32,1);box-shadow:0 0 40px rgba(28,27,77,.18)}
+    [dir=rtl] .amoy-filters{left:auto;right:0;transform:translateX(105%)}
+    .amoy-filters.is-open{transform:translateX(0)}
+    .amoy-filters__close{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--border-default);border-radius:var(--radius-sm);background:var(--white);cursor:pointer;float:right;margin-bottom:8px}
+    .amoy-filter-backdrop.is-open{display:block;position:fixed;inset:0;background:var(--overlay-scrim);z-index:119}
+    .amoy-collection__grid{grid-template-columns:repeat(2,1fr);gap:18px}
+    .amoy-collection__media{height:260px}
+  }
+  @media (max-width:600px){
+    .amoy-collection{padding:22px 16px 56px}
+    .amoy-collection__grid{gap:12px}
+    .amoy-collection__media{height:auto;aspect-ratio:3/4}
+    .amoy-collection__title{font-size:16px}
+    .amoy-collection__price{font-size:13px}
+    .amoy-collection__add{padding:7px 11px;font-size:12px}
+  }
+  @media (max-width:380px){
+    .amoy-collection__grid{gap:10px}
+    .amoy-collection__title{font-size:15px}
+  }
+{% endstyle %}
+{% paginate collection.products by 24 %}
+<div class="amoy-collection">
+  <div class="amoy-eyebrow">{% if is_ar %}المتجر{% else %}Shop{% endif %}</div>
+  <h1 class="amoy-display amoy-display--lg" style="margin:14px 0 0">{{ collection.title }}</h1>
+  {%- if collection.description != blank -%}
+    <p style="font-size:16px;color:var(--text-muted);margin:12px 0 0;max-width:54ch">{{ collection.description }}</p>
+  {%- endif -%}
+  <div class="amoy-collection__meta">
+    <span style="font-size:13px;color:var(--text-muted)">{{ collection.products_count }} {% if is_ar %}قطعة{% else %}pieces{% endif %}</span>
+    <div class="amoy-collection__controls">
+      <button type="button" class="amoy-filter-toggle" data-filter-open aria-label="Filters">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+        {% if is_ar %}تصفية{% else %}Filter{% endif %}
+      </button>
+      <form method="get" class="amoy-sort" data-sort-form>
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h12M3 12h9M3 18h6M17 6v12M17 18l3-3M17 18l-3-3"/></svg>
+        <label for="SortBy" class="amoy-visually-hidden" style="position:absolute;left:-9999px">{% if is_ar %}ترتيب{% else %}Sort by{% endif %}</label>
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        <select name="sort_by" id="SortBy" data-sort-select>
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </form>
+    </div>
+  </div>
+  <div class="amoy-collection__layout">
+    <aside class="amoy-filters" data-filters>
+      <button type="button" class="amoy-filters__close" data-filter-close aria-label="Close"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      {%- if collection.filters != empty -%}
+        <form method="get" data-native-filter>
+          {%- for filter in collection.filters -%}
+            <div class="amoy-filters__group">
+              <div class="amoy-filters__title">{{ filter.label }}</div>
+              {%- case filter.type -%}
+                {%- when 'list', 'boolean' -%}
+                  {%- for value in filter.values -%}
+                    <a href="{{ value.url_to_add }}" class="amoy-chip {% if value.active %}is-active{% endif %}">{{ value.label }} {%- unless value.count == 0 and value.active == false %} ({{ value.count }}){% endunless %}</a>
+                  {%- endfor -%}
+                {%- when 'price_range' -%}
+                  <div style="font-size:12.5px;color:var(--text-muted)">{% if is_ar %}النطاق{% else %}Range{% endif %}: {{ filter.min_value.value | default: 0 | money }} &#8211; {{ filter.max_value.value | default: filter.range_max | money }}</div>
+              {%- endcase -%}
+            </div>
+          {%- endfor -%}
+        </form>
+      {%- endif -%}
+      <!-- Gender -->
+      <div class="amoy-filters__group">
+        <div class="amoy-filters__title">{% if is_ar %}الجنس{% else %}Gender{% endif %}</div>
+        <a href="{{ collection.url }}" class="amoy-chip {% unless current_tags %}is-active{% endunless %}">{% if is_ar %}الكل{% else %}All{% endif %}</a>
+        {%- assign gender_opts = 'Male,Female,Kids' | split: ',' -%}
+        {%- for opt in gender_opts -%}
+          <a href="{{ collection.url }}/{{ opt | downcase }}" class="amoy-chip {% if current_tags contains opt %}is-active{% endif %}">{{ opt }}</a>
+        {%- endfor -%}
+      </div>
+      <!-- Category -->
+      <div class="amoy-filters__group">
+        <div class="amoy-filters__title">{% if is_ar %}النوع{% else %}Category{% endif %}</div>
+        {%- assign category_opts = 'Sport,Athletic' | split: ',' -%}
+        {%- for opt in category_opts -%}
+          <a href="{{ collection.url }}/{{ opt | downcase }}" class="amoy-chip {% if current_tags contains opt %}is-active{% endif %}">{{ opt }}</a>
+        {%- endfor -%}
+      </div>
+      <!-- Style / Pose -->
+      <div class="amoy-filters__group">
+        <div class="amoy-filters__title">{% if is_ar %}الوضعية{% else %}Style{% endif %}</div>
+        <a href="{{ collection.url }}" class="amoy-chip {% unless current_tags %}is-active{% endunless %}">{% if is_ar %}الكل{% else %}All{% endif %}</a>
+        {%- assign pose_opts = 'Posed,Standard Standing' | split: ',' -%}
+        {%- for opt in pose_opts -%}
+          <a href="{{ collection.url }}/{{ opt | handleize }}" class="amoy-chip {% if current_tags contains opt %}is-active{% endif %}">{{ opt }}</a>
+        {%- endfor -%}
+      </div>
+    </aside>
+    <div class="amoy-collection__main">
+      {%- if collection.products.size > 0 -%}
+        <div class="amoy-collection__grid">
+          {%- for product in collection.products -%}
+            <div class="amoy-card amoy-card--interactive">
+              <a href="{{ product.url }}" class="amoy-card__media amoy-collection__media">
+                {%- if product.featured_image -%}
+                  {{ product.featured_image | image_url: width: 600 | image_tag: style: 'width:100%;height:100%;object-fit:contain', loading: 'lazy', alt: product.featured_image.alt | default: product.title }}
+                {%- else -%}
+                  <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1" opacity=".2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+                {%- endif -%}
+                <span class="amoy-media-label">{{ product.type }}</span>
+              </a>
+              <div class="amoy-card__body">
+                <div class="amoy-collection__type">{{ product.type }}</div>
+                <h3 class="amoy-collection__title"><a href="{{ product.url }}" style="color:inherit">{{ product.title }}</a></h3>
+                <div class="amoy-collection__row">
+                  <span class="amoy-collection__price">{%- if product.price_varies -%}{% if is_ar %}من {% else %}From {% endif %}{{ product.price_min | money }}{%- else -%}{{ product.price | money }}{%- endif -%}</span>
+                  {%- if product.variants.size > 1 -%}
+                    <a href="{{ product.url }}" class="amoy-btn amoy-btn--secondary amoy-collection__add">{% if is_ar %}اختر الخيارات{% else %}Options{% endif %}</a>
+                  {%- else -%}
+                    <button type="button" class="amoy-btn amoy-btn--secondary amoy-collection__add" data-add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}">{% if is_ar %}أضف +{% else %}+ Add{% endif %}</button>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <div style="display:flex;justify-content:center;gap:8px;margin-top:48px">
+            {{ paginate | default_pagination }}
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <p style="text-align:center;color:var(--text-muted);padding:60px 0">{% if is_ar %}لا توجد منتجات مطابقة.{% else %}No products match these filters.{% endif %} <a href="{{ collection.url }}" style="color:var(--accent);font-weight:600">{% if is_ar %}مسح التصفية{% else %}Clear filters{% endif %}</a></p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+<div class="amoy-filter-backdrop" data-filter-backdrop></div>
+{% endpaginate %}
+{% schema %}
+{"name":"Collection","settings":[],"presets":[{"name":"Collection"}]}
+{% endschema %}

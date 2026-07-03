@@ -1,0 +1,44 @@
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+-%}
+{% style %}
+  .amoy-cols{max-width:var(--container-max);margin:0 auto;padding:48px 40px 90px}
+  .amoy-cols__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
+  .amoy-cols__media{display:block;height:300px;position:relative}
+  .amoy-cols__title{font-family:var(--font-display);font-weight:600;font-size:22px;color:var(--text-heading);margin:0}
+  .amoy-cols__count{font-size:12.5px;color:var(--text-muted);margin-top:4px}
+  @media (max-width:900px){.amoy-cols{padding:36px 24px 64px}.amoy-cols__grid{grid-template-columns:repeat(2,1fr);gap:18px}.amoy-cols__media{height:240px}}
+  @media (max-width:600px){.amoy-cols{padding:22px 16px 56px}.amoy-cols__grid{gap:12px}.amoy-cols__media{height:auto;aspect-ratio:4/3}.amoy-cols__title{font-size:17px}}
+{% endstyle %}
+<div class="amoy-cols">
+  <div class="amoy-eyebrow">{% if is_ar %}المتجر{% else %}Shop{% endif %}</div>
+  <h1 class="amoy-display amoy-display--lg" style="margin:14px 0 0">{% if is_ar %}كل المجموعات{% else %}All collections{% endif %}</h1>
+  <div class="amoy-cols__grid">
+    {%- for collection in collections -%}
+      {%- if collection.all_products_count > 0 -%}
+        <div class="amoy-card amoy-card--interactive">
+          <a href="{{ collection.url }}" class="amoy-card__media amoy-cols__media">
+            {%- if collection.image -%}
+              {{ collection.image | image_url: width: 600 | image_tag: style: 'width:100%;height:100%;object-fit:cover', loading: 'lazy', alt: collection.image.alt | default: collection.title }}
+            {%- elsif collection.products.first.featured_image -%}
+              {{ collection.products.first.featured_image | image_url: width: 600 | image_tag: style: 'width:100%;height:100%;object-fit:contain', loading: 'lazy', alt: collection.title }}
+            {%- else -%}
+              <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1" opacity=".2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+            {%- endif -%}
+            <span class="amoy-media-label">{{ collection.title }}</span>
+          </a>
+          <div class="amoy-card__body">
+            <h3 class="amoy-cols__title"><a href="{{ collection.url }}" style="color:inherit">{{ collection.title }}</a></h3>
+            <div class="amoy-cols__count">{{ collection.all_products_count }} {% if is_ar %}قطعة{% else %}pieces{% endif %}</div>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+{% schema %}
+{"name":"List collections","settings":[],"presets":[{"name":"List collections"}]}
+{% endschema %}
