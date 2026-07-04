@@ -1,0 +1,117 @@
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+-%}
+<style>
+  .amoy-fp-wrap{position:relative}
+  .amoy-fp-scroll{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+  .amoy-fp-scroll::-webkit-scrollbar{display:none}
+  .amoy-fp-inner{display:flex;gap:22px}
+  .amoy-fp-card{flex:0 0 calc(25% - 17px);min-width:220px;scroll-snap-align:start}
+  .amoy-fp-arrow{position:absolute;top:160px;transform:translateY(-50%);z-index:2;width:40px;height:40px;border-radius:50%;background:var(--white);border:1.5px solid var(--border-default);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .2s,box-shadow .15s;pointer-events:none;color:var(--text-body)}
+  .amoy-fp-arrow:hover{box-shadow:var(--shadow-md)}
+  .amoy-fp-arrow--prev{left:-20px}
+  .amoy-fp-arrow--next{right:-20px}
+  .amoy-fp-wrap.can-scroll-left .amoy-fp-arrow--prev,
+  .amoy-fp-wrap.can-scroll-right .amoy-fp-arrow--next{opacity:1;pointer-events:auto}
+  .amoy-fp-compare{color:var(--text-faint);font-weight:500;text-decoration:line-through;font-size:12.5px;margin-inline-end:6px}
+  @media(max-width:1024px){
+    .amoy-fp-card{flex:0 0 calc(50% - 11px)}
+    .amoy-fp-arrow--prev{left:-16px}
+    .amoy-fp-arrow--next{right:-16px}
+  }
+  @media(max-width:600px){
+    .amoy-fp-card{flex:0 0 calc(78vw - 20px)}
+    .amoy-fp-arrow{width:36px;height:36px;top:45%}
+    .amoy-fp-arrow--prev{left:6px}
+    .amoy-fp-arrow--next{right:6px}
+  }
+</style>
+<section class="amoy-block">
+  <div class="amoy-container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:16px">
+      <div>
+        <div class="amoy-eyebrow">{{ section.settings.eyebrow }}</div>
+        <h2 class="amoy-display amoy-display--md" style="margin:16px 0 0">{{ section.settings.heading }}</h2>
+      </div>
+      <a href="/collections/all" style="font-size:14px;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:7px">{% if is_ar %}تسوّق الكل{% else %}Shop all{% endif %} <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="amoy-fp-wrap" data-fp-wrap>
+      <button class="amoy-fp-arrow amoy-fp-arrow--prev" data-fp-prev aria-label="{% if is_ar %}السابق{% else %}Previous{% endif %}" type="button">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="amoy-fp-scroll" data-fp-scroll>
+        <div class="amoy-fp-inner">
+          {%- assign col = section.settings.collection -%}
+          {%- if col != blank -%}
+            {%- for product in col.products limit: 8 -%}
+              <div class="amoy-card amoy-card--interactive amoy-fp-card">
+                <a href="{{ product.url }}" class="amoy-card__media" style="height:340px;display:block;background:var(--mist)">
+                  {%- if product.featured_image -%}
+                    {{ product.featured_image | image_url: width: 600 | image_tag: style: 'width:100%;height:100%;object-fit:contain;padding:10px', alt: product.featured_image.alt | default: product.title, loading: 'lazy' }}
+                  {%- else -%}
+                    <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" opacity=".2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+                  {%- endif -%}
+                </a>
+                <div class="amoy-card__body">
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)">{{ product.type }}</div>
+                  <h3 style="font-family:var(--font-display);font-weight:600;font-size:20px;color:var(--text-heading);margin:2px 0 0"><a href="{{ product.url }}" style="color:inherit">{{ product.title }}</a></h3>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:8px">
+                    <span style="font-size:15px;font-weight:700;font-variant-numeric:tabular-nums">
+                      {%- if product.compare_at_price > product.price -%}<span class="amoy-fp-compare">{{ product.compare_at_price | money }}</span>{%- endif -%}
+                      {%- if product.price_varies -%}{% if is_ar %}من {% else %}From {% endif %}{{ product.price_min | money }}{%- else -%}{{ product.price | money }}{%- endif -%}
+                    </span>
+                    {%- if product.variants.size > 1 -%}
+                      <a href="{{ product.url }}" class="amoy-btn amoy-btn--secondary" style="padding:6px 12px;font-size:12.5px;border-radius:var(--radius-sm);white-space:nowrap">{% if is_ar %}اختر الخيارات{% else %}Options{% endif %}</a>
+                    {%- elsif product.available -%}
+                      <button class="amoy-btn amoy-btn--secondary" style="padding:6px 12px;font-size:12.5px;border-radius:var(--radius-sm)" data-add-to-cart data-variant-id="{{ product.variants.first.id }}">{% if is_ar %}أضف +{% else %}+ Add{% endif %}</button>
+                    {%- else -%}
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint)">{% if is_ar %}نفد{% else %}Sold out{% endif %}</span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..4) -%}
+              <div class="amoy-card amoy-fp-card">
+                <div class="amoy-card__media" style="height:340px"><div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" opacity=".2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div></div>
+                <div class="amoy-card__body"><div style="height:60px;background:var(--mist);border-radius:var(--radius-sm)"></div></div>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+      <button class="amoy-fp-arrow amoy-fp-arrow--next" data-fp-next aria-label="{% if is_ar %}التالي{% else %}Next{% endif %}" type="button">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  function initFP(wrap){
+    var scroll=wrap.querySelector('[data-fp-scroll]');
+    var prev=wrap.querySelector('[data-fp-prev]');
+    var next=wrap.querySelector('[data-fp-next]');
+    if(!scroll)return;
+    function update(){
+      var canLeft=scroll.scrollLeft>4;
+      var canRight=scroll.scrollLeft<scroll.scrollWidth-scroll.clientWidth-4;
+      wrap.classList.toggle('can-scroll-left',canLeft);
+      wrap.classList.toggle('can-scroll-right',canRight);
+    }
+    scroll.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update);
+    update();
+    if(prev)prev.addEventListener('click',function(){scroll.scrollBy({left:-Math.round(scroll.clientWidth*.75),behavior:'smooth'});});
+    if(next)next.addEventListener('click',function(){scroll.scrollBy({left:Math.round(scroll.clientWidth*.75),behavior:'smooth'});});
+  }
+  document.querySelectorAll('[data-fp-wrap]').forEach(initFP);
+})();
+</script>
+{% schema %}
+{"name":"Featured Products","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Featured pieces"},{"type":"text","id":"heading","label":"Heading","default":"Ready to ship"},{"type":"collection","id":"collection","label":"Collection"}],"presets":[{"name":"Featured Products"}]}
+{% endschema %}

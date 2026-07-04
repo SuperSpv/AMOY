@@ -1,0 +1,95 @@
+{%- liquid
+  assign is_ar = false
+  if request.locale.iso_code contains 'ar'
+    assign is_ar = true
+  endif
+  assign vol_threshold = 4
+-%}
+<style>
+  @media (max-width:768px){
+    .amoy-cart{padding:28px 16px 64px !important}
+    .amoy-cart__grid{grid-template-columns:1fr !important;gap:28px !important}
+    .amoy-cart__summary{position:static !important;top:auto !important}
+  }
+</style>
+<div class="amoy-cart" style="max-width:var(--container-max);margin:0 auto;padding:48px 40px 90px">
+  <div class="amoy-eyebrow">{% if is_ar %}سلتك{% else %}Your cart{% endif %}</div>
+  <h1 class="amoy-display amoy-display--lg" style="margin:14px 0 30px">{% if is_ar %}سلة التسوق{% else %}Your cart{% endif %}</h1>
+  {%- if cart.item_count == 0 -%}
+    <div style="text-align:center;padding:80px 0;border:1px solid var(--border-subtle);border-radius:var(--radius-md);background:var(--white)">
+      <p style="font-size:15px;color:var(--text-muted);margin-bottom:20px">{% if is_ar %}سلتك فارغة.{% else %}Your cart is empty.{% endif %}</p>
+      <a href="/collections/all" class="amoy-btn amoy-btn--primary">{% if is_ar %}تصفّح المجموعة{% else %}Browse the collection{% endif %}</a>
+    </div>
+  {%- else -%}
+    <form class="amoy-cart__grid" action="{{ routes.cart_url }}" method="post" style="display:grid;grid-template-columns:1.6fr 1fr;gap:48px;align-items:start">
+      <div>
+        {%- for item in cart.items -%}
+          <div style="display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--border-subtle)">
+            <a href="{{ item.url }}" style="width:100px;height:130px;border-radius:var(--radius-sm);overflow:hidden;flex:none;background:var(--mist);display:block">
+              {%- if item.image -%}
+                {{ item.image | image_url: width: 260 | image_tag: style: 'width:100%;height:100%;object-fit:contain', alt: item.product.title }}
+              {%- endif -%}
+            </a>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between;gap:10px">
+                <div>
+                  <div style="font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)">{{ item.product.type }}</div>
+                  <div style="font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--text-heading);line-height:1.1;margin-top:2px"><a href="{{ item.url }}" style="color:inherit">{{ item.product.title }}</a></div>
+                  {%- unless item.variant.title == 'Default Title' -%}<div style="font-size:12.5px;color:var(--text-muted);margin-top:3px">{{ item.variant.title }}</div>{%- endunless -%}
+                </div>
+                <a href="/cart/change?id={{ item.key }}&quantity=0" style="color:var(--text-faint);display:inline-flex;align-items:flex-start;padding:2px" aria-label="{% if is_ar %}إزالة{% else %}Remove{% endif %}">
+                  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+                </a>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px">
+                <div style="display:flex;align-items:center;border:1px solid var(--border-default);border-radius:var(--radius-sm)">
+                  <a href="/cart/change?id={{ item.key }}&quantity={{ item.quantity | minus: 1 }}" style="width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;color:var(--text-body)" aria-label="{% if is_ar %}إنقاص{% else %}Decrease{% endif %}">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                  </a>
+                  <span style="width:34px;text-align:center;font-size:14px;font-variant-numeric:tabular-nums">{{ item.quantity }}</span>
+                  <a href="/cart/change?id={{ item.key }}&quantity={{ item.quantity | plus: 1 }}" style="width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;color:var(--text-body)" aria-label="{% if is_ar %}زيادة{% else %}Increase{% endif %}">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  </a>
+                </div>
+                <span style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums">{{ item.line_price | money }}</span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+        <a href="/collections/all" style="display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--accent);margin-top:22px">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>{% if is_ar %}متابعة التسوق{% else %}Continue shopping{% endif %}
+        </a>
+        <div data-cart-recs data-seed="{{ cart.items.last.product.id }}" data-add-label="{% if is_ar %}أضف +{% else %}+ Add{% endif %}" hidden style="margin-top:34px;border-top:1px solid var(--border-subtle);padding-top:24px">
+          <div style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--text-heading);margin-bottom:8px">{% if is_ar %}أضف إلى عرضك{% else %}Add to your display{% endif %}</div>
+          <div data-cart-recs-grid></div>
+        </div>
+      </div>
+      <div class="amoy-cart__summary" style="background:var(--white);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:26px;box-shadow:var(--shadow-sm);position:sticky;top:var(--header-h)">
+        <h2 style="font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--text-heading);margin:0 0 18px">{% if is_ar %}ملخص الطلب{% else %}Order summary{% endif %}</h2>
+        {%- if cart.item_count < vol_threshold -%}
+          {%- assign remaining = vol_threshold | minus: cart.item_count -%}
+          <div style="background:var(--mist);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:16px;font-size:12.5px;color:var(--text-body)">
+            {% if is_ar %}أضِف <strong>{{ remaining }}</strong> وحدة إضافية لتفعيل خصم <strong>10%</strong>{% else %}Add <strong>{{ remaining }}</strong> more unit{% if remaining > 1 %}s{% endif %} to unlock <strong>10% off</strong>{% endif %}
+            <div style="height:5px;border-radius:3px;background:var(--border-default);margin-top:8px;overflow:hidden"><div style="height:100%;width:{{ cart.item_count | times: 100 | divided_by: vol_threshold }}%;background:var(--brass-500,#B08A22)"></div></div>
+          </div>
+        {%- else -%}
+          <div style="background:rgba(176,138,34,.1);border:1px solid var(--brass-500,#B08A22);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:16px;font-size:12.5px;color:var(--text-heading);font-weight:600">
+            {% if is_ar %}🎉 تم تفعيل خصم الكمية 10% عند الدفع{% else %}🎉 Volume discount unlocked — 10% off at checkout{% endif %}
+          </div>
+        {%- endif -%}
+        <div style="display:flex;justify-content:space-between;font-size:13.5px;color:var(--text-muted);margin-bottom:10px"><span>{% if is_ar %}المجموع الفرعي{% else %}Subtotal{% endif %} ({{ cart.item_count }})</span><span style="color:var(--text-body);font-weight:600">{{ cart.total_price | money }}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13.5px;color:var(--text-muted);margin-bottom:16px"><span>{% if is_ar %}التوصيل{% else %}Delivery{% endif %}</span><span>{% if is_ar %}يُحدد عند التأكيد{% else %}Quoted on confirmation{% endif %}</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--border-default);padding-top:16px;margin-bottom:6px">
+          <span style="font-size:14px;font-weight:600;color:var(--text-heading)">{% if is_ar %}الإجمالي التقديري{% else %}Estimated total{% endif %}</span>
+          <span style="font-size:24px;font-weight:700;color:var(--text-heading);font-variant-numeric:tabular-nums">{{ cart.total_price | money }}</span>
+        </div>
+        <p style="font-size:11.5px;color:var(--text-faint);margin:0 0 20px">{% if is_ar %}يُؤكّد السعر النهائي والتوصيل من قبل فريقنا. خصومات للكميات 4+.{% else %}Final pricing & delivery confirmed by our team. Volume discounts apply on 4+ units.{% endif %}</p>
+        <button type="submit" name="checkout" class="amoy-btn amoy-btn--primary amoy-btn--full amoy-btn--lg">{% if is_ar %}متابعة الدفع{% else %}Proceed to checkout{% endif %}</button>
+        <div style="text-align:center;font-size:12.5px;color:var(--text-muted);margin-top:14px">{% if is_ar %}تطلب 10+ وحدات؟{% else %}Ordering 10+ units?{% endif %} <a href="/pages/contact" style="color:var(--accent);font-weight:600">{% if is_ar %}اطلب عرض سعر{% else %}Request a bulk quote{% endif %}</a></div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+{% schema %}
+{"name":"Cart","settings":[],"presets":[{"name":"Cart"}]}
+{% endschema %}

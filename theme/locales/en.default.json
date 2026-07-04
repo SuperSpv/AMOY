@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "continue_shopping": "Continue shopping",
+    "close": "Close",
+    "loading": "Loading...",
+    "all": "All",
+    "previous": "Previous",
+    "next": "Next",
+    "shop_all": "Shop all",
+    "back_to_shop": "Back to shop"
+  },
+  "announcement": {
+    "made_in_jeddah": "Made in Jeddah · Delivered across the Kingdom",
+    "use_code_html": "Use code {{ code }} for 10% off your first order"
+  },
+  "cart": {
+    "eyebrow": "Your cart",
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "browse": "Browse the collection",
+    "summary": "Order summary",
+    "subtotal": "Subtotal",
+    "delivery": "Delivery",
+    "delivery_quoted": "Quoted on confirmation",
+    "estimated_total": "Estimated total",
+    "fine_print": "Final pricing & delivery confirmed by our team. Volume discounts apply on 4+ units.",
+    "checkout": "Proceed to checkout",
+    "remove": "Remove",
+    "increase": "Increase",
+    "decrease": "Decrease",
+    "ordering_bulk": "Ordering 10+ units?",
+    "request_quote": "Request a bulk quote",
+    "add_to_display": "Add to your display",
+    "unlock_discount_html": "Add {{ count }} more to unlock 10% off",
+    "discount_unlocked": "Volume discount unlocked — 10% off at checkout"
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "options": "Options",
+    "add_short": "+ Add",
+    "from": "From",
+    "per_unit": "per unit · volume discounts on 4+",
+    "save": "Save",
+    "overview": "Overview",
+    "specifications": "Specifications",
+    "request_bulk_quote": "Request a bulk quote instead",
+    "delivery_ksa": "Delivery across KSA",
+    "custom_finish": "Custom finish available",
+    "complete_display": "Complete the display",
+    "recommended": "Recommended",
+    "you_may_like": "You may also like"
+  },
+  "tiers": {
+    "quantity": "Quantity",
+    "price_per_unit": "Price / unit",
+    "ten_off": "10% off",
+    "request_quote": "Request a quote"
+  },
+  "collection": {
+    "shop": "Shop",
+    "pieces": "pieces",
+    "filter": "Filter",
+    "sort_by": "Sort by",
+    "gender": "Gender",
+    "category": "Category",
+    "style": "Style",
+    "range": "Range",
+    "no_products": "No products match these filters.",
+    "clear_filters": "Clear filters"
+  },
+  "contact": {
+    "submit": "Send request"
+  }
+}

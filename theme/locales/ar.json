@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "continue_shopping": "متابعة التسوق",
+    "close": "إغلاق",
+    "loading": "جارٍ التحميل...",
+    "all": "الكل",
+    "previous": "السابق",
+    "next": "التالي",
+    "shop_all": "تسوّق الكل",
+    "back_to_shop": "العودة إلى المتجر"
+  },
+  "announcement": {
+    "made_in_jeddah": "صُنع في جدة · توصيل لكل مناطق المملكة",
+    "use_code_html": "استخدم كود {{ code }} لخصم 10% على أول طلب"
+  },
+  "cart": {
+    "eyebrow": "سلتك",
+    "title": "سلة التسوق",
+    "empty": "سلتك فارغة.",
+    "browse": "تصفّح المجموعة",
+    "summary": "ملخص الطلب",
+    "subtotal": "المجموع الفرعي",
+    "delivery": "التوصيل",
+    "delivery_quoted": "يُحدد عند التأكيد",
+    "estimated_total": "الإجمالي التقديري",
+    "fine_print": "يُؤكّد السعر النهائي والتوصيل من قبل فريقنا. خصومات للكميات 4+.",
+    "checkout": "متابعة الدفع",
+    "remove": "إزالة",
+    "increase": "زيادة",
+    "decrease": "إنقاص",
+    "ordering_bulk": "تطلب 10+ وحدات؟",
+    "request_quote": "اطلب عرض سعر",
+    "add_to_display": "أضف إلى عرضك",
+    "unlock_discount_html": "أضِف {{ count }} وحدة إضافية لتفعيل خصم 10%",
+    "discount_unlocked": "تم تفعيل خصم الكمية 10% عند الدفع"
+  },
+  "products": {
+    "add_to_cart": "أضف إلى السلة",
+    "sold_out": "نفد المخزون",
+    "unavailable": "غير متوفر",
+    "options": "اختر الخيارات",
+    "add_short": "أضف +",
+    "from": "من",
+    "per_unit": "للوحدة · خصومات للكميات 4+",
+    "save": "توفير",
+    "overview": "نظرة عامة",
+    "specifications": "المواصفات",
+    "request_bulk_quote": "اطلب عرض سعر للجملة",
+    "delivery_ksa": "توصيل داخل السعودية",
+    "custom_finish": "تشطيب مخصص متاح",
+    "complete_display": "أكمِل العرض",
+    "recommended": "يُوصى به",
+    "you_may_like": "قد يعجبك أيضًا"
+  },
+  "tiers": {
+    "quantity": "الكمية",
+    "price_per_unit": "السعر للوحدة",
+    "ten_off": "خصم 10%",
+    "request_quote": "اطلب عرض سعر"
+  },
+  "collection": {
+    "shop": "المتجر",
+    "pieces": "قطعة",
+    "filter": "تصفية",
+    "sort_by": "ترتيب",
+    "gender": "الجنس",
+    "category": "النوع",
+    "style": "الوضعية",
+    "range": "النطاق",
+    "no_products": "لا توجد منتجات مطابقة.",
+    "clear_filters": "مسح التصفية"
+  },
+  "contact": {
+    "submit": "إرسال الطلب"
+  }
+}
