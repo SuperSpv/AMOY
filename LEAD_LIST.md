@@ -35,7 +35,7 @@
 | 13 | **Fitaihi Group** | Luxury lifestyle & fashion | Jeddah | Multi | Legacy Jeddah retailer, high-end displays |
 | 14 | **Gazzaz** | Luxury fashion & fragrance | Jeddah | Multi | Historic Jeddah retail name (verify current fashion footprint) |
 | 15 | **Al Sawani Group** | International fashion franchises | Jeddah | Multi | Jeddah-based franchise operator — one contact, several brands |
-| 16 | **Landmark Arabia** (group HQ) | Value/mid-market retail group | Jeddah | 100s across brands | KSA's biggest fashion retailer is headquartered in YOUR city — see brand rows #55–60 |
+| 16 | **Landmark Arabia** (group HQ) | Value/mid-market retail group | Riyadh (KSA HQ; corrected) | 650+ stores | KSA's biggest fashion retailer; strong Jeddah store network — see brand rows #48–54 |
 | 17 | **Alshiaka** (alshiaka.com) | Menswear & thobes | Taif (Western region) | 50+ showrooms, 17 cities | One of the biggest thobe chains in KSA |
 | 18 | **Al Aseel** (alaseel.com.sa) | Thobes | Western region | Multi-city (Jeddah, Makkah, Riyadh, Taif, Dammam…) | Large thobe chain, male mannequins |
 | 19 | **Laftah** (laftah.com) | Abayas | Taif / Makkah region | ~13 (incl. Jeddah) | Verified 13+ branch list on their site |
@@ -80,10 +80,10 @@
 ## Tier 3 — Brand Leads Under Major Retail Groups (53 leads) 🥉
 *Each brand row is a separate outreach target (own VM/store teams), but note the shared parent — winning the group VM department supplies all its brands. Group HQ rows are marked ●.*
 
-### Landmark Arabia — group HQ in **Jeddah** (#16 above)
+### Landmark Arabia — KSA HQ in Riyadh, 650+ stores (#16 above)
 | # | Brand | Segment | Branches (KSA) | Notes |
 |---|---|---|---|---|
-| 48 | ● Landmark Arabia VM/Procurement dept. | Group | 100s | THE single highest-value door in Jeddah for you |
+| 48 | ● Landmark Arabia VM/Procurement dept. | Group | 650+ | Highest-value single account; formal vendor registration required |
 | 49 | Centrepoint KSA | Family dept. store | ~40+ | Full mannequin range |
 | 50 | Max Fashion KSA | Value fashion | ~40+ | Full range |
 | 51 | Splash KSA | Fast fashion | Multi | Male + female |
@@ -91,7 +91,7 @@
 | 53 | Shoemart KSA | Footwear | Multi | Leg/foot forms (your FL/FF line) |
 | 54 | Juniors (Landmark) | Baby | Multi (verify) | Kids forms |
 
-### Cenomi Retail (Fawaz Alhokair) — Riyadh HQ, ~1,000+ stores
+### Cenomi Retail (formerly Fawaz Alhokair; acquired by Al-Futtaim in 2025) — Riyadh HQ, ~1,000+ stores
 | # | Brand | Segment | Branches (KSA) | Notes |
 |---|---|---|---|---|
 | 55 | ● Cenomi Retail VM/Procurement | Group | 1,000+ | Operates most Inditex brands in KSA |
