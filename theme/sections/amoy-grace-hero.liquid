@@ -9,8 +9,18 @@
         <h1 class="amoy-display amoy-display--xl" style="margin:18px 0 0">{{ section.settings.heading }}</h1>
         <p style="font-size:17px;line-height:1.75;color:var(--text-body);margin:22px 0 0;max-width:48ch">{{ section.settings.intro }}</p>
         <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:30px">
-          <a href="{{ section.settings.whatsapp_url | default: 'https://wa.me/966547275228' }}" target="_blank" rel="noopener" class="amoy-btn amoy-btn--primary amoy-btn--lg">{{ section.settings.quote_label }}</a>
-          <a href="/pages/contact" class="amoy-btn amoy-btn--secondary amoy-btn--lg">Contact us</a>
+          {%- liquid
+            assign hero_wa = section.settings.whatsapp_url
+            if hero_wa == blank and settings.whatsapp_number != blank
+              assign hero_wa = 'https://wa.me/' | append: settings.whatsapp_number
+            endif
+          -%}
+          {%- if hero_wa != blank -%}
+            <a href="{{ hero_wa }}" target="_blank" rel="noopener" class="amoy-btn amoy-btn--primary amoy-btn--lg">{{ section.settings.quote_label }}</a>
+          {%- endif -%}
+          {%- if section.settings.contact_label != blank -%}
+            <a href="{{ section.settings.contact_url | default: '/pages/contact' }}" class="amoy-btn amoy-btn--secondary amoy-btn--lg">{{ section.settings.contact_label }}</a>
+          {%- endif -%}
         </div>
       </div>
       <div class="grace-hero__media" style="min-height:460px;box-shadow:var(--shadow-sm)">
@@ -24,5 +34,5 @@
   </div>
 </section>
 {% schema %}
-{"name":"Grace · Hero","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Grace Collection"},{"type":"text","id":"heading","label":"Heading","default":"Grace"},{"type":"textarea","id":"intro","label":"Intro paragraph","default":"The Grace Collection by AMOY is crafted to reflect elegance, softness and modern femininity. With smooth lines and poised silhouettes, each mannequin brings a refined presence to displays of loungewear and delicate fashion."},{"type":"url","id":"whatsapp_url","label":"WhatsApp URL"},{"type":"text","id":"quote_label","label":"Quote button label","default":"Request quotation"},{"type":"image_picker","id":"hero_image","label":"Hero image"}],"presets":[{"name":"Grace · Hero"}]}
+{"name":"Grace · Hero","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Grace Collection"},{"type":"text","id":"heading","label":"Heading","default":"Grace"},{"type":"textarea","id":"intro","label":"Intro paragraph","default":"The Grace Collection by AMOY is crafted to reflect elegance, softness and modern femininity. With smooth lines and poised silhouettes, each mannequin brings a refined presence to displays of loungewear and delicate fashion."},{"type":"url","id":"whatsapp_url","label":"WhatsApp URL","info":"Leave blank to use the WhatsApp number from Theme settings → Contact & social."},{"type":"text","id":"contact_label","label":"Second button label","default":"Contact us"},{"type":"url","id":"contact_url","label":"Second button link"},{"type":"text","id":"quote_label","label":"Quote button label","default":"Request quotation"},{"type":"image_picker","id":"hero_image","label":"Hero image"}],"presets":[{"name":"Grace · Hero"}]}
 {% endschema %}

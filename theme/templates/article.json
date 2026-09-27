@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "share": { "type": "share", "settings": {} }
+      },
+      "block_order": ["share"],
+      "settings": {
+        "show_author": true,
+        "show_related": true
+      }
+    }
+  },
+  "order": ["main"]
+}

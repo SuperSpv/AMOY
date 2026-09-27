@@ -19,8 +19,7 @@
       },
       "block_order": ["msg-1", "msg-2"],
       "settings": {
-        "bg_color": "#1C1B4D",
-        "text_color": "#FBFBFD",
+        "color_scheme": "scheme-5",
         "accent_color": "#D9B45B",
         "autorotate": true,
         "rotate_speed": 6

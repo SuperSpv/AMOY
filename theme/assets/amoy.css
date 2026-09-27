@@ -89,10 +89,10 @@ p{margin:0}
 .amoy-lang__btn{background:none;border:none;cursor:pointer;font:inherit;font-size:12.5px;font-weight:700;padding:6px 12px;color:var(--text-muted)}
 .amoy-lang__btn.is-active{background:var(--accent);color:var(--accent-on)}
 .amoy-country-select{font:inherit;font-size:12.5px;font-weight:600;border:1px solid var(--border-default);border-radius:999px;background:var(--white);color:var(--text-body);padding:6px 10px;cursor:pointer;outline:none}
-.amoy-footer .amoy-lang{border-color:rgba(255,255,255,.22)}
-.amoy-footer .amoy-lang__btn{color:rgba(255,255,255,.7)}
-.amoy-footer .amoy-lang__btn.is-active{background:rgba(255,255,255,.14);color:#fff}
-.amoy-footer .amoy-country-select{background:transparent;border-color:rgba(255,255,255,.22);color:rgba(255,255,255,.8)}
+.amoy-footer .amoy-lang{border-color:color-mix(in srgb,var(--color-foreground,#fff) 22%,transparent)}
+.amoy-footer .amoy-lang__btn{color:color-mix(in srgb,var(--color-foreground,#fff) 70%,transparent)}
+.amoy-footer .amoy-lang__btn.is-active{background:color-mix(in srgb,var(--color-foreground,#fff) 14%,transparent);color:var(--color-foreground,#fff)}
+.amoy-footer .amoy-country-select{background:transparent;border-color:color-mix(in srgb,var(--color-foreground,#fff) 22%,transparent);color:color-mix(in srgb,var(--color-foreground,#fff) 80%,transparent)}
 .amoy-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(12px);z-index:300;background:var(--navy-900);color:#fff;padding:13px 22px;border-radius:var(--radius-pill);box-shadow:var(--shadow-lg);font-size:13.5px;font-weight:600;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
 .amoy-toast--visible{opacity:1;transform:translateX(-50%) translateY(0)}
 .amoy-drawer{position:fixed;inset:0;z-index:250;visibility:hidden;opacity:0;transition:opacity .2s}
@@ -158,3 +158,9 @@ p{margin:0}
 @media (max-width:860px){.amoy-wa{bottom:16px;width:50px;height:50px;inset-inline-end:16px}}
 @media (max-width:768px){.amoy-container{padding:0 20px}.amoy-block,.amoy-block--lg{padding:64px 0}.amoy-block--sm{padding:56px 0}.amoy-grid--split,.amoy-grid--split-media,.amoy-grid--contact{grid-template-columns:1fr;gap:36px}.amoy-grid--3{grid-template-columns:1fr}.amoy-why__feats{grid-template-columns:1fr}.amoy-steps{grid-template-columns:1fr 1fr}.amoy-hero__media{height:420px}.amoy-drawer__panel{width:100%}}
 @media (max-width:480px){.amoy-grid--4,.amoy-grid--2,.amoy-steps,.amoy-contact-form-grid{grid-template-columns:1fr}.amoy-cta__btns{flex-direction:column}.amoy-cta__btns .amoy-btn{width:100%}}
+.amoy-cta-band{background:var(--color-background,var(--navy-900));color:var(--color-foreground,#fff)}
+.amoy-cta-band__inner{max-width:760px;text-align:center}
+.amoy-cta-band__eyebrow{justify-content:center}
+.amoy-cta-band__title{color:inherit;margin:18px 0}
+.amoy-cta-band__sub{font-size:18px;line-height:1.65;color:color-mix(in srgb,currentColor 78%,transparent);max-width:48ch;margin:0 auto 34px}
+.amoy-cta-band__line{font-size:13px;color:color-mix(in srgb,currentColor 58%,transparent);margin-top:26px}

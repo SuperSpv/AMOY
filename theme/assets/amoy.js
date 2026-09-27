@@ -215,7 +215,13 @@
     if (e.key !== 'Escape') return;
     closeCartDrawer();
     var nav = $('[data-mobile-nav].is-open');
-    if (nav) { nav.classList.remove('is-open'); lockScroll(false); releaseFocus(nav); }
+    if (nav) {
+      nav.classList.remove('is-open');
+      var toggle = $('[data-menu-toggle]');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      lockScroll(false);
+      releaseFocus(nav);
+    }
     toggleFilters(false);
     $$('[data-dropdown][open]').forEach(function (d) { d.removeAttribute('open'); });
   });
@@ -375,7 +381,7 @@
 
     intents.forEach(function (intent) {
       if (!intent.trim()) return;
-      var url = '/recommendations/products?section_id=product-recommendations&product_id=' +
+      var url = (R.recommendations || '/recommendations/products') + '?section_id=product-recommendations&product_id=' +
         encodeURIComponent(productId) + '&limit=' + encodeURIComponent(limit) +
         '&intent=' + encodeURIComponent(intent.trim());
       fetch(url)
@@ -396,7 +402,7 @@
     var seed = host.dataset.seed;
     if (!seed) return;
     var limit = host.dataset.limit || 3;
-    fetch('/recommendations/products?section_id=product-recommendations&product_id=' +
+    fetch((R.recommendations || '/recommendations/products') + '?section_id=product-recommendations&product_id=' +
       encodeURIComponent(seed) + '&limit=' + encodeURIComponent(limit) + '&intent=related')
       .then(function (r) { return r.text(); })
       .then(function (html) {

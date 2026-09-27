@@ -8,12 +8,7 @@
       {%- for block in section.blocks -%}
         <div style="background:var(--white);height:104px;display:flex;align-items:center;justify-content:center;padding:16px" {{ block.shopify_attributes }}>
           {%- if block.settings.logo != blank -%}
-            <img
-              src="{{ block.settings.logo | image_url: width: 200 }}"
-              alt="{{ block.settings.name | escape }}"
-              loading="lazy"
-              style="max-height:40px;width:auto;max-width:100%;object-fit:contain;filter:grayscale(1);opacity:.7"
-            >
+            {{ block.settings.logo | image_url: width: 300 | image_tag: widths: '150,300', sizes: '150px', loading: 'lazy', alt: block.settings.name, style: 'max-height:40px;width:auto;max-width:100%;object-fit:contain;filter:grayscale(1);opacity:.7' }}
           {%- else -%}
             <span style="font-size:11px;letter-spacing:.05em;color:var(--steel)">{{ block.settings.name }}</span>
           {%- endif -%}

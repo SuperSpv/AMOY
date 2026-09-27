@@ -30,7 +30,7 @@
       aria-label="{{ 'accessibility.open_menu' | t }}"
     >{% render 'icon', icon: 'menu', size: 22 %}</button>
 
-    {%- if request.page_type == 'index' -%}<h1 class="amoy-header__logo-wrap">{%- else -%}<div class="amoy-header__logo-wrap">{%- endif -%}
+    <div class="amoy-header__logo-wrap">
       <a href="{{ routes.root_url }}" class="amoy-header__logo-link" aria-label="{{ shop.name }}">
         {%- if logo != blank -%}
           {{
@@ -47,7 +47,7 @@
           <span class="amoy-header__wordmark">{{ shop.name }}</span>
         {%- endif -%}
       </a>
-    {%- if request.page_type == 'index' -%}</h1>{%- else -%}</div>{%- endif -%}
+    </div>
 
     {%- if menu != blank and linklists[menu].links.size > 0 -%}
       <nav class="amoy-header__nav" aria-label="{{ 'accessibility.main_navigation' | t }}">

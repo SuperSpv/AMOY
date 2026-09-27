@@ -3,9 +3,9 @@
 <section class="amoy-404">
   <div class="amoy-404__inner">
     <div class="amoy-404__code">404</div>
-    <div class="amoy-eyebrow amoy-eyebrow--brass amoy-404__eyebrow">{{ section.settings.eyebrow | default: 'page.error_404_eyebrow' | t }}</div>
-    <h1 class="amoy-display amoy-display--md amoy-404__title">{{ section.settings.heading | default: 'page.error_404_title' | t }}</h1>
-    <p class="amoy-404__body">{{ section.settings.subheading | default: 'page.error_404_body' | t }}</p>
+    <div class="amoy-eyebrow amoy-eyebrow--brass amoy-404__eyebrow">{% if section.settings.eyebrow != blank %}{{ section.settings.eyebrow }}{% else %}{{ 'page.error_404_eyebrow' | t }}{% endif %}</div>
+    <h1 class="amoy-display amoy-display--md amoy-404__title">{% if section.settings.heading != blank %}{{ section.settings.heading }}{% else %}{{ 'page.error_404_title' | t }}{% endif %}</h1>
+    <p class="amoy-404__body">{% if section.settings.subheading != blank %}{{ section.settings.subheading }}{% else %}{{ 'page.error_404_body' | t }}{% endif %}</p>
     <div class="amoy-cta__btns">
       <a href="{{ routes.root_url }}" class="amoy-btn amoy-btn--primary amoy-btn--lg">{{ section.settings.primary_label }}</a>
       <a href="{{ routes.all_products_collection_url }}" class="amoy-btn amoy-btn--secondary amoy-btn--lg">{{ section.settings.secondary_label }}</a>

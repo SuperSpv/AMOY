@@ -2,13 +2,15 @@
 
 <style>
   #shopify-section-{{ section.id }} {
-    --footer-bg: {{ section.settings.background_color }};
-    --footer-fg: {{ section.settings.text_color }};
     --footer-cols: {{ section.settings.columns }};
   }
 </style>
 
-<footer class="amoy-footer" role="contentinfo">
+{%- comment -%}
+  Links to unpublished or deleted pages, collections, products and blogs are
+  skipped, so a draft page added to a footer menu never shows up as a 404.
+{%- endcomment -%}
+<footer class="amoy-footer color-{{ section.settings.color_scheme }}" role="contentinfo">
   <div class="amoy-container">
     {%- if section.settings.show_newsletter -%}
       <div class="amoy-footer__news">
@@ -66,9 +68,12 @@
             {%- if block.settings.menu != blank and linklists[block.settings.menu].links.size > 0 -%}
               <div class="amoy-footer__col" {{ block.shopify_attributes }}>
                 <h2 class="amoy-footer__col-title">{{ block.settings.heading | default: linklists[block.settings.menu].title }}</h2>
-                <ul class="amoy-footer__links" aria-label="{{ 'accessibility.footer_navigation' | t }}">
+                <ul class="amoy-footer__links" aria-label="{{ block.settings.heading | default: linklists[block.settings.menu].title | escape }}">
                   {%- for link in linklists[block.settings.menu].links -%}
-                    <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                    {%- if link.type == 'page_link' or link.type == 'collection_link' or link.type == 'product_link' or link.type == 'blog_link' or link.type == 'article_link' -%}
+                      {%- if link.object == blank -%}{%- continue -%}{%- endif -%}
+                    {%- endif -%}
+                    <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
                   {%- endfor -%}
                 </ul>
               </div>
@@ -111,14 +116,25 @@
 
     <div class="amoy-footer__legal">
       <div class="amoy-footer__legal-links">
+        {%- assign legal_titles = '|' -%}
         {%- if section.settings.legal_menu != blank -%}
           {%- for link in linklists[section.settings.legal_menu].links -%}
+            {%- if link.type == 'page_link' and link.object == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign legal_key = link.title | handle -%}
+            {%- assign legal_titles = legal_titles | append: legal_key | append: '|' -%}
             <a href="{{ link.url }}">{{ link.title | escape }}</a>
           {%- endfor -%}
         {%- endif -%}
-        {%- for policy in shop.policies -%}
-          {%- if policy != blank -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endif -%}
-        {%- endfor -%}
+        {%- if section.settings.show_policies -%}
+          {%- comment -%} Store policies (Settings → Policies), minus any the legal menu already links to by name {%- endcomment -%}
+          {%- for policy in shop.policies -%}
+            {%- if policy == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign policy_key = policy.title | handle | prepend: '|' | append: '|' -%}
+            {%- unless legal_titles contains policy_key -%}
+              <a href="{{ policy.url }}">{{ policy.title | escape }}</a>
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endif -%}
       </div>
 
       <div class="amoy-footer__legal-right">
@@ -152,10 +168,10 @@
     { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter signup", "default": true, "info": "Subscribers are saved as customers tagged newsletter." },
     { "type": "header", "content": "Layout" },
     { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Columns on desktop", "default": 5 },
-    { "type": "color", "id": "background_color", "label": "Background", "default": "#1C1B4D" },
-    { "type": "color", "id": "text_color", "label": "Text", "default": "#FBFBFD" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-5", "info": "Edit the schemes in Theme settings → Colors." },
     { "type": "header", "content": "Bottom bar" },
-    { "type": "link_list", "id": "legal_menu", "label": "Legal menu", "info": "Store policies from Settings → Policies are appended automatically." },
+    { "type": "link_list", "id": "legal_menu", "label": "Legal menu" },
+    { "type": "checkbox", "id": "show_policies", "label": "Show store policies", "default": true, "info": "Adds the policies from Settings → Policies. Any policy the legal menu already links to by the same name is not repeated." },
     { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true },
     { "type": "checkbox", "id": "show_localization", "label": "Show language / country selector", "default": false },
     { "type": "text", "id": "bottom_note", "label": "Bottom note", "default": "Elegance in every curve." }

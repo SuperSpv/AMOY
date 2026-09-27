@@ -1,0 +1,22 @@
+{%- comment -%}
+  Compact add-to-cart control for product grids.
+  - One variant, in stock: adds straight to the cart.
+  - Several variants: links to the product page so the customer can choose.
+  - Sold out: shows a sold-out label instead of a button.
+
+  Accepts:
+  - product: {Object} product (required)
+{%- endcomment -%}
+
+{%- if product.has_only_default_variant == false and product.variants.size > 1 -%}
+  <a href="{{ product.url }}" class="amoy-btn amoy-btn--secondary amoy-card__add">{{ 'products.options' | t }}</a>
+{%- elsif product.available -%}
+  <button
+    type="button"
+    class="amoy-btn amoy-btn--secondary amoy-card__add"
+    data-add-to-cart
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+  >{{ 'products.add_short' | t }}</button>
+{%- else -%}
+  <span class="amoy-card__soldout">{{ 'products.sold_out' | t }}</span>
+{%- endif -%}

@@ -23,12 +23,12 @@
   <div class="amoy-localization amoy-localization--{{ ctx }}">
     {%- if show_lang -%}
       {%- form 'localization', class: 'amoy-localization__form' -%}
-        <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+        <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
         <div class="amoy-lang" role="group" aria-label="{{ 'general.language' | t }}">
           {%- for language in localization.available_languages -%}
             <button
               type="submit"
-              name="locale_code"
+              name="language_code"
               value="{{ language.iso_code }}"
               class="amoy-lang__btn{% if language.iso_code == localization.language.iso_code %} is-active{% endif %}"
               lang="{{ language.iso_code }}"

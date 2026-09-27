@@ -55,11 +55,7 @@
           {%- endfor -%}
         </div>
 
-        {%- if paginate.pages > 1 -%}
-          <nav class="amoy-pagination" role="navigation" aria-label="Pagination">
-            {{ paginate | default_pagination }}
-          </nav>
-        {%- endif -%}
+        {%- render 'pagination', paginate: paginate -%}
       {%- else -%}
         <p class="amoy-search__none">
           {{ 'search.try_again_html' | t }}

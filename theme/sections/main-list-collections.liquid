@@ -20,13 +20,14 @@
   <div class="amoy-collection__grid" style="margin-top:30px">
     {%- if use_blocks -%}
       {%- for block in section.blocks -%}
-        {%- assign c = collections[block.settings.collection] -%}
+        {%- assign c = block.settings.collection -%}
         {%- if c != blank -%}
           {% render 'collection-card', card_collection: c, block: block %}
         {%- endif -%}
       {%- endfor -%}
     {%- else -%}
       {%- for c in collections -%}
+        {%- if c.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
         {%- if section.settings.hide_empty and c.all_products_count == 0 -%}{%- continue -%}{%- endif -%}
         {% render 'collection-card', card_collection: c %}
       {%- endfor -%}

@@ -146,11 +146,7 @@
             {%- endfor -%}
           </div>
 
-          {%- if paginate.pages > 1 -%}
-            <nav class="amoy-pagination" role="navigation" aria-label="Pagination">
-              {{ paginate | default_pagination }}
-            </nav>
-          {%- endif -%}
+          {%- render 'pagination', paginate: paginate -%}
         {%- else -%}
           <div class="amoy-collection__empty">
             <p>{{ 'collection.no_products' | t }}</p>

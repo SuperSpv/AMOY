@@ -198,7 +198,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/La-senza-logo.jpg",
-            "name": "Client name"
+            "name": "La Senza"
           }
         },
         "c1": {
@@ -219,7 +219,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/Centrepoint-Logo-1024x1024.jpg",
-            "name": "Debenhams"
+            "name": "Centrepoint"
           }
         }
       },

@@ -9,6 +9,7 @@
  */
 {
   "general": {
+    "pagination": "Pagination",
     "continue_shopping": "Continue shopping",
     "close": "Close",
     "menu": "Menu",
@@ -159,6 +160,10 @@
     "error_404_body": "The page you were looking for doesn't exist or has moved. Let's get you back to the collection."
   },
   "contact": {
+    "brand": "Store / brand",
+    "city": "City",
+    "collection": "Collection of interest",
+    "message_placeholder": "Quantities, finishes, timelines…",
     "submit": "Send request",
     "name": "Name",
     "email": "Email",

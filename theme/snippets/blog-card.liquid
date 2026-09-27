@@ -7,7 +7,7 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign words = article.content | strip_html | number_of_words
+  assign words = article.content | strip_html | split: ' ' | size
   assign read_time = words | divided_by: 200 | plus: 1
   assign loading = 'lazy'
   if lazy == false

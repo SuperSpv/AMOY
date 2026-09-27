@@ -85,7 +85,6 @@
       {{ heading_font | font_face: font_display: 'swap' }}
 
       {%- for scheme in settings.color_schemes -%}
-        {%- assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id -%}
         {% if forloop.index == 1 %}:root,{% endif %}
         .color-{{ scheme.id }} {
           --color-background: {{ scheme.settings.background }};
@@ -184,7 +183,8 @@
         cartAdd: {{ routes.cart_add_url | json }},
         cartChange: {{ routes.cart_change_url | json }},
         cartUpdate: {{ routes.cart_update_url | json }},
-        predictiveSearch: {{ routes.predictive_search_url | json }}
+        predictiveSearch: {{ routes.predictive_search_url | json }},
+        recommendations: {{ routes.product_recommendations_url | json }}
       };
       window.amoySettings = {
         cartType: {{ settings.cart_type | json }},

@@ -2,15 +2,13 @@
 
 <style>
   #shopify-section-{{ section.id }} {
-    --announce-bg: {{ section.settings.bg_color }};
-    --announce-fg: {{ section.settings.text_color }};
     --announce-accent: {{ section.settings.accent_color }};
   }
 </style>
 
 {%- if section.blocks.size > 0 -%}
   <div
-    class="amoy-announce"
+    class="amoy-announce color-{{ section.settings.color_scheme }}"
     role="region"
     aria-label="{{ 'accessibility.announcement' | t }}"
     data-announcement
@@ -33,8 +31,7 @@
   "name": "Announcement bar",
   "max_blocks": 6,
   "settings": [
-    { "type": "color", "id": "bg_color", "label": "Background", "default": "#1C1B4D" },
-    { "type": "color", "id": "text_color", "label": "Text", "default": "#FBFBFD" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-5", "info": "Edit the schemes in Theme settings → Colors." },
     { "type": "color", "id": "accent_color", "label": "Highlight (bold text)", "default": "#D9B45B" },
     { "type": "header", "content": "Rotation" },
     { "type": "checkbox", "id": "autorotate", "label": "Rotate messages automatically", "default": true },

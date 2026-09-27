@@ -43,8 +43,8 @@
             <div class="amoy-card__body">
               <h3 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--text-heading);margin:0"><a href="{{ product.url }}" style="color:inherit">{{ product.title }}</a></h3>
               <div class="kids-prod__row">
-                <span style="font-size:15px;font-weight:700;font-variant-numeric:tabular-nums">{{ product.price | money }}</span>
-                <button class="amoy-btn amoy-btn--secondary" style="padding:6px 12px;font-size:12.5px;border-radius:var(--radius-sm)" data-add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}">+ Add</button>
+                {% render 'price', product: product %}
+                {% render 'quick-add-button', product: product %}
               </div>
               {{ kids_cust }}
             </div>

@@ -9,8 +9,12 @@
   "@type": "Store",
   "name": {{ shop.name | json }},
   "url": {{ shop.url | json }},
-  {%- if settings.share_image != blank -%}
+  {%- if settings.logo != blank -%}
+    "logo": {{ settings.logo | image_url: width: 400 | prepend: 'https:' | json }},
+  {%- elsif settings.share_image != blank -%}
     "logo": {{ settings.share_image | image_url: width: 400 | prepend: 'https:' | json }},
+  {%- endif -%}
+  {%- if settings.share_image != blank -%}
     "image": {{ settings.share_image | image_url: width: 1200 | prepend: 'https:' | json }},
   {%- endif -%}
   {%- if shop.description != blank -%}"description": {{ shop.description | json }},{%- endif -%}

@@ -15,7 +15,7 @@
       </a>
     </div>
 
-    <div class="amoy-grid--3">
+    <div class="amoy-grid--3 amoy-colcards__grid" style="--colcards-cols:{{ section.blocks.size | at_most: 3 | at_least: 1 }}">
       {%- for block in section.blocks -%}
         {%- liquid
           assign linked = block.settings.collection
