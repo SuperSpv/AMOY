@@ -1,0 +1,63 @@
+{%- comment -%}
+  Native Shopify language + country selectors.
+  Markets, languages and currencies are managed in Settings → Markets —
+  nothing here is hardcoded.
+
+  Accepts:
+  - context: {String} header | drawer | footer (used for unique ids)
+{%- endcomment -%}
+
+{%- liquid
+  assign ctx = context | default: 'header'
+  assign show_lang = false
+  assign show_country = false
+  if localization.available_languages.size > 1
+    assign show_lang = true
+  endif
+  if localization.available_countries.size > 1
+    assign show_country = true
+  endif
+-%}
+
+{%- if show_lang or show_country -%}
+  <div class="amoy-localization amoy-localization--{{ ctx }}">
+    {%- if show_lang -%}
+      {%- form 'localization', class: 'amoy-localization__form' -%}
+        <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+        <div class="amoy-lang" role="group" aria-label="{{ 'general.language' | t }}">
+          {%- for language in localization.available_languages -%}
+            <button
+              type="submit"
+              name="locale_code"
+              value="{{ language.iso_code }}"
+              class="amoy-lang__btn{% if language.iso_code == localization.language.iso_code %} is-active{% endif %}"
+              lang="{{ language.iso_code }}"
+              {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}
+            >{% if ctx == 'header' %}{{ language.iso_code | upcase }}{% else %}{{ language.endonym_name }}{% endif %}</button>
+          {%- endfor -%}
+        </div>
+      {%- endform -%}
+    {%- endif -%}
+
+    {%- if show_country -%}
+      {%- form 'localization', class: 'amoy-localization__form' -%}
+        <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+        <label class="amoy-visually-hidden" for="AmoyCountrySelect-{{ ctx }}">{{ 'general.country_region' | t }}</label>
+        <select
+          id="AmoyCountrySelect-{{ ctx }}"
+          name="country_code"
+          class="amoy-country-select"
+          data-localization-submit
+        >
+          {%- for country in localization.available_countries -%}
+            <option
+              value="{{ country.iso_code }}"
+              {% if country.iso_code == localization.country.iso_code %}selected{% endif %}
+            >{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</option>
+          {%- endfor -%}
+        </select>
+        <noscript><button type="submit" class="amoy-btn amoy-btn--secondary">{{ 'collection.apply' | t }}</button></noscript>
+      {%- endform -%}
+    {%- endif -%}
+  </div>
+{%- endif -%}

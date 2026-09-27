@@ -1,0 +1,37 @@
+{%- comment -%}
+  Shared collection card.
+
+  Accepts:
+  - card_collection: {Object} collection (required)
+  - block: {Object} optional section block, for shopify_attributes
+{%- endcomment -%}
+
+{%- liquid
+  assign c = card_collection
+  assign img = c.image | default: c.products.first.featured_image
+-%}
+
+<div class="amoy-card amoy-card--interactive" {% if block %}{{ block.shopify_attributes }}{% endif %}>
+  <a href="{{ c.url }}" class="amoy-card__media amoy-card__media--{{ settings.card_image_ratio | default: 'portrait' }} amoy-card__media--cover" tabindex="-1" aria-hidden="true">
+    {%- if img -%}
+      {{
+        img
+        | image_url: width: 800
+        | image_tag:
+          class: 'amoy-card__img amoy-card__img--primary',
+          widths: '300,400,600,800',
+          sizes: '(min-width: 990px) 400px, 45vw',
+          loading: 'lazy',
+          alt: img.alt | default: c.title
+      }}
+    {%- else -%}
+      <div class="amoy-placeholder">{% render 'icon', icon: 'placeholder', size: 48 %}</div>
+    {%- endif -%}
+  </a>
+  <div class="amoy-card__body">
+    <h3 class="amoy-card__title"><a href="{{ c.url }}" class="amoy-card__link">{{ c.title }}</a></h3>
+    <div class="amoy-card__type" style="margin-top:4px;letter-spacing:0;text-transform:none;font-weight:500;font-size:12.5px;color:var(--text-muted)">
+      {{ c.all_products_count }} {{ 'collection.pieces' | t }}
+    </div>
+  </div>
+</div>

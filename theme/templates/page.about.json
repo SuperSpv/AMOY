@@ -1,0 +1,52 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "amoy-about",
+      "blocks": {
+        "img1": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/White_mannequin_being_adjusted_by_a_person_against_a_dark_background.png",
+            "caption": "atelier · sculpting"
+          }
+        },
+        "img2": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/Two_white_mannequins_against_a_purple_background.png",
+            "caption": "finishing · semi-matte"
+          }
+        },
+        "img3": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/Mannequins_dressed_in_a_beige_dress_and_suit_against_a_purple_background_with_clothing_racks_and_shoes_visible..png",
+            "caption": "window · installed"
+          }
+        }
+      },
+      "block_order": [
+        "img1",
+        "img2",
+        "img3"
+      ],
+      "settings": {
+        "heading": "We create characters, not just forms.",
+        "body": "AMOY Limited is Saudi Arabia's premier fiberglass mannequin manufacturer, based in Jeddah and serving fashion retailers across the Kingdom. From luxury and lingerie to sportswear and junior fashion, we craft mannequins that hold a pose — and a brand's identity — with quiet confidence.",
+        "process_eyebrow": "How we work"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

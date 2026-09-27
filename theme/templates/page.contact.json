@@ -1,0 +1,25 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "amoy-contact",
+      "settings": {
+        "heading": "Request a quote",
+        "body": "Tell us about your store concept — finishes, poses and volumes. We'll prepare a bespoke quote and confirm delivery across the Kingdom.",
+        "email": "support@amoylimited.com",
+        "address": "Al-Madinah Al-Munawwarah Rd, Ruwais 8278, Unit 2, Jeddah 23215, Kingdom of Saudi Arabia"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

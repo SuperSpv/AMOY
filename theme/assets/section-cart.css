@@ -1,0 +1,48 @@
+.amoy-cart{padding:48px 40px 90px}
+.amoy-cart__title{margin:14px 0 30px}
+.amoy-cart__empty{text-align:center;padding:80px 20px;border:1px solid var(--border-subtle);border-radius:var(--radius-md);background:var(--white);display:flex;flex-direction:column;align-items:center;gap:20px}
+.amoy-cart__empty p{font-size:15px;color:var(--text-muted)}
+.amoy-cart__grid{display:grid;grid-template-columns:1.6fr 1fr;gap:48px;align-items:start}
+.amoy-cart__line{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--border-subtle)}
+.amoy-cart__line-img{width:100px;height:130px;border-radius:var(--radius-sm);overflow:hidden;flex:none;background:var(--mist);display:block}
+.amoy-cart__line-img img{width:100%;height:100%;object-fit:contain}
+.amoy-cart__line-body{flex:1;min-width:0}
+.amoy-cart__line-top{display:flex;justify-content:space-between;gap:10px}
+.amoy-cart__line-type{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
+.amoy-cart__line-title{font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--text-heading);line-height:1.1;margin-top:2px}
+.amoy-cart__line-variant{font-size:12.5px;color:var(--text-muted);margin-top:3px}
+.amoy-cart__line-discount{font-size:12.5px;color:var(--brass-600);margin-top:3px;font-weight:600}
+.amoy-cart__remove{color:var(--text-faint);display:inline-flex;align-items:flex-start;padding:2px}
+.amoy-cart__remove:hover{color:var(--text-heading)}
+.amoy-cart__line-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:10px}
+.amoy-cart__line-price{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;display:inline-flex;gap:8px;align-items:baseline}
+.amoy-cart__line-price s{color:var(--text-faint);font-weight:500;font-size:14px}
+.amoy-cart__continue{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--accent);margin-top:22px}
+[dir=rtl] .amoy-cart__continue svg{transform:scaleX(-1)}
+.amoy-cart__note{margin-top:28px}
+.amoy-cart__note textarea{background:var(--white);resize:vertical}
+.amoy-cart__recs{margin-top:34px;border-top:1px solid var(--border-subtle);padding-top:24px}
+.amoy-cart__recs-title{font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--text-heading);margin-bottom:8px}
+.amoy-cart__recs-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.amoy-cart__summary{background:var(--white);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:26px;box-shadow:var(--shadow-sm);position:sticky;top:calc(var(--header-h) + 16px)}
+.amoy-cart__summary-title{font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--text-heading);margin:0 0 18px}
+.amoy-cart__volume{background:var(--mist);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:16px;font-size:12.5px;color:var(--text-body)}
+.amoy-cart__volume--done{background:rgba(176,138,34,.1);border-color:var(--brass-500);color:var(--text-heading);font-weight:600}
+.amoy-cart__volume-track{height:5px;border-radius:3px;background:var(--border-default);margin-top:8px;overflow:hidden}
+.amoy-cart__volume-fill{height:100%;background:var(--brass-500)}
+.amoy-cart__row{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;color:var(--text-muted);margin-bottom:10px}
+.amoy-cart__row-val{color:var(--text-body);font-weight:600;font-variant-numeric:tabular-nums}
+.amoy-cart__row--discount,.amoy-cart__row--discount .amoy-cart__row-val{color:var(--brass-600)}
+.amoy-cart__total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--border-default);padding-top:16px;margin:6px 0}
+.amoy-cart__total-label{font-size:14px;font-weight:600;color:var(--text-heading)}
+.amoy-cart__total-value{font-size:24px;font-weight:700;color:var(--text-heading);font-variant-numeric:tabular-nums}
+.amoy-cart__fine{font-size:11.5px;color:var(--text-faint);margin:0 0 20px}
+.amoy-cart__accelerated{margin-top:12px}
+.amoy-cart__quote{text-align:center;font-size:12.5px;color:var(--text-muted);margin-top:14px}
+.amoy-cart__quote a{color:var(--accent);font-weight:600}
+@media (max-width:860px){
+  .amoy-cart{padding:28px 20px 64px}
+  .amoy-cart__grid{grid-template-columns:1fr;gap:28px}
+  .amoy-cart__summary{position:static}
+  .amoy-cart__recs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

@@ -1,0 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "kids_hero": {
+      "type": "amoy-kids-hero",
+      "settings": {}
+    },
+    "kids_features": {
+      "type": "amoy-kids-features",
+      "settings": {}
+    },
+    "kids_details": {
+      "type": "amoy-kids-details",
+      "settings": {}
+    },
+    "kids_fullbody": {
+      "type": "amoy-kids-fullbody",
+      "settings": {}
+    },
+    "kids_bodyparts": {
+      "type": "amoy-kids-bodyparts",
+      "settings": {}
+    },
+    "kids_cta": {
+      "type": "amoy-kids-cta",
+      "settings": {}
+    }
+  },
+  "order": ["kids_hero", "kids_features", "kids_details", "kids_fullbody", "kids_bodyparts", "kids_cta"]
+}

@@ -1,0 +1,94 @@
+{%- comment -%}
+  Cart drawer. Re-rendered by the Section Rendering API after every
+  /cart/add.js and /cart/change.js call, so its markup is always the
+  same Liquid the cart page uses — no hand-written JSON-to-HTML.
+{%- endcomment -%}
+
+<div class="amoy-drawer" id="AmoyCartDrawer" data-cart-drawer>
+  <div class="amoy-drawer__backdrop" data-cart-drawer-close></div>
+  <div class="amoy-drawer__panel" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}">
+    <div class="amoy-drawer__head">
+      <h2 class="amoy-drawer__title">{{ 'cart.title' | t }} <span data-cart-count-text>({{ cart.item_count }})</span></h2>
+      <button type="button" class="amoy-drawer__close" data-cart-drawer-close aria-label="{{ 'general.close' | t }}">
+        {% render 'icon', icon: 'close', size: 18 %}
+      </button>
+    </div>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="amoy-drawer__body">
+        <div class="amoy-drawer__empty">
+          <p>{{ 'cart.empty' | t }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="amoy-btn amoy-btn--primary" style="margin-top:18px">{{ 'cart.browse' | t }}</a>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="amoy-drawer__body">
+        {%- for item in cart.items -%}
+          <div class="amoy-drawer__line" data-cart-line="{{ forloop.index }}">
+            <a href="{{ item.url }}" class="amoy-drawer__line-img">
+              {%- if item.image -%}
+                {{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: item.image.alt | default: item.product.title }}
+              {%- endif -%}
+            </a>
+            <div style="flex:1;min-width:0">
+              <a href="{{ item.url }}" class="amoy-drawer__line-title">{{ item.product.title }}</a>
+              {%- unless item.product.has_only_default_variant -%}
+                <div class="amoy-drawer__line-variant">{{ item.variant.title }}</div>
+              {%- endunless -%}
+              {%- if item.selling_plan_allocation -%}
+                <div class="amoy-drawer__line-variant">{{ item.selling_plan_allocation.selling_plan.name }}</div>
+              {%- endif -%}
+              {%- for property in item.properties -%}
+                {%- unless property.last == blank or property.first[0] == '_' -%}
+                  <div class="amoy-drawer__line-variant">{{ property.first }}: {{ property.last }}</div>
+                {%- endunless -%}
+              {%- endfor -%}
+              {%- for allocation in item.line_level_discount_allocations -%}
+                <div class="amoy-drawer__line-variant" style="color:var(--brass-600)">
+                  {{ allocation.discount_application.title }} (&minus;{{ allocation.amount | money }})
+                </div>
+              {%- endfor -%}
+
+              <div class="amoy-drawer__line-row">
+                <div class="amoy-qty" data-qty-wrap>
+                  <button type="button" class="amoy-qty__btn" data-cart-qty="{{ forloop.index }}" data-qty-value="{{ item.quantity | minus: 1 }}" aria-label="{{ 'accessibility.decrease_quantity' | t }}">{% render 'icon', icon: 'minus', size: 15 %}</button>
+                  <span class="amoy-qty__val" aria-live="polite">{{ item.quantity }}</span>
+                  <button type="button" class="amoy-qty__btn" data-cart-qty="{{ forloop.index }}" data-qty-value="{{ item.quantity | plus: 1 }}" aria-label="{{ 'accessibility.increase_quantity' | t }}">{% render 'icon', icon: 'plus', size: 15 %}</button>
+                </div>
+                <span style="font-weight:700;font-variant-numeric:tabular-nums">{{ item.final_line_price | money }}</span>
+                <button type="button" class="amoy-drawer__remove" data-cart-qty="{{ forloop.index }}" data-qty-value="0" aria-label="{{ 'accessibility.remove_item' | t }}" style="background:none;border:none;color:var(--text-faint);padding:2px">{% render 'icon', icon: 'close', size: 16 %}</button>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="amoy-drawer__foot">
+        {%- for discount in cart.cart_level_discount_applications -%}
+          <div class="amoy-drawer__total" style="font-size:13px;color:var(--brass-600)">
+            <span>{{ discount.title }}</span>
+            <span>&minus;{{ discount.total_allocated_amount | money }}</span>
+          </div>
+        {%- endfor -%}
+
+        <div class="amoy-drawer__total">
+          <span class="amoy-drawer__total-label">{{ 'cart.estimated_total' | t }}</span>
+          <span class="amoy-drawer__total-value">{{ cart.total_price | money }}</span>
+        </div>
+        <p class="amoy-drawer__note">{{ 'cart.taxes_and_shipping' | t }}</p>
+
+        <form action="{{ routes.cart_url }}" method="post" novalidate>
+          <button type="submit" name="checkout" class="amoy-btn amoy-btn--primary amoy-btn--full amoy-btn--lg">{{ 'cart.checkout' | t }}</button>
+        </form>
+        <a href="{{ routes.cart_url }}" class="amoy-btn amoy-btn--secondary amoy-btn--full" style="margin-top:10px">{{ 'cart.title' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": []
+}
+{% endschema %}

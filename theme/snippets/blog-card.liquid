@@ -1,0 +1,49 @@
+{%- comment -%}
+  Shared article card.
+
+  Accepts:
+  - article: {Object} article (required)
+  - lazy: {Boolean} lazy-load the image (default true)
+{%- endcomment -%}
+
+{%- liquid
+  assign words = article.content | strip_html | number_of_words
+  assign read_time = words | divided_by: 200 | plus: 1
+  assign loading = 'lazy'
+  if lazy == false
+    assign loading = 'eager'
+  endif
+-%}
+
+<article class="post-card">
+  <a href="{{ article.url }}" class="post-card-link">
+    <div class="card-img">
+      {%- if article.image -%}
+        {{
+          article.image
+          | image_url: width: 900
+          | image_tag:
+            widths: '300,450,600,900',
+            sizes: '(min-width: 990px) 380px, 90vw',
+            loading: loading,
+            alt: article.image.alt | default: article.title
+        }}
+      {%- else -%}
+        <div class="img-placeholder">{{ article.title | truncate: 1, '' }}</div>
+      {%- endif -%}
+    </div>
+    <div class="card-body">
+      {%- if article.tags.size > 0 -%}
+        <span class="post-category">{{ article.tags.first }}</span>
+      {%- endif -%}
+      <h3 class="card-title">{{ article.title }}</h3>
+      <p class="card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 140 }}</p>
+      <div class="post-meta">
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'date' }}</time>
+        <span class="post-meta-sep"></span>
+        <span>{{ 'blog.min_read' | t: count: read_time }}</span>
+      </div>
+      <span class="read-more">{{ 'blog.read_article' | t }} &rarr;</span>
+    </div>
+  </a>
+</article>

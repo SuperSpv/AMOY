@@ -1,0 +1,97 @@
+{%- comment -%}
+  JSON-LD for the store, products and articles.
+  Every value comes from shop data or theme settings — nothing is hardcoded.
+{%- endcomment -%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | json }},
+  {%- if settings.share_image != blank -%}
+    "logo": {{ settings.share_image | image_url: width: 400 | prepend: 'https:' | json }},
+    "image": {{ settings.share_image | image_url: width: 1200 | prepend: 'https:' | json }},
+  {%- endif -%}
+  {%- if shop.description != blank -%}"description": {{ shop.description | json }},{%- endif -%}
+  {%- if settings.contact_email != blank -%}"email": {{ settings.contact_email | json }},{%- endif -%}
+  {%- if settings.contact_phone != blank -%}"telephone": {{ settings.contact_phone | remove: ' ' | json }},{%- endif -%}
+  "areaServed": {{ settings.contact_country_code | json }},
+  "currenciesAccepted": {{ cart.currency.iso_code | json }},
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": {{ settings.contact_address | json }},
+    "addressCountry": {{ settings.contact_country_code | json }},
+    "addressLocality": {{ settings.contact_city | json }},
+    "addressRegion": {{ settings.contact_region | json }}
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+    "opens": {{ settings.business_opens | json }},
+    "closes": {{ settings.business_closes | json }}
+  }
+}
+</script>
+
+{%- if request.page_type == 'product' -%}
+  {%- assign pvar = product.selected_or_first_available_variant -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    {%- if product.featured_image -%}
+      "image": [{{ product.featured_image | image_url: width: 1200 | prepend: 'https:' | json }}],
+    {%- endif -%}
+    "description": {{ product.description | strip_html | truncate: 300 | json }},
+    "sku": {{ pvar.sku | default: product.handle | json }},
+    "brand": { "@type": "Brand", "name": {{ product.vendor | default: shop.name | json }} },
+    {%- if product.price_varies -%}
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "lowPrice": {{ product.price_min | divided_by: 100.0 | json }},
+        "highPrice": {{ product.price_max | divided_by: 100.0 | json }},
+        "offerCount": {{ product.variants.size }},
+        "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "url": {{ canonical_url | json }}
+      }
+    {%- else -%}
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "price": {{ pvar.price | divided_by: 100.0 | json }},
+        "priceValidUntil": "{{ 'now' | date: '%Y' | plus: 1 }}-12-31",
+        "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "url": {{ canonical_url | json }}
+      }
+    {%- endif -%}
+  }
+  </script>
+{%- endif -%}
+
+{%- if request.page_type == 'article' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ article.title | json }},
+    {%- if article.image -%}
+      "image": [{{ article.image | image_url: width: 1200 | prepend: 'https:' | json }}],
+    {%- endif -%}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+    "dateModified": {{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+    "author": { "@type": "Organization", "name": {{ shop.name | json }} },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }}
+      {%- if settings.share_image != blank -%}
+        , "logo": { "@type": "ImageObject", "url": {{ settings.share_image | image_url: width: 400 | prepend: 'https:' | json }} }
+      {%- endif -%}
+    },
+    "mainEntityOfPage": {{ canonical_url | json }},
+    "description": {{ article.excerpt_or_content | strip_html | truncate: 300 | json }}
+  }
+  </script>
+{%- endif -%}

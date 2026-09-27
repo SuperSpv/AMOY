@@ -1,0 +1,114 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "color_primary": "#1C1B4D",
+    "color_accent": "#B08A22",
+    "color_background": "#FBFBFD",
+    "type_header_font": "cormorant_n4",
+    "logo": "shopify://shop_images/mark-navy.png",
+    "logo_width": 160,
+    "share_image": "shopify://shop_images/Two_white_mannequins_against_a_purple_background.png",
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#FBFBFD",
+          "background_gradient": "",
+          "text": "#1C1B4D",
+          "button": "#1C1B4D",
+          "button_label": "#FFFFFF",
+          "secondary_button_label": "#1C1B4D",
+          "shadow": "#1C1B4D"
+        }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#FFFFFF",
+          "background_gradient": "",
+          "text": "#1A1A2E",
+          "button": "#1C1B4D",
+          "button_label": "#FFFFFF",
+          "secondary_button_label": "#1C1B4D",
+          "shadow": "#1C1B4D"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#F3F3F6",
+          "background_gradient": "",
+          "text": "#1A1A2E",
+          "button": "#B08A22",
+          "button_label": "#FFFFFF",
+          "secondary_button_label": "#8B6914",
+          "shadow": "#1C1B4D"
+        }
+      },
+      "scheme-4": {
+        "settings": {
+          "background": "#1C1B4D",
+          "background_gradient": "",
+          "text": "#FBFBFD",
+          "button": "#B08A22",
+          "button_label": "#FFFFFF",
+          "secondary_button_label": "#D4AF5A",
+          "shadow": "#0F0E2D"
+        }
+      },
+      "scheme-5": {
+        "settings": {
+          "background": "#0F0E2D",
+          "background_gradient": "",
+          "text": "#FFFFFF",
+          "button": "#FFFFFF",
+          "button_label": "#0F0E2D",
+          "secondary_button_label": "#D4AF5A",
+          "shadow": "#000000"
+        }
+      }
+    },
+    "heading_scale": 100,
+    "type_body_font": "archivo_n4",
+    "body_scale": 100,
+    "load_arabic_font": true,
+    "page_width": 1320,
+    "corner_radius": "soft",
+    "show_page_transition": true,
+    "card_image_fit": "contain",
+    "card_image_ratio": "portrait",
+    "card_show_vendor": true,
+    "card_show_quick_add": true,
+    "card_show_sale_badge": true,
+    "card_show_second_image": true,
+    "cart_type": "drawer",
+    "cart_show_note": true,
+    "volume_bar_enabled": true,
+    "volume_threshold": 4,
+    "volume_percent": 10,
+    "contact_phone": "+966 54 727 5228",
+    "contact_email": "support@amoylimited.com",
+    "contact_address": "Al-Madinah Al-Munawwarah Rd, Ruwais 8278, Unit 2, Jeddah 23215, Kingdom of Saudi Arabia",
+    "contact_city": "Jeddah",
+    "contact_region": "Makkah",
+    "contact_country_code": "SA",
+    "whatsapp_enabled": true,
+    "whatsapp_number": "966547275228",
+    "social_instagram": "",
+    "social_tiktok": "",
+    "social_snapchat": "",
+    "social_x": "",
+    "social_linkedin": "",
+    "social_youtube": "",
+    "enable_structured_data": true,
+    "business_opens": "09:00",
+    "business_closes": "18:00",
+    "custom_css": "",
+    "content_for_index": []
+  }
+}

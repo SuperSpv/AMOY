@@ -1,0 +1,107 @@
+{{ 'section-amoy-collections.css' | asset_url | stylesheet_tag }}
+
+<section class="amoy-block amoy-colcards">
+  <div class="amoy-container">
+    <div class="amoy-colcards__head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="amoy-eyebrow">{{ section.settings.eyebrow }}</div>
+        {%- endif -%}
+        <h2 class="amoy-display amoy-display--lg" style="margin:16px 0 0">{{ section.settings.heading }}</h2>
+      </div>
+      <a href="{{ routes.all_products_collection_url }}" class="amoy-colcards__viewall">
+        {{ 'general.shop_all' | t }}
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="amoy-grid--3">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign linked = block.settings.collection
+          assign card_url = block.settings.url
+          if linked != blank
+            assign card_url = linked.url
+          endif
+          assign card_image = block.settings.image
+          if card_image == blank and linked != blank
+            assign card_image = linked.image | default: linked.products.first.featured_image
+          endif
+          assign card_name = block.settings.name
+          if card_name == blank and linked != blank
+            assign card_name = linked.title
+          endif
+          assign card_desc = block.settings.desc
+          if card_desc == blank and linked != blank
+            assign card_desc = linked.description | strip_html | truncate: 90
+          endif
+          assign card_bg = block.settings.bg_color
+        -%}
+        <a
+          href="{{ card_url }}"
+          class="amoy-card amoy-card--interactive amoy-collection-card"
+          {{ block.shopify_attributes }}
+          {% if card_bg != blank and card_bg != '#ffffff' %}style="background:{{ card_bg }}"{% endif %}
+        >
+          <div class="amoy-card__media amoy-collection-card__media">
+            {%- if card_image != blank -%}
+              {{ card_image | image_url: width: 800 | image_tag: widths: '300,450,600,800', sizes: '(min-width: 990px) 400px, 90vw', loading: 'lazy', alt: card_name }}
+            {%- else -%}
+              <div class="amoy-placeholder">{% render 'icon', icon: 'placeholder', size: 48 %}</div>
+            {%- endif -%}
+            {%- if block.settings.caption != blank -%}
+              <span class="amoy-media-label">{{ block.settings.caption }}</span>
+            {%- endif -%}
+            <span class="amoy-collection-cta">{{ 'general.shop_all' | t }} &rarr;</span>
+          </div>
+          <div class="amoy-card__body">
+            <div class="amoy-collection-card__row">
+              {%- if block.settings.tag != blank -%}
+                <span class="amoy-eyebrow" style="margin-bottom:0">{{ block.settings.tag }}</span>
+              {%- endif -%}
+              <span class="amoy-collection-arrow">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </div>
+            <h3 class="amoy-collection-card__title">{{ card_name }}</h3>
+            {%- if card_desc != blank -%}
+              <p class="amoy-collection-card__desc">{{ card_desc }}</p>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection cards",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Collections" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A character for every brand" }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection card",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection", "info": "Pick a collection and its title, description, image and link are filled in automatically. The fields below override it." },
+        { "type": "text", "id": "name", "label": "Name override" },
+        { "type": "text", "id": "tag", "label": "Tag", "default": "Female" },
+        { "type": "text", "id": "desc", "label": "Description override" },
+        { "type": "text", "id": "caption", "label": "Image caption" },
+        { "type": "url", "id": "url", "label": "Link override" },
+        { "type": "image_picker", "id": "image", "label": "Image override" },
+        { "type": "color", "id": "bg_color", "label": "Card background", "default": "#FFFFFF" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection cards",
+      "blocks": [{ "type": "collection_card" }, { "type": "collection_card" }, { "type": "collection_card" }]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+{{ 'section-collection.css' | asset_url | stylesheet_tag }}
+
+<section class="amoy-404">
+  <div class="amoy-404__inner">
+    <div class="amoy-404__code">404</div>
+    <div class="amoy-eyebrow amoy-eyebrow--brass amoy-404__eyebrow">{{ section.settings.eyebrow | default: 'page.error_404_eyebrow' | t }}</div>
+    <h1 class="amoy-display amoy-display--md amoy-404__title">{{ section.settings.heading | default: 'page.error_404_title' | t }}</h1>
+    <p class="amoy-404__body">{{ section.settings.subheading | default: 'page.error_404_body' | t }}</p>
+    <div class="amoy-cta__btns">
+      <a href="{{ routes.root_url }}" class="amoy-btn amoy-btn--primary amoy-btn--lg">{{ section.settings.primary_label }}</a>
+      <a href="{{ routes.all_products_collection_url }}" class="amoy-btn amoy-btn--secondary amoy-btn--lg">{{ section.settings.secondary_label }}</a>
+    </div>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="amoy-search__form amoy-404__search">
+      <input type="hidden" name="options[prefix]" value="last">
+      <label class="amoy-visually-hidden" for="Search404">{{ 'search.label' | t }}</label>
+      <input id="Search404" type="search" name="q" class="amoy-search__input" placeholder="{{ 'search.placeholder' | t }}">
+      <button type="submit" class="amoy-btn amoy-btn--secondary">{{ 'search.submit' | t }}</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .amoy-404{min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px;background:var(--paper)}
+  .amoy-404__inner{max-width:620px}
+  .amoy-404__code{font-family:var(--font-display);font-weight:600;font-size:clamp(110px,22vw,200px);line-height:.86;color:var(--navy-700);letter-spacing:-.04em}
+  .amoy-404__eyebrow{justify-content:center;margin-top:8px}
+  .amoy-404__title{margin:14px 0}
+  .amoy-404__body{font-size:16px;line-height:1.65;color:var(--text-muted);margin:0 auto 32px;max-width:46ch}
+  .amoy-404__search{margin:26px auto 0;justify-content:center}
+</style>
+
+{% schema %}
+{
+  "name": "404 page",
+  "settings": [
+    { "type": "paragraph", "content": "Leave a field blank to use the translated default from Content → Languages." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading" },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Back to home" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Browse the shop" }
+  ],
+  "presets": [{ "name": "404 page" }]
+}
+{% endschema %}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" dir="{% if request.locale.iso_code contains 'ar' %}rtl{% else %}ltr{% endif %}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ shop.name }}</title>
+    {{ content_for_header }}
+    {{ 'amoy.css' | asset_url | stylesheet_tag }}
+    <style>
+      .gc{max-width:520px;margin:0 auto;padding:60px 24px;text-align:center}
+      .gc__card{background:var(--white);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:34px;box-shadow:var(--shadow-md)}
+      .gc__value{font-family:var(--font-display);font-size:54px;font-weight:600;color:var(--navy-700);line-height:1;margin:14px 0}
+      .gc__code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:20px;letter-spacing:.14em;background:var(--mist);border-radius:var(--radius-sm);padding:14px;margin:20px 0;word-break:break-all}
+      .gc__qr{display:flex;justify-content:center;margin:20px 0}
+      .gc__actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+      @media print{.gc__actions{display:none}}
+    </style>
+  </head>
+  <body class="template-gift-card">
+    <div class="gc">
+      {%- if settings.logo != blank -%}
+        {{ settings.logo | image_url: width: 400 | image_tag: style: 'max-width:180px;margin:0 auto 24px', alt: shop.name }}
+      {%- else -%}
+        <div class="amoy-display amoy-display--md" style="margin-bottom:24px">{{ shop.name }}</div>
+      {%- endif -%}
+
+      <div class="gc__card">
+        <div class="amoy-eyebrow" style="justify-content:center">{{ shop.name }}</div>
+        <div class="gc__value">{{ gift_card.balance | money }}</div>
+        {%- if gift_card.balance != gift_card.initial_value -%}
+          <p style="font-size:13px;color:var(--text-muted)">Originally {{ gift_card.initial_value | money }}</p>
+        {%- endif -%}
+
+        <div class="gc__qr">
+          <img src="/services/gift_card_images/{{ gift_card.qr_identifier }}/qr_code" alt="QR code" width="160" height="160">
+        </div>
+
+        <div class="gc__code">{{ gift_card.code | format_code }}</div>
+
+        {%- if gift_card.expired -%}
+          <p style="color:#b3261e;font-size:13.5px">This gift card has expired.</p>
+        {%- elsif gift_card.expires_on -%}
+          <p style="color:var(--text-muted);font-size:13.5px">Expires {{ gift_card.expires_on | date: format: 'date' }}</p>
+        {%- endif -%}
+
+        <div class="gc__actions">
+          <a href="{{ shop.url }}" class="amoy-btn amoy-btn--primary">{{ 'general.shop_all' | t }}</a>
+          <button type="button" class="amoy-btn amoy-btn--secondary" onclick="window.print()">Print</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+<section class="amoy-block" style="background:var(--navy-900)">
+  <div class="amoy-container" style="max-width:760px;text-align:center">
+    <div class="amoy-eyebrow amoy-eyebrow--brass" style="justify-content:center">{{ section.settings.eyebrow }}</div>
+    <h2 class="amoy-display amoy-display--lg" style="color:#fff;margin:18px 0 18px">{{ section.settings.heading }}</h2>
+    <p style="font-size:18px;line-height:1.65;color:var(--navy-200);max-width:48ch;margin:0 auto 34px">{{ section.settings.subheading }}</p>
+    <div class="amoy-cta__btns">
+      <a href="{{ section.settings.primary_url | default: '/pages/contact' }}" class="amoy-btn amoy-btn--inverse amoy-btn--lg">{{ section.settings.primary_label }}</a>
+      <a href="{{ section.settings.secondary_url | default: '/pages/contact' }}" class="amoy-btn amoy-btn--brass amoy-btn--lg">{{ section.settings.secondary_label }}</a>
+    </div>
+    {%- if section.settings.contact_line != blank -%}
+      <p style="font-size:13px;color:var(--navy-400);margin-top:26px">{{ section.settings.contact_line }}</p>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{"name":"CTA Band","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Start a project"},{"type":"text","id":"heading","label":"Heading","default":"Request the 2026 catalog."},{"type":"textarea","id":"subheading","label":"Subheading","default":"Tell us about your store and we'll send the full collection, finishes and lead times for Saudi Arabia."},{"type":"text","id":"primary_label","label":"Primary button","default":"Request a catalog"},{"type":"url","id":"primary_url","label":"Primary URL"},{"type":"text","id":"secondary_label","label":"Secondary button","default":"Book a consultation"},{"type":"url","id":"secondary_url","label":"Secondary URL"},{"type":"text","id":"contact_line","label":"Contact line","default":"support@amoylimited.com · amoylimited.com · Jeddah, Saudi Arabia"}],"presets":[{"name":"CTA Band"}]}
+{% endschema %}

@@ -1,0 +1,63 @@
+{{ 'section-collection.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} { --collection-cols: {{ section.settings.columns_desktop }}; }
+</style>
+
+{%- liquid
+  assign use_blocks = false
+  if section.settings.source == 'selected' and section.blocks.size > 0
+    assign use_blocks = true
+  endif
+-%}
+
+<div class="amoy-collection amoy-container">
+  <div class="amoy-collection__head">
+    <div class="amoy-eyebrow">{{ 'collection.shop' | t }}</div>
+    <h1 class="amoy-display amoy-display--lg">{{ 'collection.all_collections' | t }}</h1>
+  </div>
+
+  <div class="amoy-collection__grid" style="margin-top:30px">
+    {%- if use_blocks -%}
+      {%- for block in section.blocks -%}
+        {%- assign c = collections[block.settings.collection] -%}
+        {%- if c != blank -%}
+          {% render 'collection-card', card_collection: c, block: block %}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for c in collections -%}
+        {%- if section.settings.hide_empty and c.all_products_count == 0 -%}{%- continue -%}{%- endif -%}
+        {% render 'collection-card', card_collection: c %}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "settings": [
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Collections shown",
+      "options": [
+        { "value": "all", "label": "All collections" },
+        { "value": "selected", "label": "Selected collections" }
+      ],
+      "default": "all"
+    },
+    { "type": "checkbox", "id": "hide_empty", "label": "Hide empty collections", "default": true },
+    { "type": "range", "id": "columns_desktop", "min": 2, "max": 5, "step": 1, "label": "Columns on desktop", "default": 3 }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [{ "type": "collection", "id": "collection", "label": "Collection" }]
+    }
+  ],
+  "presets": [{ "name": "Collections list" }]
+}
+{% endschema %}

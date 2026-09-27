@@ -1,0 +1,196 @@
+<!doctype html>
+{%- liquid
+  assign is_rtl = false
+  if request.locale.iso_code contains 'ar'
+    assign is_rtl = true
+  endif
+
+  assign meta_description = page_description | default: shop.description
+
+  assign body_font = settings.type_body_font
+  assign body_bold = body_font | font_modify: 'weight', 'bolder'
+  assign body_italic = body_font | font_modify: 'style', 'italic'
+  assign heading_font = settings.type_header_font
+-%}
+<html lang="{{ request.locale.iso_code }}" dir="{% if is_rtl %}rtl{% else %}ltr{% endif %}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_primary }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <title>
+      {{- page_title -}}
+      {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {%- if meta_description != blank -%}
+      <meta name="description" content="{{ meta_description | escape }}">
+    {%- endif -%}
+
+    {%- comment -%} hreflang alternates — driven by Markets {%- endcomment -%}
+    {%- if localization.available_languages.size > 1 -%}
+      {%- liquid
+        assign cur_root = localization.language.root_url
+        assign rel_path = request.path
+        unless cur_root == '/'
+          assign rel_path = rel_path | remove_first: cur_root
+        endunless
+        assign rel_path = rel_path | prepend: '/' | replace: '//', '/'
+      -%}
+      {%- for language in localization.available_languages -%}
+        {%- assign href_path = rel_path | prepend: language.root_url | replace: '//', '/' -%}
+        <link rel="alternate" hreflang="{{ language.iso_code }}" href="{{ request.origin }}{{ href_path }}">
+      {%- endfor -%}
+      <link rel="alternate" hreflang="x-default" href="{{ request.origin }}{{ rel_path }}">
+    {%- endif -%}
+
+    {%- comment -%} Open Graph / social {%- endcomment -%}
+    <meta property="og:site_name" content="{{ shop.name }}">
+    <meta property="og:type" content="{% if request.page_type == 'product' %}product{% elsif request.page_type == 'article' %}article{% else %}website{% endif %}">
+    <meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
+    {%- if meta_description != blank -%}<meta property="og:description" content="{{ meta_description | escape }}">{%- endif -%}
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:locale" content="{{ request.locale.iso_code }}">
+    {%- liquid
+      assign og_image = nil
+      if request.page_type == 'product' and product.featured_image
+        assign og_image = product.featured_image
+      elsif request.page_type == 'article' and article.image
+        assign og_image = article.image
+      elsif settings.share_image != blank
+        assign og_image = settings.share_image
+      endif
+    -%}
+    {%- if og_image -%}
+      <meta property="og:image" content="https:{{ og_image | image_url: width: 1200 }}">
+      <meta name="twitter:card" content="summary_large_image">
+    {%- endif -%}
+
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+
+    {{ content_for_header }}
+
+    {%- comment -%} Fonts served by Shopify — no external font request {%- endcomment -%}
+    {% style %}
+      {{ body_font | font_face: font_display: 'swap' }}
+      {{ body_bold | font_face: font_display: 'swap' }}
+      {{ body_italic | font_face: font_display: 'swap' }}
+      {{ heading_font | font_face: font_display: 'swap' }}
+
+      {%- for scheme in settings.color_schemes -%}
+        {%- assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id -%}
+        {% if forloop.index == 1 %}:root,{% endif %}
+        .color-{{ scheme.id }} {
+          --color-background: {{ scheme.settings.background }};
+          --color-foreground: {{ scheme.settings.text }};
+          --color-button: {{ scheme.settings.button }};
+          --color-button-text: {{ scheme.settings.button_label }};
+          --color-link: {{ scheme.settings.secondary_button_label }};
+          --color-shadow: {{ scheme.settings.shadow }};
+        }
+      {%- endfor -%}
+
+      :root {
+        --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+        --font-sans: {{ body_font.family }}, {{ body_font.fallback_families }};
+        --font-display: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+        --body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+        --heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
+        --container-max: {{ settings.page_width }}px;
+        --navy-700: {{ settings.color_primary }};
+        --accent: {{ settings.color_primary }};
+        --brass-500: {{ settings.color_accent }};
+        --paper: {{ settings.color_background }};
+        --logo-w: {{ settings.logo_width }}px;
+        {%- case settings.corner_radius -%}
+          {%- when 'sharp' -%}--radius-sm: 0; --radius-md: 0; --radius-lg: 0;
+          {%- when 'round' -%}--radius-sm: 10px; --radius-md: 18px; --radius-lg: 26px;
+        {%- endcase -%}
+      }
+    {% endstyle %}
+
+    {{ 'amoy.css' | asset_url | stylesheet_tag }}
+
+    {%- if is_rtl and settings.load_arabic_font -%}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+        :root { --font-display: 'IBM Plex Sans Arabic', sans-serif; }
+        body, button, input, select, textarea { font-family: 'IBM Plex Sans Arabic', var(--font-body), sans-serif; }
+      </style>
+    {%- endif -%}
+
+    {%- if settings.enable_structured_data -%}
+      {%- render 'structured-data' -%}
+    {%- endif -%}
+
+    {{ settings.custom_css }}
+  </head>
+
+  <body class="template-{{ request.page_type | handle }}">
+    <a class="amoy-skip-link" href="#main-content">{{ 'general.skip_to_content' | t }}</a>
+
+    {%- if settings.show_page_transition -%}{%- render 'amoy-loader' -%}{%- endif -%}
+
+    {% sections 'header-group' %}
+
+    <div class="amoy-scroll-clip">
+      <main id="main-content" role="main" tabindex="-1">
+        {{ content_for_layout }}
+      </main>
+
+      {% sections 'footer-group' %}
+    </div>
+
+    {%- if settings.cart_type == 'drawer' -%}
+      {% section 'cart-drawer' %}
+    {%- endif -%}
+
+    {%- if settings.whatsapp_enabled and settings.whatsapp_number != blank -%}
+      <a
+        href="https://wa.me/{{ settings.whatsapp_number }}"
+        class="amoy-wa"
+        target="_blank"
+        rel="noopener"
+        aria-label="{{ 'accessibility.whatsapp' | t }}"
+      >{% render 'icon', icon: 'whatsapp', size: 28 %}</a>
+    {%- endif -%}
+
+    <div id="amoy-toast" class="amoy-toast" role="status" aria-live="polite"></div>
+
+    <script>
+      window.amoyStrings = {
+        addedToCart: {{ 'cart.added' | t | json }},
+        addError: {{ 'cart.add_error' | t | json }},
+        soldOut: {{ 'products.sold_out' | t | json }},
+        unavailable: {{ 'products.unavailable' | t | json }},
+        addToCart: {{ 'products.add_to_cart' | t | json }},
+        cartTitle: {{ 'cart.title' | t | json }},
+        addShort: {{ 'products.add_short' | t | json }},
+        quantity: {{ 'cart.quantity' | t | json }},
+        remove: {{ 'cart.remove' | t | json }},
+        empty: {{ 'cart.empty' | t | json }}
+      };
+      window.amoyRoutes = {
+        cart: {{ routes.cart_url | json }},
+        cartAdd: {{ routes.cart_add_url | json }},
+        cartChange: {{ routes.cart_change_url | json }},
+        cartUpdate: {{ routes.cart_update_url | json }},
+        predictiveSearch: {{ routes.predictive_search_url | json }}
+      };
+      window.amoySettings = {
+        cartType: {{ settings.cart_type | json }},
+        moneyFormat: {{ shop.money_format | strip_html | json }}
+      };
+    </script>
+    <script src="{{ 'amoy.js' | asset_url }}" defer></script>
+  </body>
+</html>

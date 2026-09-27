@@ -1,0 +1,203 @@
+{{ 'section-footer.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --footer-bg: {{ section.settings.background_color }};
+    --footer-fg: {{ section.settings.text_color }};
+    --footer-cols: {{ section.settings.columns }};
+  }
+</style>
+
+<footer class="amoy-footer" role="contentinfo">
+  <div class="amoy-container">
+    {%- if section.settings.show_newsletter -%}
+      <div class="amoy-footer__news">
+        <div class="amoy-footer__news-copy">
+          <p class="amoy-footer__news-title">{{ 'newsletter.title' | t }}</p>
+          <p class="amoy-footer__news-sub">{{ 'newsletter.subtitle' | t }}</p>
+        </div>
+        {%- form 'customer', class: 'amoy-footer__news-form-wrap' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="amoy-footer__news-success">{{ 'newsletter.success' | t }}</p>
+          {%- else -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="amoy-footer__news-form">
+              <label class="amoy-visually-hidden" for="FooterEmail-{{ section.id }}">{{ 'newsletter.label' | t }}</label>
+              <input
+                id="FooterEmail-{{ section.id }}"
+                type="email"
+                name="contact[email]"
+                class="amoy-footer__news-input"
+                required
+                autocomplete="email"
+                placeholder="{{ 'newsletter.placeholder' | t }}"
+                value="{{ form.email }}"
+              >
+              <button type="submit" class="amoy-btn amoy-btn--brass">{{ 'newsletter.button' | t }}</button>
+            </div>
+            {%- if form.errors -%}
+              <p class="amoy-footer__news-error">{{ form.errors.translated_fields.email }} {{ form.errors.messages.email }}</p>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+
+    <div class="amoy-footer__grid">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+
+          {%- when 'brand' -%}
+            <div class="amoy-footer__col amoy-footer__col--brand" {{ block.shopify_attributes }}>
+              {%- if block.settings.logo != blank -%}
+                {{ block.settings.logo | image_url: width: 500 | image_tag: class: 'amoy-footer__logo', widths: '140,200,280,400', sizes: '200px', alt: shop.name }}
+              {%- else -%}
+                <span class="amoy-footer__wordmark">{{ shop.name }}</span>
+              {%- endif -%}
+              {%- if block.settings.tagline != blank -%}
+                <div class="amoy-footer__tagline rte">{{ block.settings.tagline }}</div>
+              {%- endif -%}
+              {%- if block.settings.show_social -%}
+                {%- render 'social-icons' -%}
+              {%- endif -%}
+            </div>
+
+          {%- when 'menu' -%}
+            {%- if block.settings.menu != blank and linklists[block.settings.menu].links.size > 0 -%}
+              <div class="amoy-footer__col" {{ block.shopify_attributes }}>
+                <h2 class="amoy-footer__col-title">{{ block.settings.heading | default: linklists[block.settings.menu].title }}</h2>
+                <ul class="amoy-footer__links" aria-label="{{ 'accessibility.footer_navigation' | t }}">
+                  {%- for link in linklists[block.settings.menu].links -%}
+                    <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+
+          {%- when 'text' -%}
+            <div class="amoy-footer__col" {{ block.shopify_attributes }}>
+              {%- if block.settings.heading != blank -%}
+                <h2 class="amoy-footer__col-title">{{ block.settings.heading }}</h2>
+              {%- endif -%}
+              <div class="amoy-footer__text rte">{{ block.settings.text }}</div>
+            </div>
+
+          {%- when 'contact' -%}
+            <div class="amoy-footer__col" {{ block.shopify_attributes }}>
+              <h2 class="amoy-footer__col-title">{{ block.settings.heading }}</h2>
+              <ul class="amoy-footer__links">
+                {%- assign phone_digits = settings.contact_phone | remove: ' ' | remove: '-' -%}
+                {%- if settings.contact_phone != blank -%}
+                  <li><a href="tel:{{ phone_digits }}" dir="ltr">{{ settings.contact_phone }}</a></li>
+                {%- endif -%}
+                {%- if settings.whatsapp_number != blank -%}
+                  <li><a href="https://wa.me/{{ settings.whatsapp_number }}" target="_blank" rel="noopener">WhatsApp</a></li>
+                {%- endif -%}
+                {%- if settings.contact_email != blank -%}
+                  <li><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></li>
+                {%- endif -%}
+                {%- if settings.contact_address != blank -%}
+                  <li><address class="amoy-footer__address">{{ settings.contact_address }}</address></li>
+                {%- endif -%}
+              </ul>
+            </div>
+
+          {%- when '@app' -%}
+            <div class="amoy-footer__col amoy-footer__col--app" {{ block.shopify_attributes }}>{% render block %}</div>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="amoy-footer__legal">
+      <div class="amoy-footer__legal-links">
+        {%- if section.settings.legal_menu != blank -%}
+          {%- for link in linklists[section.settings.legal_menu].links -%}
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          {%- endfor -%}
+        {%- endif -%}
+        {%- for policy in shop.policies -%}
+          {%- if policy != blank -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="amoy-footer__legal-right">
+        {%- if section.settings.show_localization -%}
+          {%- render 'localization-form', context: 'footer' -%}
+        {%- endif -%}
+        {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+          <div class="amoy-footer__pay" role="list" aria-label="{{ 'accessibility.payment_methods' | t }}">
+            {%- for type in shop.enabled_payment_types -%}
+              <span role="listitem">{{ type | payment_type_svg_tag: class: 'amoy-footer__pay-icon' }}</span>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="amoy-footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ powered_by_link }}</span>
+      {%- if section.settings.bottom_note != blank -%}
+        <span>{{ section.settings.bottom_note }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "header", "content": "Newsletter" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter signup", "default": true, "info": "Subscribers are saved as customers tagged newsletter." },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Columns on desktop", "default": 5 },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#1C1B4D" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#FBFBFD" },
+    { "type": "header", "content": "Bottom bar" },
+    { "type": "link_list", "id": "legal_menu", "label": "Legal menu", "info": "Store policies from Settings → Policies are appended automatically." },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true },
+    { "type": "checkbox", "id": "show_localization", "label": "Show language / country selector", "default": false },
+    { "type": "text", "id": "bottom_note", "label": "Bottom note", "default": "Elegance in every curve." }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "logo", "label": "Logo" },
+        { "type": "richtext", "id": "tagline", "label": "Tagline", "default": "<p>Premium fiberglass mannequins, hand-finished in Jeddah and delivered across the Kingdom of Saudi Arabia.</p>" },
+        { "type": "checkbox", "id": "show_social", "label": "Show social icons", "default": true, "info": "Links come from Theme settings → Contact & social." }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "info": "Leave blank to use the menu name." },
+        { "type": "link_list", "id": "menu", "label": "Menu", "info": "Edit links in Online Store → Navigation." }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "text", "label": "Text" }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact column",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Contact" },
+        { "type": "paragraph", "content": "Phone, email, address and WhatsApp come from Theme settings → Contact & social." }
+      ]
+    },
+    { "type": "@app" }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}
