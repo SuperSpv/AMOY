@@ -1,0 +1,187 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "pagination": "Pagination",
+    "continue_shopping": "Continue shopping",
+    "close": "Close",
+    "menu": "Menu",
+    "loading": "Loading...",
+    "all": "All",
+    "view": "View",
+    "previous": "Previous",
+    "next": "Next",
+    "shop_all": "Shop all",
+    "back_to_shop": "Back to shop",
+    "skip_to_content": "Skip to content",
+    "share": "Share",
+    "language": "Language",
+    "country_region": "Country/region"
+  },
+  "accessibility": {
+    "cart_count": "Cart, {{ count }} items",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "open_filters": "Open filters",
+    "close_filters": "Close filters",
+    "view_image": "View image {{ index }}",
+    "whatsapp": "Chat on WhatsApp",
+    "announcement": "Announcement",
+    "main_navigation": "Main navigation",
+    "footer_navigation": "Footer navigation",
+    "payment_methods": "Accepted payment methods",
+    "increase_quantity": "Increase quantity",
+    "decrease_quantity": "Decrease quantity",
+    "remove_item": "Remove item"
+  },
+  "newsletter": {
+    "title": "Join the AMOY list",
+    "subtitle": "New collections, guides and trade offers — straight to your inbox.",
+    "placeholder": "Your email address",
+    "label": "Email address",
+    "button": "Subscribe",
+    "success": "Thanks — you're on the list!"
+  },
+  "search": {
+    "title": "Search the store",
+    "eyebrow": "Search",
+    "label": "Search",
+    "placeholder": "Search mannequins, display forms…",
+    "submit": "Search",
+    "prompt": "Enter a term to search our products and articles.",
+    "results_for": "{{ count }} results for",
+    "no_results_for": "No results for",
+    "try_again_html": "Try different keywords or browse",
+    "all_products": "all products",
+    "suggestions": "Suggestions",
+    "products": "Products",
+    "pages": "Pages",
+    "articles": "Articles",
+    "view_all_results": "View all results"
+  },
+  "cart": {
+    "eyebrow": "Your cart",
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "browse": "Browse the collection",
+    "summary": "Order summary",
+    "subtotal": "Subtotal",
+    "delivery": "Delivery",
+    "delivery_quoted": "Quoted on confirmation",
+    "estimated_total": "Estimated total",
+    "fine_print": "Final pricing & delivery confirmed by our team.",
+    "checkout": "Proceed to checkout",
+    "update": "Update cart",
+    "remove": "Remove",
+    "increase": "Increase",
+    "decrease": "Decrease",
+    "quantity": "Quantity",
+    "product": "Product",
+    "total": "Total",
+    "note": "Order notes",
+    "note_placeholder": "Delivery instructions, finish requests, PO number…",
+    "discount": "Discount",
+    "ordering_bulk": "Ordering 10+ units?",
+    "request_quote": "Request a bulk quote",
+    "add_to_display": "Add to your display",
+    "added": "Added to cart",
+    "add_error": "Sorry, this item could not be added to cart",
+    "unlock_discount_html": "Add {{ count }} more to unlock {{ percent }} off",
+    "discount_unlocked": "Volume discount unlocked at checkout",
+    "taxes_and_shipping": "Taxes and shipping calculated at checkout."
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "options": "Options",
+    "add_short": "+ Add",
+    "from": "From",
+    "sale": "Sale",
+    "per_unit": "per unit",
+    "save": "Save",
+    "quantity": "Quantity",
+    "overview": "Overview",
+    "specifications": "Specifications",
+    "vendor": "Vendor",
+    "sku": "SKU",
+    "in_stock": "In stock",
+    "low_stock": "Low stock",
+    "request_bulk_quote": "Request a bulk quote instead",
+    "complete_display": "Complete the display",
+    "recommended": "Recommended",
+    "you_may_like": "You may also like"
+  },
+  "tiers": {
+    "quantity": "Quantity",
+    "price_per_unit": "Price / unit",
+    "request_quote": "Request a quote"
+  },
+  "collection": {
+    "shop": "Shop",
+    "all_collections": "All collections",
+    "pieces": "pieces",
+    "filter": "Filter",
+    "filter_and_sort": "Filter and sort",
+    "sort_by": "Sort by",
+    "product_count": "{{ count }} of {{ total }} products",
+    "no_products": "No products match these filters.",
+    "clear_filters": "Clear filters",
+    "clear_all": "Clear all",
+    "apply": "Apply",
+    "empty": "This collection is empty."
+  },
+  "blog": {
+    "eyebrow": "Journal",
+    "read_more": "Read more",
+    "back_to_blog": "Back to the journal",
+    "posted_on": "Posted on",
+    "by_author": "by {{ author }}",
+    "no_articles": "No articles yet.",
+    "read_article": "Read article",
+    "min_read": "{{ count }} min read",
+    "featured": "Featured",
+    "view_all_posts": "View all posts",
+    "page_of": "Page {{ current }} of {{ total }}",
+    "more_from": "More from the journal",
+    "tags": "Tags",
+    "no_posts": "No posts yet — check back soon."
+  },
+  "page": {
+    "error_404_title": "This page has wandered off.",
+    "error_404_eyebrow": "Page not found",
+    "error_404_body": "The page you were looking for doesn't exist or has moved. Let's get you back to the collection."
+  },
+  "contact": {
+    "brand": "Store / brand",
+    "city": "City",
+    "collection": "Collection of interest",
+    "message_placeholder": "Quantities, finishes, timelines…",
+    "submit": "Send request",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "success": "Thanks — we'll be in touch shortly."
+  },
+  "customer": {
+    "account": "Account",
+    "log_in": "Log in",
+    "log_out": "Log out",
+    "orders": "Orders",
+    "addresses": "Addresses",
+    "no_orders": "You haven't placed any orders yet.",
+    "order_number": "Order",
+    "date": "Date",
+    "payment_status": "Payment",
+    "fulfillment_status": "Fulfillment",
+    "total": "Total"
+  }
+}

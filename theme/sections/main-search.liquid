@@ -1,0 +1,91 @@
+{{ 'section-collection.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} { --collection-cols: {{ section.settings.columns_desktop }}; }
+</style>
+
+<div class="amoy-collection amoy-container">
+  <div class="amoy-collection__head">
+    <div class="amoy-eyebrow">{{ 'search.eyebrow' | t }}</div>
+    <h1 class="amoy-display amoy-display--lg">{{ 'search.title' | t }}</h1>
+  </div>
+
+  <form action="{{ routes.search_url }}" method="get" role="search" class="amoy-search__form">
+    <input type="hidden" name="options[prefix]" value="last">
+    {%- if section.settings.search_types != 'all' -%}
+      <input type="hidden" name="type" value="{{ section.settings.search_types }}">
+    {%- endif -%}
+    <label class="amoy-visually-hidden" for="SearchInput">{{ 'search.label' | t }}</label>
+    <input id="SearchInput" type="search" name="q" value="{{ search.terms | escape }}" class="amoy-search__input" placeholder="{{ 'search.placeholder' | t }}">
+    <button type="submit" class="amoy-btn amoy-btn--primary">{{ 'search.submit' | t }}</button>
+  </form>
+
+  {%- if search.performed -%}
+    {%- paginate search.results by section.settings.results_per_page -%}
+      <div class="amoy-collection__meta">
+        <span class="amoy-collection__count">
+          {%- if search.results_count > 0 -%}
+            {{ 'search.results_for' | t: count: search.results_count }} &ldquo;{{ search.terms | escape }}&rdquo;
+          {%- else -%}
+            {{ 'search.no_results_for' | t }} &ldquo;{{ search.terms | escape }}&rdquo;
+          {%- endif -%}
+        </span>
+      </div>
+
+      {%- if search.results_count > 0 -%}
+        <div class="amoy-collection__grid">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {%- liquid
+                assign card_lazy = true
+                if forloop.index <= 4
+                  assign card_lazy = false
+                endif
+              -%}
+              {% render 'product-card', card_product: item, lazy: card_lazy %}
+            {%- else -%}
+              <a href="{{ item.url }}" class="amoy-card amoy-card--interactive amoy-search__result">
+                <div class="amoy-card__type">{{ item.object_type }}</div>
+                <h3 class="amoy-card__title">{{ item.title }}</h3>
+                {%- if item.content != blank -%}
+                  <p class="amoy-search__excerpt">{{ item.content | strip_html | truncate: 140 }}</p>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- render 'pagination', paginate: paginate -%}
+      {%- else -%}
+        <p class="amoy-search__none">
+          {{ 'search.try_again_html' | t }}
+          <a href="{{ routes.all_products_collection_url }}">{{ 'search.all_products' | t }}</a>.
+        </p>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- else -%}
+    <p class="amoy-search__none">{{ 'search.prompt' | t }}</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [
+    { "type": "range", "id": "columns_desktop", "min": 2, "max": 5, "step": 1, "label": "Columns on desktop", "default": 3 },
+    { "type": "range", "id": "results_per_page", "min": 12, "max": 48, "step": 4, "label": "Results per page", "default": 24 },
+    {
+      "type": "select",
+      "id": "search_types",
+      "label": "Search in",
+      "options": [
+        { "value": "all", "label": "Everything" },
+        { "value": "product", "label": "Products only" },
+        { "value": "product,article,page", "label": "Products, articles and pages" }
+      ],
+      "default": "all"
+    }
+  ],
+  "presets": [{ "name": "Search results" }]
+}
+{% endschema %}

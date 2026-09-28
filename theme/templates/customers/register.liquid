@@ -1,0 +1,30 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<div class="amoy-customer amoy-customer--narrow">
+  <div class="amoy-eyebrow">{{ shop.name }}</div>
+  <h1 class="amoy-display amoy-display--md amoy-customer__title">Create account</h1>
+  {%- form 'create_customer', novalidate: 'novalidate' -%}
+    {%- if form.errors -%}
+      <div class="amoy-customer__errors">{{ form.errors | default_errors }}</div>
+    {%- endif -%}
+    <div class="amoy-customer__field">
+      <label class="amoy-label" for="RegisterFirstName">First name</label>
+      <input class="amoy-input" type="text" name="customer[first_name]" id="RegisterFirstName" autocomplete="given-name">
+    </div>
+    <div class="amoy-customer__field">
+      <label class="amoy-label" for="RegisterLastName">Last name</label>
+      <input class="amoy-input" type="text" name="customer[last_name]" id="RegisterLastName" autocomplete="family-name">
+    </div>
+    <div class="amoy-customer__field">
+      <label class="amoy-label" for="RegisterEmail">{{ 'contact.email' | t }}</label>
+      <input class="amoy-input" type="email" name="customer[email]" id="RegisterEmail" autocomplete="email" required>
+    </div>
+    <div class="amoy-customer__field">
+      <label class="amoy-label" for="RegisterPassword">Password</label>
+      <input class="amoy-input" type="password" name="customer[password]" id="RegisterPassword" autocomplete="new-password" required>
+    </div>
+    <div class="amoy-customer__actions">
+      <button type="submit" class="amoy-btn amoy-btn--primary">Create account</button>
+      <a href="{{ routes.account_login_url }}" class="amoy-customer__link">{{ 'customer.log_in' | t }}</a>
+    </div>
+  {%- endform -%}
+</div>

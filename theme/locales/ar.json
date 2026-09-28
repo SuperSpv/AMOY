@@ -1,0 +1,187 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "pagination": "التنقل بين الصفحات",
+    "continue_shopping": "متابعة التسوق",
+    "close": "إغلاق",
+    "menu": "القائمة",
+    "loading": "جارٍ التحميل...",
+    "all": "الكل",
+    "view": "عرض",
+    "previous": "السابق",
+    "next": "التالي",
+    "shop_all": "تسوّق الكل",
+    "back_to_shop": "العودة إلى المتجر",
+    "skip_to_content": "تخطّي إلى المحتوى",
+    "share": "مشاركة",
+    "language": "اللغة",
+    "country_region": "الدولة/المنطقة"
+  },
+  "accessibility": {
+    "cart_count": "السلة، {{ count }} عنصر",
+    "open_menu": "فتح القائمة",
+    "close_menu": "إغلاق القائمة",
+    "open_filters": "فتح التصفية",
+    "close_filters": "إغلاق التصفية",
+    "view_image": "عرض الصورة {{ index }}",
+    "whatsapp": "تواصل عبر واتساب",
+    "announcement": "إعلان",
+    "main_navigation": "القائمة الرئيسية",
+    "footer_navigation": "روابط التذييل",
+    "payment_methods": "طرق الدفع المقبولة",
+    "increase_quantity": "زيادة الكمية",
+    "decrease_quantity": "إنقاص الكمية",
+    "remove_item": "إزالة العنصر"
+  },
+  "newsletter": {
+    "title": "انضم إلى قائمة AMOY",
+    "subtitle": "جديد المجموعات، الأدلة، وعروض الجملة — إلى بريدك.",
+    "placeholder": "بريدك الإلكتروني",
+    "label": "البريد الإلكتروني",
+    "button": "اشتراك",
+    "success": "شكرًا لاشتراكك!"
+  },
+  "search": {
+    "title": "ابحث في المتجر",
+    "eyebrow": "بحث",
+    "label": "بحث",
+    "placeholder": "ابحث عن مانيكان، أشكال عرض…",
+    "submit": "بحث",
+    "prompt": "اكتب كلمة للبحث في منتجاتنا ومقالاتنا.",
+    "results_for": "{{ count }} نتيجة لـ",
+    "no_results_for": "لا توجد نتائج لـ",
+    "try_again_html": "جرّب كلمات مختلفة أو تصفّح",
+    "all_products": "كل المنتجات",
+    "suggestions": "اقتراحات",
+    "products": "المنتجات",
+    "pages": "الصفحات",
+    "articles": "المقالات",
+    "view_all_results": "عرض كل النتائج"
+  },
+  "cart": {
+    "eyebrow": "سلتك",
+    "title": "سلة التسوق",
+    "empty": "سلتك فارغة.",
+    "browse": "تصفّح المجموعة",
+    "summary": "ملخص الطلب",
+    "subtotal": "المجموع الفرعي",
+    "delivery": "التوصيل",
+    "delivery_quoted": "يُحدد عند التأكيد",
+    "estimated_total": "الإجمالي التقديري",
+    "fine_print": "يُؤكّد السعر النهائي والتوصيل من قبل فريقنا.",
+    "checkout": "متابعة الدفع",
+    "update": "تحديث السلة",
+    "remove": "إزالة",
+    "increase": "زيادة",
+    "decrease": "إنقاص",
+    "quantity": "الكمية",
+    "product": "المنتج",
+    "total": "الإجمالي",
+    "note": "ملاحظات الطلب",
+    "note_placeholder": "تعليمات التوصيل، طلبات التشطيب، رقم أمر الشراء…",
+    "discount": "الخصم",
+    "ordering_bulk": "تطلب 10+ وحدات؟",
+    "request_quote": "اطلب عرض سعر",
+    "add_to_display": "أضف إلى عرضك",
+    "added": "تمت الإضافة إلى السلة",
+    "add_error": "تعذّرت الإضافة إلى السلة، يرجى المحاولة مرة أخرى",
+    "unlock_discount_html": "أضِف {{ count }} وحدة إضافية لتفعيل خصم {{ percent }}",
+    "discount_unlocked": "تم تفعيل خصم الكمية عند الدفع",
+    "taxes_and_shipping": "تُحتسب الضرائب والشحن عند الدفع."
+  },
+  "products": {
+    "add_to_cart": "أضف إلى السلة",
+    "sold_out": "نفد المخزون",
+    "unavailable": "غير متوفر",
+    "options": "اختر الخيارات",
+    "add_short": "أضف +",
+    "from": "من",
+    "sale": "تخفيض",
+    "per_unit": "للوحدة",
+    "save": "توفير",
+    "quantity": "الكمية",
+    "overview": "نظرة عامة",
+    "specifications": "المواصفات",
+    "vendor": "المورّد",
+    "sku": "رمز المنتج",
+    "in_stock": "متوفر",
+    "low_stock": "كمية محدودة",
+    "request_bulk_quote": "اطلب عرض سعر للجملة",
+    "complete_display": "أكمِل العرض",
+    "recommended": "يُوصى به",
+    "you_may_like": "قد يعجبك أيضًا"
+  },
+  "tiers": {
+    "quantity": "الكمية",
+    "price_per_unit": "السعر للوحدة",
+    "request_quote": "اطلب عرض سعر"
+  },
+  "collection": {
+    "shop": "المتجر",
+    "all_collections": "كل المجموعات",
+    "pieces": "قطعة",
+    "filter": "تصفية",
+    "filter_and_sort": "التصفية والترتيب",
+    "sort_by": "ترتيب",
+    "product_count": "{{ count }} من {{ total }} منتج",
+    "no_products": "لا توجد منتجات مطابقة.",
+    "clear_filters": "مسح التصفية",
+    "clear_all": "مسح الكل",
+    "apply": "تطبيق",
+    "empty": "هذه المجموعة فارغة."
+  },
+  "blog": {
+    "eyebrow": "المدوّنة",
+    "read_more": "اقرأ المزيد",
+    "back_to_blog": "العودة إلى المدوّنة",
+    "posted_on": "نُشر في",
+    "by_author": "بقلم {{ author }}",
+    "no_articles": "لا توجد مقالات بعد.",
+    "read_article": "اقرأ المقال",
+    "min_read": "{{ count }} دقائق قراءة",
+    "featured": "مميّز",
+    "view_all_posts": "عرض كل المقالات",
+    "page_of": "صفحة {{ current }} من {{ total }}",
+    "more_from": "المزيد من المدوّنة",
+    "tags": "الوسوم",
+    "no_posts": "لا توجد مقالات بعد — عُد قريبًا."
+  },
+  "page": {
+    "error_404_title": "هذه الصفحة غير موجودة.",
+    "error_404_eyebrow": "الصفحة غير موجودة",
+    "error_404_body": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها. لنعُد بك إلى المجموعة."
+  },
+  "contact": {
+    "brand": "المتجر / العلامة التجارية",
+    "city": "المدينة",
+    "collection": "المجموعة المطلوبة",
+    "message_placeholder": "الكميات، التشطيبات، المواعيد…",
+    "submit": "إرسال الطلب",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "الجوال",
+    "message": "الرسالة",
+    "success": "شكرًا — سنتواصل معك قريبًا."
+  },
+  "customer": {
+    "account": "الحساب",
+    "log_in": "تسجيل الدخول",
+    "log_out": "تسجيل الخروج",
+    "orders": "الطلبات",
+    "addresses": "العناوين",
+    "no_orders": "لم تقم بأي طلب بعد.",
+    "order_number": "الطلب",
+    "date": "التاريخ",
+    "payment_status": "الدفع",
+    "fulfillment_status": "التنفيذ",
+    "total": "الإجمالي"
+  }
+}

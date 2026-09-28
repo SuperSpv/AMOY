@@ -1,0 +1,45 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<div class="amoy-customer">
+  <a href="{{ routes.account_url }}" class="amoy-customer__link">&larr; {{ 'customer.account' | t }}</a>
+  <h1 class="amoy-display amoy-display--md amoy-customer__title">{{ 'customer.addresses' | t }}</h1>
+
+  {%- paginate customer.addresses by 10 -%}
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px">
+      {%- for address in customer.addresses -%}
+        <div class="amoy-customer__card">
+          <address class="amoy-customer__address">{{ address | format_address }}</address>
+          <div style="display:flex;gap:14px;margin-top:14px">
+            <a href="#EditAddress-{{ address.id }}" class="amoy-customer__link" onclick="var e=document.getElementById('EditAddress-{{ address.id }}');e.hidden=!e.hidden;return false;">Edit</a>
+          </div>
+          <div id="EditAddress-{{ address.id }}" hidden style="margin-top:16px">
+            {%- form 'customer_address', address -%}
+              {{ form.errors | default_errors }}
+              <div class="amoy-customer__field"><label class="amoy-label">Address</label><input class="amoy-input" type="text" name="address[address1]" value="{{ address.address1 }}"></div>
+              <div class="amoy-customer__field"><label class="amoy-label">City</label><input class="amoy-input" type="text" name="address[city]" value="{{ address.city }}"></div>
+              <div class="amoy-customer__field"><label class="amoy-label">Country</label><select class="amoy-input" name="address[country]" data-default="{{ address.country }}">{{ country_option_tags }}</select></div>
+              <div class="amoy-customer__field"><label class="amoy-label">{{ 'contact.phone' | t }}</label><input class="amoy-input" type="tel" name="address[phone]" value="{{ address.phone }}"></div>
+              <button type="submit" class="amoy-btn amoy-btn--primary">Save</button>
+            {%- endform -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}
+      <nav class="amoy-pagination" style="margin-top:24px">{{ paginate | default_pagination }}</nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+
+  <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border-subtle);max-width:480px">
+    <h2 style="font-family:var(--font-display);font-size:22px;font-weight:600;margin-bottom:16px">Add a new address</h2>
+    {%- form 'customer_address', customer.new_address -%}
+      {{ form.errors | default_errors }}
+      <div class="amoy-customer__field"><label class="amoy-label" for="NewFirstName">First name</label><input class="amoy-input" id="NewFirstName" type="text" name="address[first_name]"></div>
+      <div class="amoy-customer__field"><label class="amoy-label" for="NewLastName">Last name</label><input class="amoy-input" id="NewLastName" type="text" name="address[last_name]"></div>
+      <div class="amoy-customer__field"><label class="amoy-label" for="NewAddress1">Address</label><input class="amoy-input" id="NewAddress1" type="text" name="address[address1]"></div>
+      <div class="amoy-customer__field"><label class="amoy-label" for="NewCity">City</label><input class="amoy-input" id="NewCity" type="text" name="address[city]"></div>
+      <div class="amoy-customer__field"><label class="amoy-label" for="NewCountry">Country</label><select class="amoy-input" id="NewCountry" name="address[country]">{{ country_option_tags }}</select></div>
+      <div class="amoy-customer__field"><label class="amoy-label" for="NewPhone">{{ 'contact.phone' | t }}</label><input class="amoy-input" id="NewPhone" type="tel" name="address[phone]"></div>
+      <button type="submit" class="amoy-btn amoy-btn--primary">Add address</button>
+    {%- endform -%}
+  </div>
+</div>

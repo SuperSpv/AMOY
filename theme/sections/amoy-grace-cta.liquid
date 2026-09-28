@@ -1,0 +1,87 @@
+{%- liquid
+  assign cta_email = section.settings.email | default: settings.contact_email
+  assign cta_wa = section.settings.whatsapp_url
+  if cta_wa == blank and settings.whatsapp_number != blank
+    assign cta_wa = 'https://wa.me/' | append: settings.whatsapp_number
+  endif
+-%}
+<section class="amoy-block amoy-cta-band color-{{ section.settings.color_scheme }}">
+  <div class="amoy-container amoy-cta-band__inner">
+    <div class="amoy-eyebrow amoy-eyebrow--brass amoy-cta-band__eyebrow">{{ section.settings.eyebrow }}</div>
+    <h2 class="amoy-display amoy-display--lg amoy-cta-band__title">{{ section.settings.heading }}</h2>
+    <p class="amoy-cta-band__sub">{{ section.settings.subtext }}</p>
+    <div class="amoy-cta__btns">
+      {%- if cta_wa != blank -%}
+        <a href="{{ cta_wa }}" target="_blank" rel="noopener" class="amoy-btn amoy-btn--inverse amoy-btn--lg">{{ section.settings.quote_label }}</a>
+      {%- endif -%}
+      {%- if cta_email != blank -%}
+        <a href="mailto:{{ cta_email }}" class="amoy-btn amoy-btn--brass amoy-btn--lg">{{ section.settings.email_label }}</a>
+      {%- endif -%}
+    </div>
+    <p class="amoy-cta-band__line">
+      {%- if settings.contact_phone != blank -%}<span dir="ltr">{{ settings.contact_phone }}</span> &middot; {% endif -%}
+      {%- if cta_email != blank -%}{{ cta_email }} &middot; {% endif -%}
+      {{ settings.contact_city | default: 'Jeddah' }}, Saudi Arabia
+    </p>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Grace · CTA",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-5"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Contact us"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Bring Grace to your store"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Tell us about your boutique and we'll share finishes, lead times and pricing across Saudi Arabia."
+    },
+    {
+      "type": "url",
+      "id": "whatsapp_url",
+      "label": "WhatsApp URL",
+      "info": "Leave blank to use the WhatsApp number from Theme settings → Contact & social."
+    },
+    {
+      "type": "text",
+      "id": "quote_label",
+      "label": "Button label",
+      "default": "Request quotation"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "info": "Leave blank to use the email from Theme settings → Contact & social."
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email button label",
+      "default": "Email us"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grace · CTA"
+    }
+  ]
+}
+{% endschema %}

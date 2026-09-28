@@ -1,0 +1,32 @@
+{{ 'section-page.css' | asset_url | stylesheet_tag }}
+
+<div class="amoy-page">
+  {%- if section.settings.show_eyebrow -%}
+    <div class="amoy-eyebrow">{{ shop.name }}</div>
+  {%- endif -%}
+  <h1 class="amoy-display amoy-display--lg amoy-page__title">{{ page.title }}</h1>
+  <div class="amoy-page__body rte">{{ page.content }}</div>
+
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'custom_liquid' -%}
+        <div {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
+      {%- when '@app' -%}
+        <div {{ block.shopify_attributes }}>{% render block %}</div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+    { "type": "checkbox", "id": "show_eyebrow", "label": "Show store name above the title", "default": true }
+  ],
+  "blocks": [
+    { "type": "custom_liquid", "name": "Custom Liquid", "settings": [{ "type": "liquid", "id": "custom_liquid", "label": "Custom Liquid" }] },
+    { "type": "@app" }
+  ],
+  "presets": [{ "name": "Page" }]
+}
+{% endschema %}

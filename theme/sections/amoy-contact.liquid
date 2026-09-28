@@ -1,0 +1,49 @@
+{%- liquid
+  assign contact_email = section.settings.email | default: settings.contact_email
+  assign contact_address = section.settings.address | default: settings.contact_address
+-%}
+<div class="amoy-container" style="padding-top:56px;padding-bottom:90px">
+  <div class="amoy-grid--contact">
+    <div>
+      <div class="amoy-eyebrow">{{ section.settings.eyebrow }}</div>
+      <h1 class="amoy-display amoy-display--lg" style="margin:18px 0 0">{{ section.settings.heading }}</h1>
+      <p style="font-size:17px;line-height:1.7;color:var(--text-muted);margin:22px 0 36px;max-width:42ch">{{ section.settings.body }}</p>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px;flex:none"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="m4 6 8 6 8-6"/></svg>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text-heading)">{{ 'contact.email' | t }}</div><div style="font-size:14px;color:var(--text-muted)"><a href="mailto:{{ contact_email }}" style="color:inherit">{{ contact_email }}</a></div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px;flex:none"><path d="M20 10.5a8 8 0 1 0-9.9 7.8L12 22l1.9-3.7A8 8 0 0 0 20 10.5Z"/></svg>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text-heading)">WhatsApp</div><div style="font-size:14px;color:var(--text-muted)"><a href="https://wa.me/{{ settings.whatsapp_number }}" target="_blank" rel="noopener" style="color:inherit" dir="ltr">{{ settings.contact_phone | default: settings.whatsapp_number }}</a></div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px;flex:none"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text-heading)">{{ section.settings.address_label }}</div><div style="font-size:14px;color:var(--text-muted)">{{ contact_address }}</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:32px;box-shadow:var(--shadow-sm)">
+      {%- form 'contact' -%}
+        {%- if form.posted_successfully? -%}
+          <div style="padding:20px;background:var(--mist);border-radius:var(--radius-sm);text-align:center;margin-bottom:20px"><p style="color:var(--text-heading);font-weight:600">{{ 'contact.success' | t }}</p></div>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <div style="padding:14px 16px;background:#fdecec;border:1px solid #f5c2c2;border-radius:var(--radius-sm);margin-bottom:20px;color:#9b1c1c;font-size:14px">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+        <div class="amoy-contact-form-grid">
+          <div><label class="amoy-label" for="ContactName">{{ 'contact.name' | t }}</label><input class="amoy-input" type="text" id="ContactName" name="contact[name]" autocomplete="name" required></div>
+          <div><label class="amoy-label" for="ContactEmail">{{ 'contact.email' | t }}</label><input class="amoy-input" type="email" id="ContactEmail" name="contact[email]" autocomplete="email" placeholder="you@brand.com" required></div>
+          <div><label class="amoy-label" for="ContactBrand">{{ 'contact.brand' | t }}</label><input class="amoy-input" type="text" id="ContactBrand" name="contact[brand]" autocomplete="organization"></div>
+          <div><label class="amoy-label" for="ContactCity">{{ 'contact.city' | t }}</label><input class="amoy-input" type="text" id="ContactCity" name="contact[city]" autocomplete="address-level2"></div>
+        </div>
+        <div style="margin-top:16px"><label class="amoy-label" for="ContactCollection">{{ 'contact.collection' | t }}</label><select class="amoy-input" id="ContactCollection" name="contact[collection]"><option>Grace — Female</option><option>Men</option><option>Kids</option><option>Sport</option><option>Display Forms &amp; Accessories</option><option>Custom / mixed</option></select></div>
+        <div style="margin-top:16px"><label class="amoy-label" for="ContactBody">{{ 'contact.message' | t }}</label><textarea class="amoy-input" id="ContactBody" name="contact[body]" rows="4" placeholder="{{ 'contact.message_placeholder' | t }}"></textarea></div>
+        <div style="margin-top:22px"><button type="submit" class="amoy-btn amoy-btn--primary amoy-btn--full amoy-btn--lg">{{ 'contact.submit' | t }}</button></div>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{"name":"Contact","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Contact"},{"type":"text","id":"heading","label":"Heading","default":"Request a quote"},{"type":"textarea","id":"body","label":"Body","default":"Tell us about your store concept — finishes, poses and volumes. We'll prepare a bespoke quote and confirm delivery across the Kingdom."},{"type":"text","id":"email","label":"Email","info":"Leave blank to use the email from Theme settings → Contact & social."},{"type":"text","id":"address_label","label":"Address label","default":"Showroom"},{"type":"textarea","id":"address","label":"Address","info":"Leave blank to use the address from Theme settings → Contact & social."}],"presets":[{"name":"Contact"}]}
+{% endschema %}

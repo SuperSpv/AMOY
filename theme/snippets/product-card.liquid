@@ -1,0 +1,113 @@
+{%- comment -%}
+  Shared product card. Used by collection, search, featured products and
+  recommendation sections so there is one card implementation, not five.
+
+  Accepts:
+  - card_product: {Object} product (required)
+  - image_ratio: {String} portrait | square | tall — defaults to theme setting
+  - show_vendor / show_quick_add / show_sale_badge: {Boolean}
+  - lazy: {Boolean} lazy-load the image (default true)
+  - sizes: {String} responsive sizes attribute
+{%- endcomment -%}
+
+{%- liquid
+  assign p = card_product
+
+  assign ratio = image_ratio | default: settings.card_image_ratio
+  assign fit = settings.card_image_fit | default: 'contain'
+
+  assign v_show = show_vendor
+  if v_show == nil
+    assign v_show = settings.card_show_vendor
+  endif
+
+  assign q_show = show_quick_add
+  if q_show == nil
+    assign q_show = settings.card_show_quick_add
+  endif
+
+  assign b_show = show_sale_badge
+  if b_show == nil
+    assign b_show = settings.card_show_sale_badge
+  endif
+
+  assign loading = 'lazy'
+  if lazy == false
+    assign loading = 'eager'
+  endif
+
+  assign img_sizes = sizes | default: '(min-width: 990px) 360px, (min-width: 750px) 45vw, 90vw'
+  assign on_sale = false
+  if p.compare_at_price > p.price
+    assign on_sale = true
+  endif
+-%}
+
+{%- if p == blank or p == empty -%}
+  <div class="amoy-card amoy-card--placeholder">
+    <div class="amoy-card__media amoy-card__media--{{ ratio }}">{% render 'icon', icon: 'placeholder', size: 48 %}</div>
+  </div>
+{%- else -%}
+<div class="amoy-card amoy-card--interactive amoy-card--product" data-product-card>
+  <a href="{{ p.url }}" class="amoy-card__media amoy-card__media--{{ ratio }} amoy-card__media--{{ fit }}" tabindex="-1" aria-hidden="true">
+    {%- if p.featured_media -%}
+      {{
+        p.featured_media
+        | image_url: width: 800
+        | image_tag:
+          loading: loading,
+          sizes: img_sizes,
+          widths: '200,300,400,500,600,700,800',
+          class: 'amoy-card__img amoy-card__img--primary',
+          alt: p.featured_media.alt | default: p.title
+      }}
+      {%- if settings.card_show_second_image and p.media[1] != blank -%}
+        {{
+          p.media[1]
+          | image_url: width: 800
+          | image_tag:
+            loading: 'lazy',
+            sizes: img_sizes,
+            widths: '200,300,400,500,600,700,800',
+            class: 'amoy-card__img amoy-card__img--secondary',
+            alt: p.media[1].alt | default: p.title
+        }}
+      {%- endif -%}
+    {%- else -%}
+      <div class="amoy-placeholder">{% render 'icon', icon: 'placeholder', size: 48 %}</div>
+    {%- endif -%}
+
+    {%- if b_show and on_sale and p.available -%}
+      <span class="amoy-badge amoy-badge--sale">{{ 'products.sale' | t }}</span>
+    {%- elsif p.available == false -%}
+      <span class="amoy-badge amoy-badge--soldout">{{ 'products.sold_out' | t }}</span>
+    {%- endif -%}
+  </a>
+
+  <div class="amoy-card__body">
+    {%- if v_show and p.type != blank -%}
+      <div class="amoy-card__type">{{ p.type }}</div>
+    {%- endif -%}
+    <h3 class="amoy-card__title">
+      <a href="{{ p.url }}" class="amoy-card__link">{{ p.title }}</a>
+    </h3>
+    <div class="amoy-card__row">
+      {% render 'price', product: p %}
+      {%- if q_show -%}
+        {%- if p.variants.size > 1 -%}
+          <a href="{{ p.url }}" class="amoy-btn amoy-btn--secondary amoy-card__add">{{ 'products.options' | t }}</a>
+        {%- elsif p.available -%}
+          <button
+            type="button"
+            class="amoy-btn amoy-btn--secondary amoy-card__add"
+            data-add-to-cart
+            data-variant-id="{{ p.selected_or_first_available_variant.id }}"
+          >{{ 'products.add_short' | t }}</button>
+        {%- else -%}
+          <span class="amoy-card__soldout">{{ 'products.sold_out' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{%- endif -%}

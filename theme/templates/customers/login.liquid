@@ -1,0 +1,42 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<div class="amoy-customer amoy-customer--narrow">
+  <div class="amoy-eyebrow">{{ shop.name }}</div>
+  <h1 class="amoy-display amoy-display--md amoy-customer__title">{{ 'customer.log_in' | t }}</h1>
+
+  {%- form 'customer_login', novalidate: 'novalidate' -%}
+    {%- if form.errors -%}
+      <div class="amoy-customer__errors">{{ form.errors | default_errors }}</div>
+    {%- endif -%}
+    <div class="amoy-customer__field">
+      <label class="amoy-label" for="CustomerEmail">{{ 'contact.email' | t }}</label>
+      <input class="amoy-input" type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required>
+    </div>
+    {%- if form.password_needed -%}
+      <div class="amoy-customer__field">
+        <label class="amoy-label" for="CustomerPassword">Password</label>
+        <input class="amoy-input" type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required>
+      </div>
+    {%- endif -%}
+    <div class="amoy-customer__actions">
+      <button type="submit" class="amoy-btn amoy-btn--primary">{{ 'customer.log_in' | t }}</button>
+      <a href="#RecoverForm" class="amoy-customer__link" onclick="document.getElementById('RecoverForm').hidden=false;return false;">Forgot password?</a>
+    </div>
+  {%- endform -%}
+
+  <div id="RecoverForm" hidden style="margin-top:28px;padding-top:24px;border-top:1px solid var(--border-subtle)">
+    {%- form 'recover_customer_password' -%}
+      {%- if form.posted_successfully? -%}
+        <div class="amoy-customer__success">We have sent you an email with a link to reset your password.</div>
+      {%- endif -%}
+      <div class="amoy-customer__field">
+        <label class="amoy-label" for="RecoverEmail">{{ 'contact.email' | t }}</label>
+        <input class="amoy-input" type="email" name="email" id="RecoverEmail" autocomplete="email" required>
+      </div>
+      <button type="submit" class="amoy-btn amoy-btn--secondary">Send reset link</button>
+    {%- endform -%}
+  </div>
+
+  <p style="margin-top:26px;font-size:13.5px;color:var(--text-muted)">
+    New here? <a href="{{ routes.account_register_url }}" class="amoy-customer__link">Create an account</a>
+  </p>
+</div>

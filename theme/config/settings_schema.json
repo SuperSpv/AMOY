@@ -1,0 +1,131 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "AMOY Custom",
+    "theme_version": "2.0.0",
+    "theme_author": "AMOY Limited",
+    "theme_documentation_url": "https://amoylimited.com",
+    "theme_support_url": "https://amoylimited.com/pages/contact"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          { "type": "color", "id": "background", "label": "Background", "default": "#FBFBFD" },
+          { "type": "color_background", "id": "background_gradient", "label": "Background gradient" },
+          { "type": "color", "id": "text", "label": "Text", "default": "#1C1B4D" },
+          { "type": "color", "id": "button", "label": "Solid button background", "default": "#1C1B4D" },
+          { "type": "color", "id": "button_label", "label": "Solid button label", "default": "#FFFFFF" },
+          { "type": "color", "id": "secondary_button_label", "label": "Outline button / links", "default": "#1C1B4D" },
+          { "type": "color", "id": "shadow", "label": "Shadow", "default": "#1C1B4D" }
+        ],
+        "role": {
+          "background": { "solid": "background", "gradient": "background_gradient" },
+          "text": "text",
+          "links": "secondary_button_label",
+          "icons": "text",
+          "primary_button": "button",
+          "on_primary_button": "button_label",
+          "primary_button_border": "button",
+          "secondary_button": "background",
+          "on_secondary_button": "secondary_button_label",
+          "secondary_button_border": "secondary_button_label"
+        }
+      },
+      { "type": "header", "content": "Brand accents" },
+      { "type": "color", "id": "color_primary", "label": "Primary (navy)", "default": "#1C1B4D" },
+      { "type": "color", "id": "color_accent", "label": "Accent (brass)", "default": "#B08A22" },
+      { "type": "color", "id": "color_background", "label": "Page background", "default": "#FBFBFD" }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      { "type": "header", "content": "Headings" },
+      { "type": "font_picker", "id": "type_header_font", "label": "Heading font", "default": "cormorant_n4", "info": "Served by Shopify — no external font request." },
+      { "type": "range", "id": "heading_scale", "min": 85, "max": 130, "step": 5, "unit": "%", "label": "Heading size", "default": 100 },
+      { "type": "header", "content": "Body" },
+      { "type": "font_picker", "id": "type_body_font", "label": "Body font", "default": "archivo_n4" },
+      { "type": "range", "id": "body_scale", "min": 90, "max": 120, "step": 5, "unit": "%", "label": "Body size", "default": 100 },
+      { "type": "header", "content": "Arabic" },
+      { "type": "checkbox", "id": "load_arabic_font", "label": "Load IBM Plex Sans Arabic on Arabic pages", "default": true }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      { "type": "range", "id": "page_width", "min": 1000, "max": 1600, "step": 20, "unit": "px", "label": "Maximum page width", "default": 1320 },
+      { "type": "select", "id": "corner_radius", "label": "Corner style", "options": [ { "value": "sharp", "label": "Sharp" }, { "value": "soft", "label": "Soft" }, { "value": "round", "label": "Rounded" } ], "default": "soft" },
+      { "type": "checkbox", "id": "show_page_transition", "label": "Show page loading animation", "default": true }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "range", "id": "logo_width", "min": 50, "max": 300, "step": 10, "default": 160, "unit": "px", "label": "Logo width" },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "32 x 32 px recommended." }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      { "type": "select", "id": "card_image_fit", "label": "Image fit", "options": [ { "value": "contain", "label": "Contain (show whole product)" }, { "value": "cover", "label": "Cover (fill the frame)" } ], "default": "contain" },
+      { "type": "select", "id": "card_image_ratio", "label": "Image ratio", "options": [ { "value": "portrait", "label": "Portrait (3:4)" }, { "value": "square", "label": "Square (1:1)" }, { "value": "tall", "label": "Tall (2:3)" } ], "default": "portrait" },
+      { "type": "checkbox", "id": "card_show_vendor", "label": "Show product type", "default": true },
+      { "type": "checkbox", "id": "card_show_quick_add", "label": "Show quick add button", "default": true },
+      { "type": "checkbox", "id": "card_show_sale_badge", "label": "Show sale badge", "default": true },
+      { "type": "checkbox", "id": "card_show_second_image", "label": "Show second image on hover", "default": true }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      { "type": "select", "id": "cart_type", "label": "Cart behaviour", "options": [ { "value": "page", "label": "Go to cart page" }, { "value": "drawer", "label": "Open cart drawer" }, { "value": "notification", "label": "Show a notification only" } ], "default": "drawer" },
+      { "type": "checkbox", "id": "cart_show_note", "label": "Enable order notes", "default": true },
+      { "type": "header", "content": "Volume discount bar" },
+      { "type": "checkbox", "id": "volume_bar_enabled", "label": "Show volume discount progress bar", "default": true },
+      { "type": "range", "id": "volume_threshold", "min": 2, "max": 20, "step": 1, "label": "Units needed for the discount", "default": 4 },
+      { "type": "range", "id": "volume_percent", "min": 5, "max": 40, "step": 5, "unit": "%", "label": "Discount percentage", "default": 10, "info": "Display only. Create the matching automatic discount in Discounts so it actually applies at checkout." }
+    ]
+  },
+  {
+    "name": "Contact & social",
+    "settings": [
+      { "type": "text", "id": "contact_phone", "label": "Phone", "default": "+966 54 727 5228" },
+      { "type": "text", "id": "contact_email", "label": "Email", "default": "support@amoylimited.com" },
+      { "type": "textarea", "id": "contact_address", "label": "Address", "default": "Al-Madinah Al-Munawwarah Rd, Ruwais 8278, Unit 2, Jeddah 23215, Kingdom of Saudi Arabia" },
+      { "type": "text", "id": "contact_city", "label": "City", "default": "Jeddah" },
+      { "type": "text", "id": "contact_region", "label": "Region", "default": "Makkah" },
+      { "type": "text", "id": "contact_country_code", "label": "Country code", "default": "SA" },
+      { "type": "header", "content": "WhatsApp" },
+      { "type": "checkbox", "id": "whatsapp_enabled", "label": "Show floating WhatsApp button", "default": true },
+      { "type": "text", "id": "whatsapp_number", "label": "WhatsApp number", "default": "966547275228", "info": "Digits only, including country code." },
+      { "type": "header", "content": "Social profiles" },
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_tiktok", "label": "TikTok" },
+      { "type": "url", "id": "social_snapchat", "label": "Snapchat" },
+      { "type": "url", "id": "social_x", "label": "X (Twitter)" },
+      { "type": "url", "id": "social_linkedin", "label": "LinkedIn" },
+      { "type": "url", "id": "social_youtube", "label": "YouTube" }
+    ]
+  },
+  {
+    "name": "Search engine & sharing",
+    "settings": [
+      { "type": "image_picker", "id": "share_image", "label": "Default share image", "info": "Used for social previews (og:image) and structured-data logo. 1200 x 630 recommended." },
+      { "type": "checkbox", "id": "enable_structured_data", "label": "Output structured data (JSON-LD)", "default": true },
+      { "type": "text", "id": "business_opens", "label": "Opening time", "default": "09:00" },
+      { "type": "text", "id": "business_closes", "label": "Closing time", "default": "18:00" }
+    ]
+  },
+  {
+    "name": "Custom CSS",
+    "settings": [
+      { "type": "liquid", "id": "custom_css", "label": "Custom CSS", "info": "Wrap rules in a <style> tag. Added after the theme stylesheet." }
+    ]
+  }
+]

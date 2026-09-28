@@ -1,0 +1,178 @@
+{{ 'section-collection.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign per_page = section.settings.products_per_page
+  assign cols = section.settings.columns_desktop
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} { --collection-cols: {{ cols }}; }
+</style>
+
+{%- paginate collection.products by per_page -%}
+  <div class="amoy-collection amoy-container">
+    <div class="amoy-collection__head">
+      <div class="amoy-eyebrow">{{ 'collection.shop' | t }}</div>
+      <h1 class="amoy-display amoy-display--lg">{{ collection.title }}</h1>
+      {%- if section.settings.show_description and collection.description != blank -%}
+        <div class="amoy-collection__desc rte">{{ collection.description }}</div>
+      {%- endif -%}
+      {%- if section.settings.show_image and collection.image -%}
+        <div class="amoy-collection__banner">
+          {{ collection.image | image_url: width: 1600 | image_tag: widths: '600,900,1200,1600', sizes: '100vw', loading: 'eager', alt: collection.image.alt | default: collection.title }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="amoy-collection__meta">
+      <span class="amoy-collection__count">{{ 'collection.product_count' | t: count: collection.products.size, total: collection.products_count }}</span>
+      <div class="amoy-collection__controls">
+        {%- if section.settings.enable_filtering and collection.filters.size > 0 -%}
+          <button type="button" class="amoy-filter-toggle" data-filter-open aria-expanded="false" aria-controls="AmoyFilters">
+            {% render 'icon', icon: 'filter', size: 16 %}
+            {{ 'collection.filter' | t }}
+          </button>
+        {%- endif -%}
+        {%- if section.settings.enable_sorting -%}
+          <form method="get" class="amoy-sort" data-sort-form>
+            {%- for filter in collection.filters -%}
+              {%- for value in filter.active_values -%}
+                <input type="hidden" name="{{ value.param_name }}" value="{{ value.value | escape }}">
+              {%- endfor -%}
+              {%- if filter.type == 'price_range' -%}
+                {%- if filter.min_value.value -%}<input type="hidden" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}">{%- endif -%}
+                {%- if filter.max_value.value -%}<input type="hidden" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}">{%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {% render 'icon', icon: 'sort', size: 15 %}
+            <label for="SortBy-{{ section.id }}" class="amoy-visually-hidden">{{ 'collection.sort_by' | t }}</label>
+            {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+            <select name="sort_by" id="SortBy-{{ section.id }}" data-sort-select>
+              {%- for option in collection.sort_options -%}
+                <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+              {%- endfor -%}
+            </select>
+            <noscript><button type="submit" class="amoy-btn amoy-btn--secondary">{{ 'collection.apply' | t }}</button></noscript>
+          </form>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="amoy-collection__layout{% unless section.settings.enable_filtering and collection.filters.size > 0 %} amoy-collection__layout--full{% endunless %}">
+      {%- if section.settings.enable_filtering and collection.filters.size > 0 -%}
+        <aside class="amoy-filters" id="AmoyFilters" data-filters>
+          <div class="amoy-filters__head">
+            <span class="amoy-filters__heading">{{ 'collection.filter_and_sort' | t }}</span>
+            <button type="button" class="amoy-filters__close" data-filter-close aria-label="{{ 'accessibility.close_filters' | t }}">
+              {% render 'icon', icon: 'close', size: 17 %}
+            </button>
+          </div>
+
+          <form method="get" data-filter-form>
+            <input type="hidden" name="sort_by" value="{{ collection.sort_by | default: collection.default_sort_by }}">
+
+            {%- for filter in collection.filters -%}
+              <div class="amoy-filters__group">
+                <div class="amoy-filters__title">{{ filter.label | escape }}</div>
+
+                {%- case filter.type -%}
+                  {%- when 'boolean', 'list' -%}
+                    <div class="amoy-filters__values">
+                      {%- for value in filter.values -%}
+                        <label class="amoy-chip{% if value.count == 0 and value.active == false %} is-empty{% endif %}">
+                          <input
+                            type="checkbox"
+                            name="{{ value.param_name }}"
+                            value="{{ value.value }}"
+                            {% if value.active %}checked{% endif %}
+                            {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                          >
+                          <span>{{ value.label | escape }} <em>({{ value.count }})</em></span>
+                        </label>
+                      {%- endfor -%}
+                    </div>
+
+                  {%- when 'price_range' -%}
+                    <div class="amoy-filters__price">
+                      <label class="amoy-visually-hidden" for="Filter-{{ filter.min_value.param_name | escape }}">{{ filter.min_value.label }}</label>
+                      <input
+                        class="amoy-input"
+                        id="Filter-{{ filter.min_value.param_name | escape }}"
+                        type="number"
+                        inputmode="decimal"
+                        name="{{ filter.min_value.param_name }}"
+                        placeholder="0"
+                        min="0"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                      >
+                      <span aria-hidden="true">&ndash;</span>
+                      <label class="amoy-visually-hidden" for="Filter-{{ filter.max_value.param_name | escape }}">{{ filter.max_value.label }}</label>
+                      <input
+                        class="amoy-input"
+                        id="Filter-{{ filter.max_value.param_name | escape }}"
+                        type="number"
+                        inputmode="decimal"
+                        name="{{ filter.max_value.param_name }}"
+                        placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        min="0"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                      >
+                    </div>
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+
+            <div class="amoy-filters__actions">
+              <button type="submit" class="amoy-btn amoy-btn--primary amoy-btn--full">{{ 'collection.apply' | t }}</button>
+              <a href="{{ collection.url }}" class="amoy-filters__clear">{{ 'collection.clear_all' | t }}</a>
+            </div>
+          </form>
+        </aside>
+      {%- endif -%}
+
+      <div class="amoy-collection__main">
+        {%- if collection.products.size > 0 -%}
+          <div class="amoy-collection__grid" id="AmoyProductGrid">
+            {%- for product in collection.products -%}
+              {%- liquid
+                assign card_lazy = true
+                if forloop.index <= 4
+                  assign card_lazy = false
+                endif
+              -%}
+              {% render 'product-card', card_product: product, lazy: card_lazy %}
+            {%- endfor -%}
+          </div>
+
+          {%- render 'pagination', paginate: paginate -%}
+        {%- else -%}
+          <div class="amoy-collection__empty">
+            <p>{{ 'collection.no_products' | t }}</p>
+            <a href="{{ collection.url }}" class="amoy-btn amoy-btn--secondary">{{ 'collection.clear_filters' | t }}</a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  <div class="amoy-filter-backdrop" data-filter-backdrop></div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "checkbox", "id": "show_description", "label": "Show collection description", "default": true },
+    { "type": "checkbox", "id": "show_image", "label": "Show collection image", "default": false },
+    { "type": "header", "content": "Grid" },
+    { "type": "range", "id": "columns_desktop", "min": 2, "max": 5, "step": 1, "label": "Columns on desktop", "default": 3 },
+    { "type": "range", "id": "products_per_page", "min": 12, "max": 48, "step": 4, "label": "Products per page", "default": 24 },
+    { "type": "header", "content": "Filtering and sorting" },
+    { "type": "checkbox", "id": "enable_filtering", "label": "Enable filtering", "default": true, "info": "Filters are configured in the free Search & Discovery app. Add product tags, metafields or options there and they appear here automatically." },
+    { "type": "checkbox", "id": "enable_sorting", "label": "Enable sorting", "default": true, "info": "Options and the default order come from the collection's own sort setting in Products → Collections." }
+  ],
+  "presets": [{ "name": "Collection" }]
+}
+{% endschema %}

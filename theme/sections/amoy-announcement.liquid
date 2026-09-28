@@ -1,0 +1,53 @@
+{{ 'section-announcement.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --announce-accent: {{ section.settings.accent_color }};
+  }
+</style>
+
+{%- if section.blocks.size > 0 -%}
+  <div
+    class="amoy-announce color-{{ section.settings.color_scheme }}"
+    role="region"
+    aria-label="{{ 'accessibility.announcement' | t }}"
+    data-announcement
+    {% if section.settings.autorotate and section.blocks.size > 1 %}data-autorotate="{{ section.settings.rotate_speed | times: 1000 }}"{% endif %}
+  >
+    <div class="amoy-announce__track">
+      {%- for block in section.blocks -%}
+        <div class="amoy-announce__item{% if forloop.first %} is-active{% endif %}" data-announce-item {{ block.shopify_attributes }}>
+          {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}" class="amoy-announce__link">{%- endif -%}
+          <span class="amoy-announce__text">{{ block.settings.text }}</span>
+          {%- if block.settings.link != blank -%}</a>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-5", "info": "Edit the schemes in Theme settings → Colors." },
+    { "type": "color", "id": "accent_color", "label": "Highlight (bold text)", "default": "#D9B45B" },
+    { "type": "header", "content": "Rotation" },
+    { "type": "checkbox", "id": "autorotate", "label": "Rotate messages automatically", "default": true },
+    { "type": "range", "id": "rotate_speed", "min": 3, "max": 15, "step": 1, "unit": "s", "label": "Seconds per message", "default": 6 }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Made in Jeddah · Delivered across the Kingdom</p>", "info": "Bold text is shown in the highlight colour." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Announcement bar", "blocks": [{ "type": "message" }] }],
+  "enabled_on": { "groups": ["header", "footer"] }
+}
+{% endschema %}
