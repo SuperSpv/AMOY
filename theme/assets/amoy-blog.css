@@ -89,5 +89,15 @@
 [dir=rtl] .blog-hero-title,[dir=rtl] .featured-title,[dir=rtl] .card-title,[dir=rtl] .article-title,[dir=rtl] .article-body h2,[dir=rtl] .article-body h3,[dir=rtl] .cta-strip-title{line-height:1.4}
 [dir=rtl] .article-body p{line-height:1.95}
 [dir=rtl] .article-body blockquote p{font-style:normal}
+/* Rich-text elements the editor and imported posts use: the page title is
+   already the h1, older posts use h4 section headings, lists and rules. */
+.article-body h1{display:none}
+.article-body h4{font-family:var(--font-display);font-size:1.375rem;font-weight:500;color:var(--navy-700);line-height:1.3;margin:36px 0 14px}
+.article-body ul,.article-body ol{margin:0 0 24px;padding-inline-start:1.4em}
+.article-body li{font-size:1.125rem;line-height:1.75;color:var(--charcoal);margin-bottom:8px}
+.article-body li p{margin-bottom:8px}
+.article-body hr{border:0;border-top:1px solid var(--border-subtle);margin:40px 0}
+[dir=rtl] .article-body h4{line-height:1.5}
+[dir=rtl] .article-body li{line-height:1.95}
 /* An article that has not been translated yet reads left-to-right even on /ar. */
 .article-body[dir=ltr],.card-title[dir=ltr],.card-excerpt[dir=ltr],.featured-title[dir=ltr],.featured-excerpt[dir=ltr],.article-title[dir=ltr]{text-align:left}
