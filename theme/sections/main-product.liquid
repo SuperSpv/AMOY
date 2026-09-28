@@ -129,7 +129,7 @@
                       <div class="amoy-variant-group__opts">
                         {%- for value in option.values -%}
                           <label class="amoy-variant-opt">
-                            <input type="radio" name="option{{ option.position }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
+                            <input type="radio" name="option{{ option.position }}" value="{{ value | escape }}" data-option-index="{{ forloop.index0 }}" {% if option.selected_value == value %}checked{% endif %}>
                             <span>{{ value }}</span>
                           </label>
                         {%- endfor -%}
@@ -137,8 +137,29 @@
                     </fieldset>
                   {%- endfor -%}
                 </div>
+                {%- comment -%}
+                  Variants are described by option-value positions rather than
+                  option text: on /ar the option names and values are
+                  translated, and matching by position keeps the picker
+                  working in every language.
+                {%- endcomment -%}
                 <script type="application/json" data-variant-data>
-                  {{ product.variants | json }}
+                  [
+                    {%- for v in product.variants -%}
+                      {"id":{{ v.id }},"available":{{ v.available | json }},"featured_media":{% if v.featured_media %}{"id":{{ v.featured_media.id }}}{% else %}null{% endif %},"options":[
+                        {%- for option in product.options_with_values -%}
+                          {%- assign opt_i = forloop.index0 -%}
+                          {%- assign v_value = v.options[opt_i] -%}
+                          {%- assign value_i = -1 -%}
+                          {%- for value in option.values -%}
+                            {%- assign value_str = value | append: '' -%}
+                            {%- if value_str == v_value -%}{%- assign value_i = forloop.index0 -%}{%- endif -%}
+                          {%- endfor -%}
+                          {{ value_i }}{% unless forloop.last %},{% endunless %}
+                        {%- endfor -%}
+                      ]}{% unless forloop.last %},{% endunless %}
+                    {%- endfor -%}
+                  ]
                 </script>
               {%- endunless -%}
 

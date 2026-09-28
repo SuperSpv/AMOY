@@ -304,10 +304,12 @@
       var variants = [];
       try { variants = JSON.parse(dataEl.textContent); } catch (err) { variants = []; }
 
+      /* Options are compared by position (data-option-index), never by their
+         text, so the picker works when option names are translated. */
       var selectedOptions = function () {
         return $$('.amoy-variant-group', picker).map(function (group) {
           var checked = group.querySelector('input:checked');
-          return checked ? checked.value : null;
+          return checked ? parseInt(checked.getAttribute('data-option-index'), 10) : null;
         });
       };
 
@@ -347,8 +349,10 @@
           window.history.replaceState({}, '', url.toString());
         }
 
-        $$('[data-option-value]', picker).forEach(function (el, i) {
-          if (variant.options[i]) el.textContent = variant.options[i];
+        $$('.amoy-variant-group', picker).forEach(function (group) {
+          var checked = group.querySelector('input:checked');
+          var label = group.querySelector('[data-option-value]');
+          if (checked && label) label.textContent = checked.value;
         });
 
         if (variant.featured_media && variant.featured_media.id) {
