@@ -96,10 +96,10 @@
                   <li><a href="tel:{{ phone_digits }}" dir="ltr">{{ settings.contact_phone }}</a></li>
                 {%- endif -%}
                 {%- if settings.whatsapp_number != blank -%}
-                  <li><a href="https://wa.me/{{ settings.whatsapp_number }}" target="_blank" rel="noopener">WhatsApp</a></li>
+                  <li><a href="https://wa.me/{{ settings.whatsapp_number }}" target="_blank" rel="noopener">{{ 'contact.whatsapp' | t }}</a></li>
                 {%- endif -%}
                 {%- if settings.contact_email != blank -%}
-                  <li><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></li>
+                  <li><a href="mailto:{{ settings.contact_email }}" class="amoy-ltr">{{ settings.contact_email }}</a></li>
                 {%- endif -%}
                 {%- if settings.contact_address != blank -%}
                   <li><address class="amoy-footer__address">{{ settings.contact_address }}</address></li>

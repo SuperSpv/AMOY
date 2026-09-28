@@ -1,0 +1,23 @@
+{%- comment -%}
+  Text arrow that points the right way for the reading direction.
+  Arrow characters are not mirrored by the browser in right-to-left text,
+  so "Read article →" would point backwards on the Arabic store.
+
+  Accepts:
+  - direction: {String} 'forward' (default) or 'back'
+{%- endcomment -%}
+{%- liquid
+  assign rtl = false
+  if request.locale.iso_code == 'ar' or request.locale.iso_code contains 'ar-'
+    assign rtl = true
+  endif
+  assign forward = true
+  if direction == 'back'
+    assign forward = false
+  endif
+  if forward == rtl
+    echo '<span aria-hidden="true">&larr;</span>'
+  else
+    echo '<span aria-hidden="true">&rarr;</span>'
+  endif
+-%}

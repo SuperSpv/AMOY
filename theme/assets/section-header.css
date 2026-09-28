@@ -1,5 +1,5 @@
 .amoy-header{position:relative;width:100%;min-height:var(--header-h,78px);background:var(--header-bg,rgba(251,251,253,.94));color:var(--header-fg,#1c1b4d);backdrop-filter:saturate(120%) blur(6px);-webkit-backdrop-filter:saturate(120%) blur(6px);box-shadow:0 1px 0 rgba(28,27,77,.07),0 6px 24px rgba(28,27,77,.05);z-index:100}
-.amoy-header--sticky{position:sticky;top:0}
+.amoy-header--sticky{position:relative}
 .amoy-header__inner{max-width:var(--container-max);margin:0 auto;min-height:var(--header-h,78px);display:flex;align-items:center;gap:18px;padding:0 40px}
 .amoy-header__logo-wrap{margin:0;font-size:inherit;line-height:0;flex:none}
 .amoy-header__logo{height:auto;width:auto;max-width:var(--header-logo-w,220px);max-height:calc(var(--header-h,78px) - 22px);object-fit:contain;display:block}

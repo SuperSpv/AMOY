@@ -14,7 +14,8 @@
       {%- comment -%} Forms only, ordered: torso/bust (tier 1) → other parts like hand/foot/leg (tier 2) {%- endcomment -%}
       {%- for tier in (1..2) -%}
       {%- for product in src_collection.products -%}
-        {%- if product.type contains 'Mannequin' -%}{%- continue -%}{%- endif -%}
+        {%- comment -%} Skip full-body mannequins — matched by tag/handle because product types are translated on /ar {%- endcomment -%}
+        {%- if product.tags contains 'full body mannequin' or product.handle contains 'full-body' -%}{%- continue -%}{%- endif -%}
         {%- liquid
           assign ptier = 2
           if product.handle contains 'torso' or product.handle contains 'bust' or product.handle contains 'hip'

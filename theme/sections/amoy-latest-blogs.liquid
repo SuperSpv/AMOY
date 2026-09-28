@@ -15,7 +15,7 @@
     <div style="display:flex;align-items:flex-end;justify-content:space-between;margin:16px 0 40px;flex-wrap:wrap;gap:16px">
       <h2 class="amoy-display amoy-display--md" style="margin:0">{{ section.settings.heading }}</h2>
       {%- if target_blog != blank -%}
-        <a href="{{ target_blog.url }}" class="read-more">{{ 'blog.view_all_posts' | t }} &rarr;</a>
+        <a href="{{ target_blog.url }}" class="read-more">{{ 'blog.view_all_posts' | t }} {% render 'amoy-arrow' %}</a>
       {%- endif -%}
     </div>
 

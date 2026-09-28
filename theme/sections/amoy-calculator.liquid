@@ -1,0 +1,349 @@
+{%- comment -%}
+  Retail display mannequin calculator.
+
+  Replaces the embedded third-party iframe: the whole tool is rendered here,
+  so it follows the store language (English on /, Arabic on /ar), the theme's
+  right-to-left layout and the WhatsApp number in Theme settings. The
+  estimation model in assets/amoy-calculator.js mirrors the original tool.
+{%- endcomment -%}
+{{ 'section-calculator.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign women_col = section.settings.women_collection | default: collections['women']
+  assign men_col = section.settings.men_collection | default: collections['men']
+  assign kids_col = section.settings.kids_collection | default: collections['kids']
+  assign forms_col = section.settings.forms_collection | default: collections['display-forms-accessories']
+
+  assign women_url = women_col.url | default: routes.all_products_collection_url
+  assign men_url = men_col.url | default: routes.all_products_collection_url
+  assign kids_url = kids_col.url | default: routes.all_products_collection_url
+  assign forms_url = forms_col.url | default: routes.all_products_collection_url
+
+  assign wa_number = settings.whatsapp_number | remove: '+' | remove: ' ' | remove: '-'
+-%}
+{%- capture quote_url -%}{% render 'amoy-url', url: section.settings.quote_link, fallback: '/pages/contact' %}{%- endcapture -%}
+
+<div class="amoy-calc" data-calculator id="AmoyCalculator-{{ section.id }}">
+  {%- if section.settings.show_intro -%}
+    <header class="amoy-calc__intro amoy-container">
+      <div class="amoy-eyebrow">{{ 'calculator.eyebrow' | t }}</div>
+      <h1 class="amoy-display amoy-display--lg amoy-calc__title">{{ 'calculator.title' | t }}</h1>
+      <p class="amoy-calc__meta">{{ 'calculator.meta' | t }}</p>
+      <p class="amoy-calc__lede">{{ 'calculator.intro' | t }}</p>
+    </header>
+  {%- endif -%}
+
+  <div class="amoy-container amoy-calc__wrap">
+    <form class="amoy-calc__panel" data-calc-form novalidate aria-label="{{ 'calculator.form_label' | t }}" onsubmit="return false">
+      <div class="amoy-calc__progress" data-calc-progress aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+
+      <noscript><p class="amoy-calc__alert">{{ 'calculator.noscript' | t }}</p></noscript>
+
+      {%- comment -%} Step 1 — store size {%- endcomment -%}
+      <fieldset class="amoy-calc__step" data-calc-step="1">
+        <legend class="amoy-visually-hidden">{{ 'calculator.step1_title' | t }}</legend>
+        <div class="amoy-calc__step-head">
+          <div class="amoy-eyebrow" data-calc-step-count></div>
+          <h2 class="amoy-calc__step-title" tabindex="-1">{{ 'calculator.step1_title' | t }}</h2>
+          <p class="amoy-calc__step-body">{{ 'calculator.step1_body' | t }}</p>
+        </div>
+        <div class="amoy-calc__grid amoy-calc__grid--4" role="radiogroup" aria-label="{{ 'calculator.size_label' | t }}">
+          {%- assign sizes = 'boutique:80,standard:180,large:350,flagship:700' | split: ',' -%}
+          {%- for pair in sizes -%}
+            {%- assign bits = pair | split: ':' -%}
+            {%- assign size_key = 'calculator.size_' | append: bits[0] -%}
+            {%- assign note_key = size_key | append: '_note' -%}
+            <label class="amoy-calc__tile">
+              <input type="radio" name="size" value="{{ bits[1] }}" data-label="{{ size_key | t | escape }} ({{ note_key | t | escape }})" {% if bits[1] == '180' %}checked{% endif %}>
+              <span class="amoy-calc__tile-title">{{ size_key | t }}</span>
+              <span class="amoy-calc__tile-note">{{ note_key | t }}</span>
+            </label>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+
+      {%- comment -%} Step 2 — windows {%- endcomment -%}
+      <fieldset class="amoy-calc__step" data-calc-step="2" hidden>
+        <legend class="amoy-visually-hidden">{{ 'calculator.step2_title' | t }}</legend>
+        <div class="amoy-calc__step-head">
+          <div class="amoy-eyebrow" data-calc-step-count></div>
+          <h2 class="amoy-calc__step-title" tabindex="-1">{{ 'calculator.step2_title' | t }}</h2>
+          <p class="amoy-calc__step-body">{{ 'calculator.step2_body' | t }}</p>
+        </div>
+        <div class="amoy-calc__field">
+          <label class="amoy-calc__label" for="CalcWindows-{{ section.id }}">{{ 'calculator.windows_label' | t }}</label>
+          <div class="amoy-calc__stepper">
+            <button type="button" class="amoy-calc__stepper-btn" data-calc-windows="-1" aria-label="{{ 'calculator.windows_decrease' | t }}">&minus;</button>
+            <input type="number" id="CalcWindows-{{ section.id }}" name="windows" value="2" min="0" max="20" step="1" inputmode="numeric" data-calc-windows-input>
+            <button type="button" class="amoy-calc__stepper-btn" data-calc-windows="1" aria-label="{{ 'calculator.windows_increase' | t }}">+</button>
+          </div>
+        </div>
+        <div class="amoy-calc__field">
+          <div class="amoy-calc__label" id="CalcAmbition-{{ section.id }}">{{ 'calculator.ambition_label' | t }}</div>
+          <div class="amoy-calc__grid amoy-calc__grid--3" role="radiogroup" aria-labelledby="CalcAmbition-{{ section.id }}">
+            {%- assign levels = 'minimal,standard,statement' | split: ',' -%}
+            {%- for level in levels -%}
+              {%- assign level_key = 'calculator.ambition_' | append: level -%}
+              {%- assign level_note = level_key | append: '_note' -%}
+              <label class="amoy-calc__tile">
+                <input type="radio" name="ambition" value="{{ level }}" data-label="{{ level_key | t | escape }}" {% if level == 'standard' %}checked{% endif %}>
+                <span class="amoy-calc__tile-title">{{ level_key | t }}</span>
+                <span class="amoy-calc__tile-note">{{ level_note | t }}</span>
+              </label>
+            {%- endfor -%}
+          </div>
+        </div>
+      </fieldset>
+
+      {%- comment -%} Step 3 — categories {%- endcomment -%}
+      <fieldset class="amoy-calc__step" data-calc-step="3" hidden>
+        <legend class="amoy-visually-hidden">{{ 'calculator.step3_title' | t }}</legend>
+        <div class="amoy-calc__step-head">
+          <div class="amoy-eyebrow" data-calc-step-count></div>
+          <h2 class="amoy-calc__step-title" tabindex="-1">{{ 'calculator.step3_title' | t }}</h2>
+          <p class="amoy-calc__step-body">{{ 'calculator.step3_body' | t }}</p>
+        </div>
+        {%- assign cats = 'women:primary,men:secondary,kids:off' | split: ',' -%}
+        {%- assign emphases = 'off,secondary,primary' | split: ',' -%}
+        {%- for pair in cats -%}
+          {%- assign bits = pair | split: ':' -%}
+          {%- assign cat_key = 'calculator.cat_' | append: bits[0] -%}
+          <div class="amoy-calc__field">
+            <div class="amoy-calc__label" id="CalcCat-{{ bits[0] }}-{{ section.id }}">{{ cat_key | t }}</div>
+            <div class="amoy-calc__grid amoy-calc__grid--3" role="radiogroup" aria-labelledby="CalcCat-{{ bits[0] }}-{{ section.id }}">
+              {%- for emphasis in emphases -%}
+                {%- assign e_key = 'calculator.emphasis_' | append: emphasis -%}
+                {%- assign e_note = e_key | append: '_note' -%}
+                <label class="amoy-calc__tile">
+                  <input type="radio" name="cat_{{ bits[0] }}" value="{{ emphasis }}" {% if emphasis == bits[1] %}checked{% endif %}>
+                  <span class="amoy-calc__tile-title">{{ e_key | t }}</span>
+                  <span class="amoy-calc__tile-note">{{ e_note | t }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endfor -%}
+        <p class="amoy-calc__alert" data-calc-need-category role="alert" hidden>{{ 'calculator.need_category' | t }}</p>
+      </fieldset>
+
+      {%- comment -%} Step 4 — in-store zones {%- endcomment -%}
+      <fieldset class="amoy-calc__step" data-calc-step="4" hidden>
+        <legend class="amoy-visually-hidden">{{ 'calculator.step4_title' | t }}</legend>
+        <div class="amoy-calc__step-head">
+          <div class="amoy-eyebrow" data-calc-step-count></div>
+          <h2 class="amoy-calc__step-title" tabindex="-1">{{ 'calculator.step4_title' | t }}</h2>
+          <p class="amoy-calc__step-body">{{ 'calculator.step4_body' | t }}</p>
+        </div>
+        <div class="amoy-calc__grid amoy-calc__grid--3" role="group" aria-label="{{ 'calculator.zones_label' | t }}">
+          {%- assign zones = 'entrance,promo,fitting' | split: ',' -%}
+          {%- for zone in zones -%}
+            {%- assign z_key = 'calculator.zone_' | append: zone -%}
+            {%- assign z_note = z_key | append: '_note' -%}
+            <label class="amoy-calc__tile">
+              <input type="checkbox" name="zones" value="{{ zone }}" data-label="{{ z_key | t | escape }}" {% if zone == 'entrance' %}checked{% endif %}>
+              <span class="amoy-calc__tile-title">{{ z_key | t }}</span>
+              <span class="amoy-calc__tile-note">{{ z_note | t }}</span>
+            </label>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+
+      <div class="amoy-calc__nav" data-calc-nav>
+        <button type="button" class="amoy-btn amoy-btn--secondary" data-calc-back disabled>{% render 'amoy-arrow', direction: 'back' %} {{ 'calculator.back' | t }}</button>
+        <button type="button" class="amoy-btn amoy-btn--primary amoy-btn--lg" data-calc-next>{{ 'calculator.continue' | t }}</button>
+        <button type="button" class="amoy-btn amoy-btn--primary amoy-btn--lg" data-calc-submit hidden>{{ 'calculator.see_estimate' | t }}</button>
+      </div>
+
+      <div class="amoy-calc__loading" data-calc-loading hidden aria-live="polite">
+        <span class="amoy-calc__loading-mark" aria-hidden="true">&#9672;</span>
+        <p>{{ 'calculator.calculating' | t }}</p>
+      </div>
+
+      {%- comment -%} Result {%- endcomment -%}
+      <div class="amoy-calc__result" data-calc-result hidden tabindex="-1" aria-live="polite">
+        <div class="amoy-eyebrow amoy-eyebrow--brass">{{ 'calculator.result_eyebrow' | t }}</div>
+        <div class="amoy-calc__total"><span class="amoy-ltr" data-calc-out="range"></span></div>
+        <p class="amoy-calc__lead" data-calc-out="lead"></p>
+
+        <div class="amoy-calc__cards">
+          <div class="amoy-calc__card">
+            <div class="amoy-calc__card-label">{{ 'calculator.full_body' | t }}</div>
+            <div class="amoy-calc__card-value" data-calc-out="full"></div>
+          </div>
+          <div class="amoy-calc__card">
+            <div class="amoy-calc__card-label">{{ 'calculator.torso' | t }}</div>
+            <div class="amoy-calc__card-value" data-calc-out="torso"></div>
+          </div>
+        </div>
+
+        <table class="amoy-calc__table">
+          <thead>
+            <tr>
+              <th scope="col">{{ 'calculator.col_category' | t }}</th>
+              <th scope="col">{{ 'calculator.col_full_body' | t }}</th>
+              <th scope="col">{{ 'calculator.col_torso' | t }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for pair in cats -%}
+              {%- assign bits = pair | split: ':' -%}
+              {%- assign cat_key = 'calculator.cat_' | append: bits[0] -%}
+              <tr data-calc-row="{{ bits[0] }}" hidden>
+                <th scope="row">
+                  <span class="amoy-calc__row-name">{{ cat_key | t }}</span>
+                  <span class="amoy-calc__row-split" data-calc-out="split"></span>
+                </th>
+                <td data-label="{{ 'calculator.col_full_body' | t | escape }}" data-calc-out="full"></td>
+                <td data-label="{{ 'calculator.col_torso' | t | escape }}" data-calc-out="torso"></td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">{{ 'calculator.total' | t }}</th>
+              <td></td>
+              <td data-calc-out="total"></td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <details class="amoy-calc__method">
+          <summary>{{ 'calculator.method_title' | t }}</summary>
+          <div class="amoy-calc__method-body">
+            <p>{{ 'calculator.method_intro' | t }}</p>
+            <ul>
+              <li data-calc-out="method-floor"></li>
+              <li data-calc-out="method-window"></li>
+              <li>{{ 'calculator.method_weight' | t }}</li>
+              <li>{{ 'calculator.method_mix' | t }}</li>
+            </ul>
+            <p>{{ 'calculator.method_outro' | t }}</p>
+          </div>
+        </details>
+
+        <div class="amoy-calc__cta color-{{ section.settings.cta_color_scheme }}">
+          <div class="amoy-eyebrow amoy-eyebrow--brass">{{ 'calculator.cta_eyebrow' | t }}</div>
+          <h2 class="amoy-calc__cta-title">{{ 'calculator.cta_title' | t }}</h2>
+          <p class="amoy-calc__cta-body">{{ 'calculator.cta_body' | t }}</p>
+          <div class="amoy-calc__cta-actions">
+            {%- if wa_number != blank -%}
+              <a class="amoy-btn amoy-btn--inverse amoy-btn--lg" href="https://wa.me/{{ wa_number }}" target="_blank" rel="noopener" data-calc-whatsapp>
+                {% render 'icon', icon: 'whatsapp', size: 18 %}
+                {{ 'calculator.cta_whatsapp' | t }}
+              </a>
+            {%- endif -%}
+            <a class="amoy-btn amoy-btn--brass amoy-btn--lg" href="{{ quote_url }}" data-calc-quote>{{ 'calculator.cta_quote' | t }}</a>
+            <button type="button" class="amoy-btn amoy-calc__copy" data-calc-copy>{{ 'calculator.copy' | t }}</button>
+          </div>
+        </div>
+
+        <div class="amoy-calc__shop" data-calc-shop>
+          <div class="amoy-calc__label">{{ 'calculator.shop_heading' | t }}</div>
+          <div class="amoy-calc__shop-links">
+            <a class="amoy-tag" href="{{ women_url }}" data-calc-shop-link="women" hidden>{{ 'calculator.cat_women' | t }} {% render 'amoy-arrow' %}</a>
+            <a class="amoy-tag" href="{{ men_url }}" data-calc-shop-link="men" hidden>{{ 'calculator.cat_men' | t }} {% render 'amoy-arrow' %}</a>
+            <a class="amoy-tag" href="{{ kids_url }}" data-calc-shop-link="kids" hidden>{{ 'calculator.cat_kids' | t }} {% render 'amoy-arrow' %}</a>
+            <a class="amoy-tag" href="{{ forms_url }}" data-calc-shop-link="forms" hidden>{{ 'calculator.shop_forms' | t }} {% render 'amoy-arrow' %}</a>
+          </div>
+        </div>
+
+        <div class="amoy-calc__nav amoy-calc__nav--result">
+          <button type="button" class="amoy-btn amoy-btn--secondary" data-calc-edit>{% render 'amoy-arrow', direction: 'back' %} {{ 'calculator.edit' | t }}</button>
+          <button type="button" class="amoy-btn amoy-btn--secondary" data-calc-restart>{{ 'calculator.restart' | t }}</button>
+        </div>
+      </div>
+    </form>
+
+    <p class="amoy-calc__disclaimer">{{ 'calculator.disclaimer' | t }}</p>
+  </div>
+
+  {%- if section.settings.show_page_content and page.content != blank -%}
+    <div class="amoy-container amoy-calc__content rte">{{ page.content }}</div>
+  {%- endif -%}
+
+  {%- if section.settings.show_faq -%}
+    <section class="amoy-container amoy-calc__faq">
+      <h2 class="amoy-calc__faq-title">{{ 'calculator.plan_title' | t }}</h2>
+      <p>{{ 'calculator.plan_body' | t }}</p>
+      <h2 class="amoy-calc__faq-title">{{ 'calculator.choose_title' | t }}</h2>
+      <p>{{ 'calculator.choose_body_html' | t: women: women_url, men: men_url, kids: kids_url, forms: forms_url }}</p>
+      <h2 class="amoy-calc__faq-title">{{ 'calculator.faq_heading' | t }}</h2>
+      {%- for i in (1..3) -%}
+        {%- assign q_key = 'calculator.faq_q' | append: i -%}
+        {%- assign a_key = 'calculator.faq_a' | append: i -%}
+        <details class="amoy-collapsible">
+          <summary class="amoy-collapsible__summary">{{ q_key | t }} {% render 'icon', icon: 'chevron-down', size: 18 %}</summary>
+          <div class="amoy-collapsible__body"><p>{{ a_key | t }}</p></div>
+        </details>
+      {%- endfor -%}
+      <p class="amoy-calc__faq-cta"><a class="amoy-btn amoy-btn--primary" href="{{ quote_url }}">{{ 'calculator.cta_quote' | t }}</a></p>
+    </section>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "inLanguage": {{ request.locale.iso_code | json }},
+        "mainEntity": [
+          {%- for i in (1..3) -%}
+            {%- assign q_key = 'calculator.faq_q' | append: i -%}
+            {%- assign a_key = 'calculator.faq_a' | append: i -%}
+            { "@type": "Question", "name": {{ q_key | t | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ a_key | t | json }} } }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
+    </script>
+  {%- endif -%}
+
+  <script type="application/json" data-calc-strings>
+    {
+      "stepOf": {{ 'calculator.step_of' | t | json }},
+      "resultLead": {{ 'calculator.result_lead' | t | json }},
+      "rowSplit": {{ 'calculator.row_split' | t | json }},
+      "methodFloor": {{ 'calculator.method_floor' | t | json }},
+      "methodWindow": {{ 'calculator.method_window' | t | json }},
+      "copied": {{ 'calculator.copied' | t | json }},
+      "summaryTitle": {{ 'calculator.summary_title' | t | json }},
+      "summaryStore": {{ 'calculator.summary_store' | t | json }},
+      "summaryWindows": {{ 'calculator.summary_windows' | t | json }},
+      "summaryZones": {{ 'calculator.summary_zones' | t | json }},
+      "summaryNone": {{ 'calculator.summary_none' | t | json }},
+      "summaryTotal": {{ 'calculator.summary_total' | t | json }},
+      "summarySplit": {{ 'calculator.summary_split' | t | json }},
+      "summaryCategory": {{ 'calculator.summary_category' | t | json }},
+      "summaryClosing": {{ 'calculator.summary_closing' | t | json }},
+      "categories": {
+        "women": {{ 'calculator.cat_women' | t | json }},
+        "men": {{ 'calculator.cat_men' | t | json }},
+        "kids": {{ 'calculator.cat_kids' | t | json }}
+      }
+    }
+  </script>
+</div>
+
+<script src="{{ 'amoy-calculator.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Mannequin calculator",
+  "tag": "section",
+  "class": "amoy-calc-section",
+  "settings": [
+    { "type": "paragraph", "content": "All wording comes from the theme language files (Content → Languages), so the calculator is fully translated on the Arabic store." },
+    { "type": "checkbox", "id": "show_intro", "label": "Show heading and introduction", "default": true },
+    { "type": "checkbox", "id": "show_faq", "label": "Show planning guide and FAQ", "default": true },
+    { "type": "checkbox", "id": "show_page_content", "label": "Also show the page's own content", "default": false, "info": "Leave off if the page content still contains the old embedded calculator." },
+    { "type": "header", "content": "Buttons" },
+    { "type": "url", "id": "quote_link", "label": "Quote button link", "info": "Defaults to the contact page. The estimate is copied into the contact form message." },
+    { "type": "color_scheme", "id": "cta_color_scheme", "label": "Next-step box colour scheme", "default": "scheme-5" },
+    { "type": "header", "content": "Shop links" },
+    { "type": "collection", "id": "women_collection", "label": "Women collection", "info": "Defaults to the collection with the handle women." },
+    { "type": "collection", "id": "men_collection", "label": "Men collection", "info": "Defaults to the collection with the handle men." },
+    { "type": "collection", "id": "kids_collection", "label": "Kids collection", "info": "Defaults to the collection with the handle kids." },
+    { "type": "collection", "id": "forms_collection", "label": "Display forms collection", "info": "Defaults to the collection with the handle display-forms-accessories." }
+  ],
+  "presets": [{ "name": "Mannequin calculator" }]
+}
+{% endschema %}

@@ -8,11 +8,11 @@
 <article class="article-page">
   <div class="article-hero">
     <div class="article-hero-inner">
-      <a href="{{ blog.url }}" class="back-btn">&larr; {{ 'blog.back_to_blog' | t }}</a>
+      <a href="{{ blog.url }}" class="back-btn">{% render 'amoy-arrow', direction: 'back' %} {{ 'blog.back_to_blog' | t }}</a>
       {%- if article.tags.size > 0 -%}
         <span class="article-category">{{ article.tags.first }}</span>
       {%- endif -%}
-      <h1 class="article-title">{{ article.title }}</h1>
+      <h1 class="article-title"{% render 'amoy-lang-attrs', text: article.title %}>{{ article.title }}</h1>
       <div class="article-meta">
         <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'date' }}</time>
         <span class="meta-sep"></span>
@@ -32,7 +32,11 @@
   {%- endif -%}
 
   <div class="article-body-wrap">
-    <div class="article-body rte">{{ article.content }}</div>
+    {%- capture article_lang -%}{% render 'amoy-lang-attrs', text: article.title %}{%- endcapture -%}
+    {%- if article_lang != blank -%}
+      <p class="article-comment__success" style="font-weight:500">{{ 'blog.original_language' | t }}</p>
+    {%- endif -%}
+    <div class="article-body rte"{{ article_lang }}>{{ article.content }}</div>
 
     {%- if article.tags.size > 0 -%}
       <div class="article-tags">

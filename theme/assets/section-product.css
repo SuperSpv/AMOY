@@ -49,11 +49,6 @@
 .amoy-pdp__specs-title{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin:0 0 6px}
 .amoy-pdp__trust{list-style:none;margin:26px 0 0;padding:0;display:flex;gap:24px;flex-wrap:wrap;color:var(--text-muted);font-size:13px}
 .amoy-pdp__trust li{display:inline-flex;align-items:center;gap:8px}
-.amoy-collapsible{border-bottom:1px solid var(--border-subtle)}
-.amoy-collapsible__summary{display:flex;align-items:center;justify-content:space-between;padding:16px 0;font-size:14px;font-weight:600;color:var(--text-heading);cursor:pointer;list-style:none}
-.amoy-collapsible__summary::-webkit-details-marker{display:none}
-.amoy-collapsible[open] .amoy-collapsible__summary svg{transform:rotate(180deg)}
-.amoy-collapsible__body{padding:0 0 18px;font-size:14px;line-height:1.7;color:var(--text-muted)}
 .amoy-recs{padding:8px 40px 80px}
 .amoy-recs__head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid var(--border-subtle);padding-top:38px;margin-bottom:22px}
 .amoy-recs__title{font-family:var(--font-display);font-weight:600;font-size:26px;color:var(--text-heading);margin:0}

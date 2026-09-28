@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "amoy-calculator",
+      "settings": {
+        "show_intro": true,
+        "show_faq": true,
+        "show_page_content": false,
+        "cta_color_scheme": "scheme-5"
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -19,13 +19,18 @@
             <a href="{{ hero_wa }}" target="_blank" rel="noopener" class="amoy-btn amoy-btn--primary amoy-btn--lg">{{ section.settings.quote_label }}</a>
           {%- endif -%}
           {%- if section.settings.contact_label != blank -%}
-            <a href="{{ section.settings.contact_url | default: '/pages/contact' }}" class="amoy-btn amoy-btn--secondary amoy-btn--lg">{{ section.settings.contact_label }}</a>
+            {%- capture hero_contact_url -%}{% render 'amoy-url', url: section.settings.contact_url, fallback: '/pages/contact' %}{%- endcapture -%}
+            <a href="{{ hero_contact_url }}" class="amoy-btn amoy-btn--secondary amoy-btn--lg">{{ section.settings.contact_label }}</a>
           {%- endif -%}
         </div>
       </div>
       <div class="grace-hero__media" style="min-height:460px;box-shadow:var(--shadow-sm)">
         {%- if section.settings.hero_image != blank -%}
-          {{ section.settings.hero_image | image_url: width: 1200 | image_tag: style: 'width:100%;height:100%;object-fit:cover', loading: 'eager', alt: 'Grace Collection' }}
+          {{ section.settings.hero_image | image_url: width: 1200 | image_tag: style: 'width:100%;height:100%;object-fit:cover', loading: 'eager', alt: section.settings.eyebrow }}
+        {%- elsif collection.image != blank -%}
+          {{ collection.image | image_url: width: 1200 | image_tag: style: 'width:100%;height:100%;object-fit:cover', loading: 'eager', alt: collection.image.alt | default: collection.title }}
+        {%- elsif collection.products.first.featured_media != blank -%}
+          {{ collection.products.first.featured_media | image_url: width: 1200 | image_tag: style: 'width:100%;height:100%;object-fit:contain;padding:24px', loading: 'eager', alt: collection.title }}
         {%- else -%}
           <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="currentColor" stroke-width="1" opacity=".18"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15l5-4 4 3 5-5 4 4"/></svg></div>
         {%- endif -%}

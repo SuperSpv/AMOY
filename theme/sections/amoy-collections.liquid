@@ -19,7 +19,9 @@
       {%- for block in section.blocks -%}
         {%- liquid
           assign linked = block.settings.collection
-          assign card_url = block.settings.url
+          capture card_url
+            render 'amoy-url', url: block.settings.url, fallback: routes.all_products_collection_url
+          endcapture
           if linked != blank
             assign card_url = linked.url
           endif
@@ -52,7 +54,7 @@
             {%- if block.settings.caption != blank -%}
               <span class="amoy-media-label">{{ block.settings.caption }}</span>
             {%- endif -%}
-            <span class="amoy-collection-cta">{{ 'general.shop_all' | t }} &rarr;</span>
+            <span class="amoy-collection-cta">{{ 'general.shop_all' | t }} {% render 'amoy-arrow' %}</span>
           </div>
           <div class="amoy-card__body">
             <div class="amoy-collection-card__row">

@@ -11,13 +11,13 @@
 </style>
 {%- capture grace_cust -%}
 <details class="grace-cust">
-  <summary>What can be customized?</summary>
+  <summary>{{ 'collection_page.customize_title' | t }}</summary>
   <ul>
-    <li><b>Face</b> — choose from our character options</li>
-    <li><b>Skin tone</b> — any colour you want</li>
-    <li><b>Finish</b> — matte, glossy or full fabric wrap</li>
-    <li><b>Base</b> — glass or metal</li>
-    <li><b>Arms</b> — optional in wood</li>
+    <li>{{ 'collection_page.customize_face_html' | t }}</li>
+    <li>{{ 'collection_page.customize_skin_html' | t }}</li>
+    <li>{{ 'collection_page.customize_finish_html' | t }}</li>
+    <li>{{ 'collection_page.customize_base_html' | t }}</li>
+    <li>{{ 'collection_page.customize_arms_html' | t }}</li>
   </ul>
 </details>
 {%- endcapture -%}
@@ -28,12 +28,16 @@
     <p style="font-size:15px;color:var(--text-muted);margin:0 0 34px;max-width:54ch">{{ section.settings.subtext }}</p>
     <div class="amoy-grid--4">
       {%- if collection.products.size > 0 -%}
-        {%- comment -%} Order: full mannequins → torso/bust → other forms (hand, foot, leg…) {%- endcomment -%}
+        {%- comment -%}
+          Order: full mannequins → torso/bust → other forms (hand, foot, leg…).
+          Classified by tag and handle, which are not translated — the product
+          type is, so checking it would break the order on the Arabic store.
+        {%- endcomment -%}
         {%- for tier in (0..2) -%}
         {%- for product in collection.products -%}
           {%- liquid
             assign ptier = 2
-            if product.type contains 'Mannequin'
+            if product.tags contains 'full body mannequin' or product.handle contains 'full-body'
               assign ptier = 0
             elsif product.handle contains 'torso' or product.handle contains 'bust' or product.handle contains 'hip'
               assign ptier = 1

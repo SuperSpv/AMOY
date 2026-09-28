@@ -7,13 +7,9 @@
 
 <section class="blog-hero">
   <div class="blog-hero-inner">
-    {%- if section.settings.eyebrow != blank -%}
-      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
-    {%- endif -%}
+    <div class="eyebrow">{% if section.settings.eyebrow != blank %}{{ section.settings.eyebrow }}{% else %}{{ 'blog.insights' | t }}{% endif %}</div>
     <h1 class="blog-hero-title">{{ section.settings.hero_title | default: blog.title }}</h1>
-    {%- if section.settings.hero_subtitle != blank -%}
-      <p class="blog-hero-sub">{{ section.settings.hero_subtitle }}</p>
-    {%- endif -%}
+    <p class="blog-hero-sub">{% if section.settings.hero_subtitle != blank %}{{ section.settings.hero_subtitle }}{% else %}{{ 'blog.subtitle' | t }}{% endif %}</p>
     {%- if section.settings.show_tags and blog.all_tags.size > 0 -%}
       <div class="blog-tags">
         <a href="{{ blog.url }}" class="tag-chip{% unless current_tags %} is-active{% endunless %}">{{ 'general.all' | t }}</a>
@@ -44,12 +40,13 @@
               <div class="img-placeholder"></div>
             {%- endif -%}
           </div>
+          {%- capture featured_lang -%}{% render 'amoy-lang-attrs', text: featured_article.title %}{%- endcapture -%}
           <div class="featured-content">
             {%- if featured_article.tags.size > 0 -%}
               <span class="post-category">{{ featured_article.tags.first }}</span>
             {%- endif -%}
-            <h2 class="featured-title">{{ featured_article.title }}</h2>
-            <p class="featured-excerpt">{{ featured_article.excerpt_or_content | strip_html | truncate: 200 }}</p>
+            <h2 class="featured-title"{{ featured_lang }}>{{ featured_article.title }}</h2>
+            <p class="featured-excerpt"{{ featured_lang }}>{{ featured_article.excerpt_or_content | strip_html | truncate: 200 }}</p>
             <div class="post-meta">
               <time datetime="{{ featured_article.published_at | date: '%Y-%m-%d' }}">{{ featured_article.published_at | date: format: 'date' }}</time>
               <span class="post-meta-sep"></span>
@@ -57,7 +54,7 @@
               {%- assign fread = fwords | divided_by: 200 | plus: 1 -%}
               <span>{{ 'blog.min_read' | t: count: fread }}</span>
             </div>
-            <span class="read-more">{{ 'blog.read_article' | t }} &rarr;</span>
+            <span class="read-more">{{ 'blog.read_article' | t }} {% render 'amoy-arrow' %}</span>
           </div>
         </a>
       </div>
@@ -85,11 +82,11 @@
         {%- if paginate.pages > 1 -%}
           <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination' | t }}">
             {%- if paginate.previous -%}
-              <a href="{{ paginate.previous.url }}" class="pagination-btn">&larr; {{ 'general.previous' | t }}</a>
+              <a href="{{ paginate.previous.url }}" class="pagination-btn">{% render 'amoy-arrow', direction: 'back' %} {{ 'general.previous' | t }}</a>
             {%- endif -%}
             <span class="pagination-count">{{ 'blog.page_of' | t: current: paginate.current_page, total: paginate.pages }}</span>
             {%- if paginate.next -%}
-              <a href="{{ paginate.next.url }}" class="pagination-btn">{{ 'general.next' | t }} &rarr;</a>
+              <a href="{{ paginate.next.url }}" class="pagination-btn">{{ 'general.next' | t }} {% render 'amoy-arrow' %}</a>
             {%- endif -%}
           </nav>
         {%- endif -%}
@@ -109,11 +106,11 @@
           </div>
           <div class="cta-strip-actions">
             {%- if block.settings.show_phone and settings.contact_phone != blank -%}
-              <a href="tel:{{ settings.contact_phone | remove: ' ' | remove: '-' }}" class="btn-outline-light" dir="ltr">{{ settings.contact_phone }}</a>
+              <a href="tel:{{ settings.contact_phone | remove: ' ' | remove: '-' }}" class="btn-outline-light amoy-ltr">{{ settings.contact_phone }}</a>
             {%- endif -%}
             {%- if block.settings.button_label != blank -%}
-              {%- assign cta_url = block.settings.button_url | default: '/pages/contact' -%}
-              <a href="{{ cta_url }}" class="btn-brass">{{ block.settings.button_label }} &rarr;</a>
+              {%- capture cta_url -%}{% render 'amoy-url', url: block.settings.button_url, fallback: '/pages/contact' %}{%- endcapture -%}
+              <a href="{{ cta_url }}" class="btn-brass">{{ block.settings.button_label }} {% render 'amoy-arrow' %}</a>
             {%- endif -%}
           </div>
         </div>
@@ -127,9 +124,9 @@
 {
   "name": "Blog posts",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "AMOY Insights" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "Leave blank for the translated \"AMOY Insights\"." },
     { "type": "text", "id": "hero_title", "label": "Heading", "info": "Leave blank to use the blog title." },
-    { "type": "text", "id": "hero_subtitle", "label": "Subtitle", "default": "Craft, innovation and retail intelligence — from the studio floor in Jeddah." },
+    { "type": "text", "id": "hero_subtitle", "label": "Subtitle", "info": "Leave blank for the translated default subtitle." },
     { "type": "checkbox", "id": "show_tags", "label": "Show tag filters", "default": true },
     { "type": "checkbox", "id": "show_featured", "label": "Highlight the newest post", "default": true },
     { "type": "range", "id": "posts_per_page", "min": 3, "max": 24, "step": 3, "label": "Posts per page", "default": 9 }

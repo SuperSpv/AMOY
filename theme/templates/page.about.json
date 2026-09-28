@@ -42,7 +42,14 @@
       "settings": {
         "heading": "We create characters, not just forms.",
         "body": "AMOY Limited is Saudi Arabia's premier fiberglass mannequin manufacturer, based in Jeddah and serving fashion retailers across the Kingdom. From luxury and lingerie to sportswear and junior fashion, we craft mannequins that hold a pose — and a brand's identity — with quiet confidence.",
-        "process_eyebrow": "How we work"
+        "process_eyebrow": "How we work",
+        "eyebrow": "About AMOY",
+        "step1_title": "Design & sculpt",
+        "step1_body": "Forms developed to fit your brand's identity and silhouette.",
+        "step2_title": "Finish to spec",
+        "step2_body": "Semi-matte white by default, or any custom colour and finish.",
+        "step3_title": "Deliver across KSA",
+        "step3_body": "Riyadh, Jeddah, Dammam and every city between."
       }
     }
   },

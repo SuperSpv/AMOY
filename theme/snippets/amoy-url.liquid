@@ -1,0 +1,43 @@
+{%- comment -%}
+  Outputs an internal link that keeps the visitor in their current language.
+
+  Links typed into section settings as raw paths ("/pages/contact") are not
+  rewritten by Shopify, so on /ar they would send Arabic visitors back to the
+  English store. This prefixes such paths with the current language root.
+  Links picked with the theme editor's link picker, full URLs, mailto:, tel:
+  and paths that already carry the language root are returned unchanged.
+
+  Accepts:
+  - url: {String} the link (may be blank)
+  - fallback: {String} used when url is blank, e.g. '/pages/contact'
+
+  Usage:
+  {%- capture quote_url -%}{% render 'amoy-url', url: block.settings.link, fallback: '/pages/contact' %}{%- endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  assign u = url | default: fallback | strip
+  assign root = routes.root_url
+  if u != blank and root != '/'
+    assign first_char = u | slice: 0
+    assign second_char = u | slice: 1
+    if first_char == '/' and second_char != '/'
+      assign root_len = root | size
+      assign head = u | slice: 0, root_len
+      assign next_char = u | slice: root_len
+      assign localized = false
+      if head == root
+        if next_char == blank or next_char == '/' or next_char == '?' or next_char == '#'
+          assign localized = true
+        endif
+      endif
+      unless localized
+        if u == '/'
+          assign u = root
+        else
+          assign u = root | append: u
+        endif
+      endunless
+    endif
+  endif
+  echo u
+-%}

@@ -17,6 +17,14 @@
     --header-bg: {{ section.settings.background_color }};
     --header-fg: {{ section.settings.text_color }};
   }
+  {%- if section.settings.sticky %}
+  {%- comment -%}
+    position:sticky only sticks within its parent, and the header's parent is
+    Shopify's section wrapper, which is exactly as tall as the header — so the
+    wrapper itself has to be the sticky element.
+  {%- endcomment %}
+  #shopify-section-{{ section.id }} { position: sticky; top: 0; z-index: 160; }
+  {%- endif %}
 </style>
 
 <header class="amoy-header{% if section.settings.sticky %} amoy-header--sticky{% endif %}" data-header role="banner">

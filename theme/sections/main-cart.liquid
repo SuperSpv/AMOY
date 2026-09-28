@@ -3,8 +3,8 @@
 {%- liquid
   assign threshold = settings.volume_threshold
   assign percent = settings.volume_percent | append: '%'
-  assign quote_url = section.settings.quote_link | default: '/pages/contact'
 -%}
+{%- capture quote_url -%}{% render 'amoy-url', url: section.settings.quote_link, fallback: '/pages/contact' %}{%- endcapture -%}
 
 <div class="amoy-cart amoy-container">
   <div class="amoy-eyebrow">{{ 'cart.eyebrow' | t }}</div>
@@ -60,7 +60,7 @@
                 <div class="amoy-qty">
                   <button type="button" class="amoy-qty__btn" data-cart-qty="{{ forloop.index }}" data-qty-value="{{ item.quantity | minus: 1 }}" aria-label="{{ 'accessibility.decrease_quantity' | t }}">{% render 'icon', icon: 'minus', size: 15 %}</button>
                   <label class="amoy-visually-hidden" for="CartQty-{{ forloop.index }}">{{ 'cart.quantity' | t }}</label>
-                  <input class="amoy-qty__val" id="CartQty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+                  <input class="amoy-qty__val" id="CartQty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" data-cart-qty-input="{{ forloop.index }}">
                   <button type="button" class="amoy-qty__btn" data-cart-qty="{{ forloop.index }}" data-qty-value="{{ item.quantity | plus: 1 }}" aria-label="{{ 'accessibility.increase_quantity' | t }}">{% render 'icon', icon: 'plus', size: 15 %}</button>
                 </div>
                 <span class="amoy-cart__line-price">

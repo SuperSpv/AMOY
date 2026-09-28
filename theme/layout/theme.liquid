@@ -1,8 +1,35 @@
 <!doctype html>
 {%- liquid
   assign is_rtl = false
-  if request.locale.iso_code contains 'ar'
+  if request.locale.iso_code == 'ar' or request.locale.iso_code contains 'ar-'
     assign is_rtl = true
+  endif
+
+  comment
+    Path of the current page without the language prefix, e.g. /pages/about
+    on both /pages/about and /ar/pages/about. Used for hreflang links and the
+    Arabic auto-redirect.
+  endcomment
+  assign cur_root = localization.language.root_url
+  assign rel_path = request.path
+  unless cur_root == '/'
+    assign rel_path = rel_path | remove_first: cur_root
+  endunless
+  assign rel_path = rel_path | prepend: '/' | replace: '//', '/'
+
+  assign ar_root = ''
+  for language in localization.available_languages
+    if language.iso_code == 'ar'
+      assign ar_root = language.root_url
+    endif
+  endfor
+  assign ar_search_url = ar_root | append: '/search' | replace: '//', '/'
+
+  assign og_locale = request.locale.iso_code | replace: '-', '_'
+  if request.locale.iso_code == 'ar'
+    assign og_locale = 'ar_SA'
+  elsif request.locale.iso_code == 'en'
+    assign og_locale = 'en_US'
   endif
 
   assign meta_description = page_description | default: shop.description
@@ -16,6 +43,38 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {%- comment -%}
+      Arabic-first visitors: a shopper whose browser is set to Arabic, or who
+      picked Arabic before, is sent straight to the Arabic store (/ar) on their
+      first English page view. Choosing English in the language switcher is
+      remembered and stops the redirect. Search engines, the theme editor and
+      pages that are already Arabic are never redirected.
+    {%- endcomment -%}
+    {%- if ar_root != blank and request.design_mode == false -%}
+      <script>
+        (function () {
+          var KEY = 'amoy_lang';
+          var saved = null;
+          try { saved = window.localStorage.getItem(KEY); } catch (e) {}
+          window.amoyLocale = {
+            key: KEY,
+            current: {{ request.locale.iso_code | json }},
+            arRoot: {{ ar_root | json }},
+            arSearch: {{ ar_search_url | json }},
+            remember: function (code) { try { window.localStorage.setItem(KEY, code); } catch (e) {} }
+          };
+          if ({{ is_rtl | json }}) return;
+          if (saved && saved !== 'ar') return;
+          if (/bot|crawl|spider|slurp|mediapartners|facebookexternalhit|lighthouse|headless|preview/i.test(navigator.userAgent)) return;
+          var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || navigator.userLanguage || ''];
+          if (saved !== 'ar' && !/^ar(\b|-|_|$)/i.test(String(langs[0] || ''))) return;
+          var path = {{ rel_path | json }};
+          var target = (path === '/' ? {{ ar_root | json }} : {{ ar_root | json }} + path) + window.location.search + window.location.hash;
+          window.location.replace(target);
+        })();
+      </script>
+    {%- endif -%}
     <meta name="theme-color" content="{{ settings.color_primary }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
@@ -36,16 +95,14 @@
 
     {%- comment -%} hreflang alternates — driven by Markets {%- endcomment -%}
     {%- if localization.available_languages.size > 1 -%}
-      {%- liquid
-        assign cur_root = localization.language.root_url
-        assign rel_path = request.path
-        unless cur_root == '/'
-          assign rel_path = rel_path | remove_first: cur_root
-        endunless
-        assign rel_path = rel_path | prepend: '/' | replace: '//', '/'
-      -%}
       {%- for language in localization.available_languages -%}
-        {%- assign href_path = rel_path | prepend: language.root_url | replace: '//', '/' -%}
+        {%- liquid
+          if rel_path == '/'
+            assign href_path = language.root_url
+          else
+            assign href_path = rel_path | prepend: language.root_url | replace: '//', '/'
+          endif
+        -%}
         <link rel="alternate" hreflang="{{ language.iso_code }}" href="{{ request.origin }}{{ href_path }}">
       {%- endfor -%}
       <link rel="alternate" hreflang="x-default" href="{{ request.origin }}{{ rel_path }}">
@@ -57,7 +114,7 @@
     <meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
     {%- if meta_description != blank -%}<meta property="og:description" content="{{ meta_description | escape }}">{%- endif -%}
     <meta property="og:url" content="{{ canonical_url }}">
-    <meta property="og:locale" content="{{ request.locale.iso_code }}">
+    <meta property="og:locale" content="{{ og_locale }}">
     {%- liquid
       assign og_image = nil
       if request.page_type == 'product' and product.featured_image
@@ -122,8 +179,8 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
       <style>
-        :root { --font-display: 'IBM Plex Sans Arabic', sans-serif; }
-        body, button, input, select, textarea { font-family: 'IBM Plex Sans Arabic', var(--font-body), sans-serif; }
+        :root { --font-display: 'IBM Plex Sans Arabic', sans-serif; --font-body: 'IBM Plex Sans Arabic', sans-serif; --font-sans: 'IBM Plex Sans Arabic', sans-serif; }
+        body, button, input, select, textarea { font-family: 'IBM Plex Sans Arabic', {{ body_font.family }}, sans-serif; }
       </style>
     {%- endif -%}
 
@@ -177,6 +234,13 @@
         quantity: {{ 'cart.quantity' | t | json }},
         remove: {{ 'cart.remove' | t | json }},
         empty: {{ 'cart.empty' | t | json }}
+      };
+      window.amoyLocale = window.amoyLocale || {
+        key: 'amoy_lang',
+        current: {{ request.locale.iso_code | json }},
+        arRoot: {{ ar_root | json }},
+        arSearch: {{ ar_search_url | json }},
+        remember: function (code) { try { window.localStorage.setItem('amoy_lang', code); } catch (e) {} }
       };
       window.amoyRoutes = {
         cart: {{ routes.cart_url | json }},

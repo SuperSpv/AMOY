@@ -1,0 +1,21 @@
+{%- comment -%}
+  On the Arabic store, content that has not been translated yet (still in
+  English) is marked lang="en" dir="ltr" so it reads left-to-right with
+  Latin punctuation instead of being mirrored. Outputs nothing otherwise.
+
+  Accepts:
+  - text: {String} the title or text to check
+{%- endcomment -%}
+{%- if request.locale.iso_code == 'ar' and text != blank -%}
+  {%- liquid
+    assign has_arabic = false
+    assign letters = 'ا,ل,ي,م,ن,و,ة,ر,ت,ع' | split: ','
+    for letter in letters
+      if text contains letter
+        assign has_arabic = true
+        break
+      endif
+    endfor
+  -%}
+  {%- unless has_arabic %} lang="en" dir="ltr"{% endunless -%}
+{%- endif -%}

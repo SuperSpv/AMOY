@@ -238,11 +238,48 @@
   }
 
   document.addEventListener('change', function (e) {
+    var cartQty = e.target.closest('[data-cart-qty-input]');
+    if (cartQty) {
+      var qty = parseInt(cartQty.value, 10);
+      if (isNaN(qty) || qty < 0) qty = 0;
+      changeLine(parseInt(cartQty.dataset.cartQtyInput, 10), qty);
+      return;
+    }
     var select = e.target.closest('[data-sort-select], [data-localization-submit]');
     if (!select) return;
     var form = select.closest('form');
     if (form) form.submit();
   });
+
+  /* Language: remember an explicit choice so the Arabic auto-redirect in
+     theme.liquid respects it on later visits. */
+  var LOC = window.amoyLocale || {};
+  document.addEventListener('click', function (e) {
+    var langBtn = e.target.closest('.amoy-lang__btn[name="language_code"]');
+    if (langBtn && LOC.remember) LOC.remember(langBtn.value);
+  }, true);
+
+  /* A shopper who types an Arabic search on the English store gets the
+     Arabic results page (and the Arabic store from then on). */
+  var ARABIC_CHARS = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form || form.getAttribute('role') !== 'search') return;
+    if (!LOC.arSearch || LOC.current === 'ar') return;
+    var q = form.querySelector('input[name="q"]');
+    if (!q || !ARABIC_CHARS.test(q.value || '')) return;
+    form.setAttribute('action', LOC.arSearch);
+    if (LOC.remember) LOC.remember('ar');
+  }, true);
+
+  /* Contact form: pick up an estimate sent from the mannequin calculator. */
+  function prefillContactFromCalculator() {
+    var target = document.querySelector('[data-calculator-prefill]');
+    if (!target || target.value) return;
+    var summary = null;
+    try { summary = window.sessionStorage.getItem('amoy_calc_summary'); } catch (err) {}
+    if (summary) target.value = summary;
+  }
 
   function showMedia(root, mediaId) {
     $$('[data-media-id]', root).forEach(function (el) {
@@ -469,7 +506,10 @@
     initCartUpsell();
     initAnnouncement();
     initCarousels(root);
-    if (!scope) updateCartCountFromServer();
+    if (!scope) {
+      updateCartCountFromServer();
+      prefillContactFromCalculator();
+    }
   }
 
   function updateCartCountFromServer() {

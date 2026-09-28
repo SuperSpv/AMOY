@@ -4,17 +4,46 @@
 <section class="amoy-block" style="padding-top:0;padding-bottom:72px">
   <div class="amoy-container">
     <div class="amoy-grid--3">
+      {%- comment -%}
+        Poses without a picked image fall back to the collection's full-body
+        products, so the row never shows empty placeholders.
+      {%- endcomment -%}
+      {%- liquid
+        assign fallback_products = ''
+        if collection != blank
+          for p in collection.products
+            if p.featured_media != blank
+              if p.tags contains 'full body mannequin' or p.handle contains 'full-body'
+                assign fallback_products = fallback_products | append: p.handle | append: ','
+              endif
+            endif
+          endfor
+        endif
+        assign fallback_handles = fallback_products | split: ','
+      -%}
       {%- for i in (1..3) -%}
         {%- assign img_key = 'f' | append: i | append: '_image' -%}
         {%- assign lbl_key = 'f' | append: i | append: '_label' -%}
+        {%- assign fb_index = i | minus: 1 -%}
+        {%- assign fb_product = nil -%}
+        {%- if fallback_handles[fb_index] != blank -%}{%- assign fb_product = all_products[fallback_handles[fb_index]] -%}{%- endif -%}
         <div>
           <div class="grace-feat__media">
             {%- if section.settings[img_key] != blank -%}
               {{ section.settings[img_key] | image_url: width: 700 | image_tag: style: 'width:100%;height:100%;object-fit:cover', alt: section.settings[lbl_key] }}
+            {%- elsif fb_product != blank -%}
+              <a href="{{ fb_product.url }}" style="display:block;width:100%;height:100%">
+                {{ fb_product.featured_media | image_url: width: 700 | image_tag: loading: 'lazy', style: 'width:100%;height:100%;object-fit:contain;padding:18px', alt: fb_product.featured_media.alt | default: fb_product.title }}
+              </a>
             {%- else -%}
               <div class="amoy-placeholder"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" opacity=".18"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
             {%- endif -%}
-            <span class="amoy-media-label">{{ section.settings[lbl_key] }}</span>
+            {%- if section.settings[img_key] == blank and fb_product != blank -%}
+              {%- assign fb_code = fb_product.title | split: '(' | last | remove: ')' | strip -%}
+              <span class="amoy-media-label">{% if fb_product.title contains '(' %}{{ fb_code }}{% endif %}</span>
+            {%- else -%}
+              <span class="amoy-media-label">{{ section.settings[lbl_key] }}</span>
+            {%- endif -%}
           </div>
         </div>
       {%- endfor -%}

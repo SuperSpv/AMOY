@@ -19,9 +19,9 @@
       {%- endif -%}
     </div>
     <p class="amoy-cta-band__line">
-      {%- if settings.contact_phone != blank -%}<span dir="ltr">{{ settings.contact_phone }}</span> &middot; {% endif -%}
-      {%- if cta_email != blank -%}{{ cta_email }} &middot; {% endif -%}
-      {{ settings.contact_city | default: 'Jeddah' }}, Saudi Arabia
+      {%- if settings.contact_phone != blank -%}<span class="amoy-ltr">{{ settings.contact_phone }}</span> &middot; {% endif -%}
+      {%- if cta_email != blank -%}<span class="amoy-ltr">{{ cta_email }}</span> &middot; {% endif -%}
+      {{ settings.contact_city | default: 'Jeddah' }}{% if request.locale.iso_code == 'ar' %}، {% else %}, {% endif %}{{ 'general.saudi_arabia' | t }}
     </p>
   </div>
 </section>

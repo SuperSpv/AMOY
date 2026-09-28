@@ -32,18 +32,19 @@
         <div class="img-placeholder">{{ article.title | truncate: 1, '' }}</div>
       {%- endif -%}
     </div>
+    {%- capture card_lang -%}{% render 'amoy-lang-attrs', text: article.title %}{%- endcapture -%}
     <div class="card-body">
       {%- if article.tags.size > 0 -%}
         <span class="post-category">{{ article.tags.first }}</span>
       {%- endif -%}
-      <h3 class="card-title">{{ article.title }}</h3>
-      <p class="card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 140 }}</p>
+      <h3 class="card-title"{{ card_lang }}>{{ article.title }}</h3>
+      <p class="card-excerpt"{{ card_lang }}>{{ article.excerpt_or_content | strip_html | truncate: 140 }}</p>
       <div class="post-meta">
         <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'date' }}</time>
         <span class="post-meta-sep"></span>
         <span>{{ 'blog.min_read' | t: count: read_time }}</span>
       </div>
-      <span class="read-more">{{ 'blog.read_article' | t }} &rarr;</span>
+      <span class="read-more">{{ 'blog.read_article' | t }} {% render 'amoy-arrow' %}</span>
     </div>
   </a>
 </article>

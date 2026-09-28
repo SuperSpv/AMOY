@@ -6,6 +6,11 @@
     <title>{{ shop.name }}</title>
     {{ content_for_header }}
     {{ 'amoy.css' | asset_url | stylesheet_tag }}
+    {%- if request.locale.iso_code == 'ar' and settings.load_arabic_font -%}
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+      <style>:root{--font-display:'IBM Plex Sans Arabic',sans-serif}body,button{font-family:'IBM Plex Sans Arabic',sans-serif}</style>
+    {%- endif -%}
     <style>
       .gc{max-width:520px;margin:0 auto;padding:60px 24px;text-align:center}
       .gc__card{background:var(--white);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:34px;box-shadow:var(--shadow-md)}
@@ -28,24 +33,24 @@
         <div class="amoy-eyebrow" style="justify-content:center">{{ shop.name }}</div>
         <div class="gc__value">{{ gift_card.balance | money }}</div>
         {%- if gift_card.balance != gift_card.initial_value -%}
-          <p style="font-size:13px;color:var(--text-muted)">Originally {{ gift_card.initial_value | money }}</p>
+          <p style="font-size:13px;color:var(--text-muted)">{%- assign gc_initial = gift_card.initial_value | money -%}{{ 'gift_card.originally' | t: value: gc_initial }}</p>
         {%- endif -%}
 
         <div class="gc__qr">
-          <img src="/services/gift_card_images/{{ gift_card.qr_identifier }}/qr_code" alt="QR code" width="160" height="160">
+          <img src="/services/gift_card_images/{{ gift_card.qr_identifier }}/qr_code" alt="{{ 'gift_card.qr_alt' | t }}" width="160" height="160">
         </div>
 
-        <div class="gc__code">{{ gift_card.code | format_code }}</div>
+        <div class="gc__code" dir="ltr">{{ gift_card.code | format_code }}</div>
 
         {%- if gift_card.expired -%}
-          <p style="color:#b3261e;font-size:13.5px">This gift card has expired.</p>
+          <p style="color:#b3261e;font-size:13.5px">{{ 'gift_card.expired' | t }}</p>
         {%- elsif gift_card.expires_on -%}
-          <p style="color:var(--text-muted);font-size:13.5px">Expires {{ gift_card.expires_on | date: format: 'date' }}</p>
+          <p style="color:var(--text-muted);font-size:13.5px">{%- assign gc_expires = gift_card.expires_on | date: format: 'date' -%}{{ 'gift_card.expires_on' | t: date: gc_expires }}</p>
         {%- endif -%}
 
         <div class="gc__actions">
           <a href="{{ shop.url }}" class="amoy-btn amoy-btn--primary">{{ 'general.shop_all' | t }}</a>
-          <button type="button" class="amoy-btn amoy-btn--secondary" onclick="window.print()">Print</button>
+          <button type="button" class="amoy-btn amoy-btn--secondary" onclick="window.print()">{{ 'general.print' | t }}</button>
         </div>
       </div>
     </div>

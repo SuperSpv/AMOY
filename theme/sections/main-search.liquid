@@ -45,7 +45,8 @@
               {% render 'product-card', card_product: item, lazy: card_lazy %}
             {%- else -%}
               <a href="{{ item.url }}" class="amoy-card amoy-card--interactive amoy-search__result">
-                <div class="amoy-card__type">{{ item.object_type }}</div>
+                {%- assign type_key = 'search.type_' | append: item.object_type -%}
+                <div class="amoy-card__type">{{ type_key | t }}</div>
                 <h3 class="amoy-card__title">{{ item.title }}</h3>
                 {%- if item.content != blank -%}
                   <p class="amoy-search__excerpt">{{ item.content | strip_html | truncate: 140 }}</p>

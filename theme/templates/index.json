@@ -22,7 +22,7 @@
         "stat-2": {
           "type": "stat",
           "settings": {
-            "value": "+25",
+            "value": "25+",
             "label": "Cities served"
           }
         },
@@ -253,7 +253,7 @@
         "primary_url": "/pages/contact",
         "secondary_label": "Book a consultation",
         "secondary_url": "/pages/contact",
-        "contact_line": "support@amoylimited.com · +966547275228 · Jeddah, Saudi Arabia"
+        "contact_line": "support@amoylimited.com · +966 54 727 5228 · Jeddah, Saudi Arabia"
       }
     }
   },

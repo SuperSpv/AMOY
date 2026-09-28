@@ -13,6 +13,7 @@ input,select,textarea{font-family:inherit}
 h1,h2,h3,h4,h5,h6{margin:0}
 p{margin:0}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
 .amoy-visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .amoy-skip-link{position:absolute;top:-100px;inset-inline-start:12px;z-index:400;background:var(--navy-900);color:#fff;padding:10px 18px;border-radius:var(--radius-sm);font-size:14px;font-weight:600}
 .amoy-skip-link:focus{top:12px}
@@ -148,6 +149,13 @@ p{margin:0}
 .amoy-step__title{font-size:17px;font-weight:700;color:var(--text-heading);margin:18px 0 8px}
 .amoy-step__body{font-size:13.5px;line-height:1.6;color:var(--text-muted)}
 .amoy-cta__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+/* Accordion rows — shared by the product page, the calculator FAQ and any other disclosure. */
+.amoy-collapsible{border-bottom:1px solid var(--border-subtle)}
+.amoy-collapsible__summary{display:flex;align-items:center;justify-content:space-between;padding:16px 0;font-size:14px;font-weight:600;color:var(--text-heading);cursor:pointer;list-style:none}
+.amoy-collapsible__summary::-webkit-details-marker{display:none}
+.amoy-collapsible[open] .amoy-collapsible__summary svg{transform:rotate(180deg)}
+.amoy-collapsible__body{padding:0 0 18px;font-size:14px;line-height:1.7;color:var(--text-muted)}
+.amoy-collapsible__summary svg{flex:none;transition:transform .18s ease}
 .rte a{color:var(--accent);font-weight:600}
 .rte img{border-radius:var(--radius-md)}
 .rte table{width:100%;border-collapse:collapse}
@@ -164,3 +172,16 @@ p{margin:0}
 .amoy-cta-band__title{color:inherit;margin:18px 0}
 .amoy-cta-band__sub{font-size:18px;line-height:1.65;color:color-mix(in srgb,currentColor 78%,transparent);max-width:48ch;margin:0 auto 34px}
 .amoy-cta-band__line{font-size:13px;color:color-mix(in srgb,currentColor 58%,transparent);margin-top:26px}
+/* Arabic / right-to-left typography.
+   Letter-spacing pulls Arabic's joined letters apart, synthesised italics
+   slant a script that has no italic, and Latin-tuned line-heights clip
+   Arabic ascenders and descenders. These rules undo all three on /ar. */
+[dir=rtl] body{line-height:1.75}
+[dir=rtl] *,[dir=rtl] *::before,[dir=rtl] *::after{letter-spacing:0!important}
+[dir=rtl] em,[dir=rtl] i{font-style:normal}
+[dir=rtl] .amoy-display,[dir=rtl] .amoy-card__title,[dir=rtl] .amoy-collection-card__title,[dir=rtl] .amoy-pdp__title,[dir=rtl] .amoy-drawer__title,[dir=rtl] .amoy-cart__summary-title,[dir=rtl] .amoy-cart__line-title,[dir=rtl] .amoy-drawer__line-title,[dir=rtl] .amoy-mobile-nav__link{line-height:1.35}
+[dir=rtl] .amoy-display{font-weight:600}
+[dir=rtl] .amoy-eyebrow,[dir=rtl] .amoy-card__type,[dir=rtl] .amoy-badge,[dir=rtl] .amoy-media-label,[dir=rtl] .amoy-card__soldout,[dir=rtl] .amoy-cart__line-type,[dir=rtl] .amoy-tiers__head,[dir=rtl] .amoy-pdp__specs-title,[dir=rtl] .amoy-variant-group__label,[dir=rtl] .amoy-filters__title,[dir=rtl] .amoy-filters__heading,[dir=rtl] .amoy-footer__col-title,[dir=rtl] .amoy-mobile-nav__title{font-size:12.5px}
+[dir=rtl] .amoy-drawer__panel{box-shadow:8px 0 40px rgba(28,27,77,.16)}
+/* Numbers, phone numbers, e-mail addresses and ranges keep their own order inside Arabic text. */
+.amoy-ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}

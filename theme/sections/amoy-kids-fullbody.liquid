@@ -11,12 +11,12 @@
 </style>
 {%- capture kids_cust -%}
 <details class="kids-cust">
-  <summary>What can be customized?</summary>
+  <summary>{{ 'collection_page.customize_title' | t }}</summary>
   <ul>
-    <li><b>Skin tone</b> — any colour you want</li>
-    <li><b>Finish</b> — matte, glossy or fabric wrap</li>
-    <li><b>Size</b> — toddler to teen on request</li>
-    <li><b>Base</b> — glass or metal</li>
+    <li>{{ 'collection_page.customize_skin_html' | t }}</li>
+    <li>{{ 'collection_page.customize_finish_kids_html' | t }}</li>
+    <li>{{ 'collection_page.customize_size_html' | t }}</li>
+    <li>{{ 'collection_page.customize_base_html' | t }}</li>
   </ul>
 </details>
 {%- endcapture -%}
@@ -28,9 +28,9 @@
     <p style="font-size:15px;color:var(--text-muted);margin:0 0 34px;max-width:54ch">{{ section.settings.subtext }}</p>
     <div class="amoy-grid--4">
       {%- assign shown = 0 -%}
-      {%- comment -%} Full-body mannequins only {%- endcomment -%}
+      {%- comment -%} Full-body mannequins only — matched by tag/handle because product types are translated on /ar {%- endcomment -%}
       {%- for product in src_collection.products -%}
-        {%- unless product.type contains 'Mannequin' -%}{%- continue -%}{%- endunless -%}
+        {%- unless product.tags contains 'full body mannequin' or product.handle contains 'full-body' -%}{%- continue -%}{%- endunless -%}
         {%- if section.settings.filter_tag == blank or product.tags contains section.settings.filter_tag -%}
           <div class="amoy-card">
             <a href="{{ product.url }}" class="kids-prod__media">

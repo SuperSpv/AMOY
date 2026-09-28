@@ -33,7 +33,14 @@
               class="amoy-lang__btn{% if language.iso_code == localization.language.iso_code %} is-active{% endif %}"
               lang="{{ language.iso_code }}"
               {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}
-            >{% if ctx == 'header' %}{{ language.iso_code | upcase }}{% else %}{{ language.endonym_name }}{% endif %}</button>
+              {% if ctx == 'header' %}aria-label="{{ language.endonym_name | escape }}"{% endif %}
+            >
+              {%- if ctx == 'header' -%}
+                {%- if language.iso_code == 'ar' -%}عربي{%- else -%}{{ language.iso_code | upcase }}{%- endif -%}
+              {%- else -%}
+                {{ language.endonym_name }}
+              {%- endif -%}
+            </button>
           {%- endfor -%}
         </div>
       {%- endform -%}

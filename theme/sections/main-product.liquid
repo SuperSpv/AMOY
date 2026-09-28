@@ -10,7 +10,7 @@
 
 <div class="amoy-pdp amoy-container" data-product-root>
   {%- unless is_quick -%}
-    <nav class="amoy-pdp__breadcrumb" aria-label="Breadcrumb">
+    <nav class="amoy-pdp__breadcrumb" aria-label="{{ 'general.breadcrumb' | t }}">
       <a href="{% if collection %}{{ collection.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}">
         {% render 'icon', icon: 'arrow-left', size: 17 %}
         {%- if collection -%}{{ collection.title }}{%- else -%}{{ 'general.back_to_shop' | t }}{%- endif -%}
@@ -183,7 +183,7 @@
               </div>
 
             {%- when 'quote_link' -%}
-              {%- assign quote_url = block.settings.link | default: '/pages/contact' -%}
+              {%- capture quote_url -%}{% render 'amoy-url', url: block.settings.link, fallback: '/pages/contact' %}{%- endcapture -%}
               <a href="{{ quote_url }}" class="amoy-btn amoy-btn--secondary amoy-btn--full amoy-pdp__quote" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
 
             {%- when 'volume_tiers' -%}
@@ -191,23 +191,23 @@
                 assign tier_unit = current_variant.price | default: product.price
                 assign keep = 100 | minus: block.settings.tier2_percent
                 assign discounted = tier_unit | times: keep | divided_by: 100
-                assign tier_quote_url = block.settings.quote_link | default: '/pages/contact'
               -%}
+              {%- capture tier_quote_url -%}{% render 'amoy-url', url: block.settings.quote_link, fallback: '/pages/contact' %}{%- endcapture -%}
               <div class="amoy-tiers" {{ block.shopify_attributes }}>
                 <div class="amoy-tiers__head">
                   <span>{{ 'tiers.quantity' | t }}</span>
                   <span>{{ 'tiers.price_per_unit' | t }}</span>
                 </div>
                 <div class="amoy-tiers__row">
-                  <span>1&ndash;{{ block.settings.tier2_from | minus: 1 }}</span>
+                  <span class="amoy-ltr">1&ndash;{{ block.settings.tier2_from | minus: 1 }}</span>
                   <span class="amoy-tiers__val">{{ tier_unit | money }}</span>
                 </div>
                 <div class="amoy-tiers__row">
-                  <span>{{ block.settings.tier2_from }}&ndash;{{ block.settings.tier3_from | minus: 1 }} <span class="amoy-tiers__off">&minus;{{ block.settings.tier2_percent }}%</span></span>
+                  <span><span class="amoy-ltr">{{ block.settings.tier2_from }}&ndash;{{ block.settings.tier3_from | minus: 1 }}</span> <span class="amoy-tiers__off amoy-ltr">&minus;{{ block.settings.tier2_percent }}%</span></span>
                   <span class="amoy-tiers__val">{{ discounted | money }}</span>
                 </div>
                 <div class="amoy-tiers__row">
-                  <span>{{ block.settings.tier3_from }}+</span>
+                  <span class="amoy-ltr">{{ block.settings.tier3_from }}+</span>
                   <a href="{{ tier_quote_url }}" class="amoy-tiers__link">{{ 'tiers.request_quote' | t }}</a>
                 </div>
               </div>
