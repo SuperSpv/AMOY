@@ -1,5 +1,14 @@
 {{ 'section-page.css' | asset_url | stylesheet_tag }}
 
+{%- comment -%}
+  The mannequin calculator page gets the native, bilingual calculator even
+  when it still uses the default page template (its stored content is the
+  old English-only embed). Assigning the page.calculator template gives the
+  same result with theme-editor settings.
+{%- endcomment -%}
+{%- if page.handle == 'mannequin-calculator' -%}
+  {%- render 'amoy-calculator', calc_id: section.id -%}
+{%- else -%}
 <div class="amoy-page">
   {%- if section.settings.show_eyebrow -%}
     <div class="amoy-eyebrow">{{ shop.name }}</div>
@@ -16,6 +25,7 @@
     {%- endcase -%}
   {%- endfor -%}
 </div>
+{%- endif -%}
 
 {% schema %}
 {
