@@ -1,0 +1,22 @@
+<section style="background:var(--white);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);padding:clamp(48px,8vw,80px) 0">
+  <div class="amoy-container">
+    <div style="text-align:center;max-width:620px;margin:0 auto">
+      <div class="amoy-eyebrow" style="justify-content:center">{{ section.settings.eyebrow }}</div>
+      <h2 class="amoy-display amoy-display--md" style="margin:14px 0 0">{{ section.settings.heading }}</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr));gap:1px;margin-top:clamp(28px,5vw,48px);background:var(--border-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-md);overflow:hidden">
+      {%- for block in section.blocks -%}
+        <div style="background:var(--white);height:clamp(80px,14vw,104px);display:flex;align-items:center;justify-content:center;padding:clamp(12px,2vw,16px)" {{ block.shopify_attributes }}>
+          {%- if block.settings.logo != blank -%}
+            {{ block.settings.logo | image_url: width: 300 | image_tag: widths: '150,300', sizes: '150px', loading: 'lazy', alt: block.settings.name, style: 'max-height:40px;width:auto;max-width:100%;object-fit:contain;filter:grayscale(1);opacity:.7' }}
+          {%- else -%}
+            <span style="font-size:11px;letter-spacing:.05em;color:var(--steel)">{{ block.settings.name }}</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Our Clients","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Our clients"},{"type":"textarea","id":"heading","label":"Heading","default":"Trusted by retailers and brands across the Kingdom"}],"blocks":[{"type":"client","name":"Client","settings":[{"type":"image_picker","id":"logo","label":"Logo"},{"type":"text","id":"name","label":"Fallback name","default":"Client name"}]}],"presets":[{"name":"Our Clients","blocks":[{"type":"client"},{"type":"client"},{"type":"client"},{"type":"client"},{"type":"client"}]}]}
+{% endschema %}
