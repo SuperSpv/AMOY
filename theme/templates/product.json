@@ -1,0 +1,36 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "type": { "type": "type", "settings": {} },
+        "title": { "type": "title", "settings": {} },
+        "price": { "type": "price", "settings": { "price_note": "per unit · volume discounts on 4+", "show_taxes_note": false } },
+        "variant_picker": { "type": "variant_picker", "settings": {} },
+        "quantity": { "type": "quantity", "settings": {} },
+        "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
+        "quote_link": { "type": "quote_link", "settings": { "label": "Request a bulk quote instead", "link": "/pages/contact" } },
+        "description": { "type": "description", "settings": {} },
+        "volume_tiers": { "type": "volume_tiers", "settings": { "tier2_from": 4, "tier2_percent": 10, "tier3_from": 10, "quote_link": "/pages/contact" } },
+        "specs": { "type": "specs", "settings": { "heading": "Specifications", "rows": "Material | Fiberglass composite\nDefault finish | Semi-matte white\nBase | Tempered glass\nMade in | Saudi Arabia" } },
+        "trust": { "type": "trust", "settings": { "item_1": "Delivery across KSA", "item_2": "Custom finish available" } }
+      },
+      "block_order": ["type", "title", "price", "variant_picker", "quantity", "buy_buttons", "quote_link", "description", "volume_tiers", "specs", "trust"],
+      "settings": {
+        "show_recommendations": true,
+        "show_complementary": true,
+        "recommendations_count": 4
+      }
+    }
+  },
+  "order": ["main"]
+}

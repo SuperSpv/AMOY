@@ -1,0 +1,128 @@
+{{ 'amoy-blog.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign words = article.content | strip_html | split: ' ' | size
+  assign read_time = words | divided_by: 200 | plus: 1
+-%}
+
+<article class="article-page">
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <a href="{{ blog.url }}" class="back-btn">{% render 'amoy-arrow', direction: 'back' %} {{ 'blog.back_to_blog' | t }}</a>
+      {%- if article.tags.size > 0 -%}
+        <span class="article-category">{{ article.tags.first }}</span>
+      {%- endif -%}
+      <h1 class="article-title"{% render 'amoy-lang-attrs', text: article.title %}>{{ article.title }}</h1>
+      <div class="article-meta">
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'date' }}</time>
+        <span class="meta-sep"></span>
+        <span>{{ 'blog.min_read' | t: count: read_time }}</span>
+        {%- if article.author != blank and section.settings.show_author -%}
+          <span class="meta-sep"></span>
+          <span>{{ 'blog.by_author' | t: author: article.author }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if article.image -%}
+    <div class="article-cover">
+      {{ article.image | image_url: width: 1600 | image_tag: class: 'article-cover-img', widths: '600,900,1200,1600', sizes: '100vw', loading: 'eager', alt: article.image.alt | default: article.title }}
+    </div>
+  {%- endif -%}
+
+  <div class="article-body-wrap">
+    {%- capture article_lang -%}{% render 'amoy-lang-attrs', text: article.title %}{%- endcapture -%}
+    {%- if article_lang != blank -%}
+      <p class="article-comment__success" style="font-weight:500">{{ 'blog.original_language' | t }}</p>
+    {%- endif -%}
+    <div class="article-body rte"{{ article_lang }}>{{ article.content }}</div>
+
+    {%- if article.tags.size > 0 -%}
+      <div class="article-tags">
+        <span class="tags-label">{{ 'blog.tags' | t }}:</span>
+        {%- for tag in article.tags -%}
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tag-chip">{{ tag }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'share' -%}
+          <div class="article-share" {{ block.shopify_attributes }}>
+            <span class="tags-label">{{ 'general.share' | t }}:</span>
+            <a href="https://wa.me/?text={{ article.title | url_encode }}%20{{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener" aria-label="WhatsApp">{% render 'icon', icon: 'whatsapp', size: 18 %}</a>
+            <a href="https://x.com/intent/tweet?text={{ article.title | url_encode }}&url={{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener" aria-label="X">{% render 'icon', icon: 'x', size: 16 %}</a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener" aria-label="LinkedIn">{% render 'icon', icon: 'linkedin', size: 17 %}</a>
+          </div>
+        {%- when 'comments' -%}
+          {%- if blog.comments_enabled? -%}
+            <div class="article-comments" {{ block.shopify_attributes }}>
+              {%- if article.comments_count > 0 -%}
+                {%- for comment in article.comments -%}
+                  <div class="article-comment">
+                    <div class="article-comment__author">{{ comment.author }}</div>
+                    <div class="article-comment__body rte">{{ comment.content }}</div>
+                  </div>
+                {%- endfor -%}
+              {%- endif -%}
+              {%- form 'new_comment', article -%}
+                {%- if form.posted_successfully? -%}
+                  <p class="article-comment__success">{{ 'contact.success' | t }}</p>
+                {%- endif -%}
+                <div class="amoy-contact-form-grid">
+                  <div>
+                    <label class="amoy-label" for="CommentAuthor">{{ 'contact.name' | t }}</label>
+                    <input class="amoy-input" id="CommentAuthor" type="text" name="comment[author]" required>
+                  </div>
+                  <div>
+                    <label class="amoy-label" for="CommentEmail">{{ 'contact.email' | t }}</label>
+                    <input class="amoy-input" id="CommentEmail" type="email" name="comment[email]" required>
+                  </div>
+                </div>
+                <label class="amoy-label" for="CommentBody" style="margin-top:14px">{{ 'contact.message' | t }}</label>
+                <textarea class="amoy-input" id="CommentBody" name="comment[body]" rows="4" required></textarea>
+                <button type="submit" class="amoy-btn amoy-btn--primary" style="margin-top:14px">{{ 'contact.submit' | t }}</button>
+              {%- endform -%}
+            </div>
+          {%- endif -%}
+        {%- when '@app' -%}
+          <div {{ block.shopify_attributes }}>{% render block %}</div>
+      {%- endcase -%}
+    {%- endfor -%}
+
+    {%- if section.settings.show_related and blog.articles.size > 1 -%}
+      <div class="related-posts">
+        <div class="related-label">{{ 'blog.more_from' | t }}</div>
+        <div class="related-grid">
+          {%- assign shown = 0 -%}
+          {%- for related in blog.articles -%}
+            {%- unless related.id == article.id -%}
+              {%- if shown < 3 -%}
+                {%- render 'blog-card', article: related -%}
+                {%- assign shown = shown | plus: 1 -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    { "type": "checkbox", "id": "show_author", "label": "Show author", "default": true },
+    { "type": "checkbox", "id": "show_related", "label": "Show related posts", "default": true }
+  ],
+  "blocks": [
+    { "type": "share", "name": "Share buttons", "limit": 1 },
+    { "type": "comments", "name": "Comments", "limit": 1, "settings": [{ "type": "paragraph", "content": "Comments must also be enabled for this blog in Content → Blog posts." }] },
+    { "type": "@app" }
+  ],
+  "presets": [{ "name": "Article", "blocks": [{ "type": "share" }] }]
+}
+{% endschema %}

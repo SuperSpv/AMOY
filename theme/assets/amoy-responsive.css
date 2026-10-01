@@ -1,0 +1,165 @@
+/* AMOY Custom — responsive layer.
+   Loaded right after amoy.css. Turns the fixed desktop pixel sizes into fluid
+   values (clamp) so spacing, type and media scale smoothly with the screen
+   instead of jumping at breakpoints, and tightens layouts on phones (320–600px).
+   Selectors are prefixed with :root so they win over the section stylesheets,
+   which load later in the page. Remove this file to return to the old sizing. */
+:root{--gutter:clamp(16px,4.5vw,40px);--space-xl:clamp(56px,10vw,104px);--space-lg:clamp(48px,9vw,96px);--space-md:clamp(44px,8vw,80px);--space-sm:clamp(36px,6.5vw,56px);--head-gap:clamp(24px,4vw,40px)}
+html{-webkit-tap-highlight-color:transparent}
+body{overflow-wrap:break-word}
+:root h1,:root h2,:root h3{overflow-wrap:break-word;text-wrap:balance}
+
+/* Layout rhythm */
+:root .amoy-container{padding-inline:var(--gutter)}
+:root .amoy-section{padding-block:var(--space-md)}
+:root .amoy-section--lg{padding-block:var(--space-xl)}
+:root .amoy-section--sm{padding-block:var(--space-sm)}
+:root .amoy-block{padding-block:var(--space-lg)}
+:root .amoy-block--sm{padding-block:var(--space-md)}
+:root .amoy-block--lg{padding-block:var(--space-xl)}
+:root .amoy-grid--split{gap:clamp(28px,5vw,56px)}
+:root .amoy-grid--split-media,:root .amoy-grid--contact{gap:clamp(28px,5.5vw,64px)}
+:root .amoy-grid--3{gap:clamp(16px,2.5vw,24px)}
+:root .amoy-grid--4{gap:clamp(12px,2vw,22px)}
+:root .amoy-grid--2{gap:clamp(12px,2vw,18px)}
+
+/* Type */
+:root .amoy-display--xl{font-size:calc(clamp(38px,18px + 5.2vw,76px) * var(--heading-scale,1))}
+:root .amoy-display--lg{font-size:calc(clamp(30px,16px + 3.2vw,52px) * var(--heading-scale,1))}
+:root .amoy-display--md{font-size:calc(clamp(26px,15px + 2.6vw,44px) * var(--heading-scale,1))}
+:root .amoy-card__title{font-size:clamp(16px,13px + .7vw,21px)}
+:root .amoy-card__body{padding:clamp(12px,2.6vw,18px)}
+:root .amoy-card__row{flex-wrap:wrap}
+:root .amoy-price--lg .amoy-price__current{font-size:clamp(22px,17px + 1.2vw,28px)}
+:root .amoy-cta-band__sub{font-size:clamp(16px,15px + .4vw,18px);margin-bottom:clamp(24px,4vw,34px)}
+:root .amoy-drawer__title{font-size:clamp(20px,17px + .8vw,24px)}
+
+/* Home: hero, why, steps, collections, featured products */
+:root .amoy-hero__media{height:clamp(340px,46vw,580px)}
+:root .amoy-why__media{min-height:clamp(280px,40vw,440px)}
+:root .amoy-why__feats{gap:clamp(20px,3vw,30px) clamp(24px,4vw,40px)}
+:root .amoy-step{padding:clamp(22px,3.5vw,36px) clamp(18px,3vw,30px)}
+:root .amoy-step__num{font-size:clamp(30px,18px + 2.4vw,40px)}
+:root .amoy-colcards__head,:root .amoy-fp-head{margin-bottom:var(--head-gap)}
+:root .amoy-collection-card__media{height:clamp(220px,28vw,320px)}
+:root .amoy-collection-card__title{font-size:clamp(22px,17px + 1.2vw,28px)}
+
+/* Grace & Kids collection pages */
+:root .grace-feat__media,:root .kids-feat__media{height:clamp(260px,30vw,360px)}
+:root .grace-char__media{height:clamp(260px,32vw,340px)}
+:root .grace-prod__media,:root .kids-prod__media{height:clamp(190px,24vw,300px)}
+:root .kids-part__media{height:clamp(170px,21vw,260px)}
+:root .grace-detail-card,:root .kids-detail-card{padding:clamp(20px,3.5vw,28px)}
+:root .grace-detail-card h3,:root .kids-detail-card h3{font-size:clamp(20px,16px + 1vw,24px)}
+:root .grace-prod__media + .amoy-card__body h3,:root .kids-prod__media + .amoy-card__body h3,:root .kids-part__media + .amoy-card__body h3{font-size:clamp(15px,12px + .8vw,20px)!important;line-height:1.2}
+
+/* Product page */
+:root .amoy-pdp{padding:clamp(16px,3vw,32px) var(--gutter) clamp(56px,7vw,70px)}
+:root .amoy-pdp__grid{gap:clamp(24px,4vw,48px)}
+:root .amoy-recs{padding:8px var(--gutter) clamp(56px,8vw,80px)}
+:root .amoy-recs__grid{gap:clamp(12px,2vw,22px)}
+:root .amoy-recs__title{font-size:clamp(21px,17px + 1vw,26px)}
+
+/* Collection & search */
+:root .amoy-collection{padding:clamp(22px,4vw,48px) var(--gutter) clamp(56px,7vw,90px)}
+:root .amoy-collection__grid{gap:clamp(12px,2vw,24px)}
+
+/* Cart */
+:root .amoy-cart{padding:clamp(24px,4vw,48px) var(--gutter) clamp(56px,7vw,90px)}
+:root .amoy-cart__line-title{font-size:clamp(18px,15px + .8vw,22px)}
+:root .amoy-cart__summary{padding:clamp(18px,3vw,26px)}
+:root .amoy-cart__summary-title{font-size:clamp(22px,18px + 1vw,26px)}
+
+/* Pages, customer accounts, 404 */
+:root .amoy-page{padding:clamp(36px,6vw,64px) var(--gutter) clamp(56px,8vw,90px)}
+:root .amoy-page__body h2{font-size:clamp(24px,19px + 1.2vw,30px)}
+:root .amoy-page__body h3{font-size:clamp(20px,17px + .8vw,23px)}
+:root .amoy-customer{padding:clamp(32px,5vw,56px) var(--gutter) clamp(56px,8vw,90px)}
+:root .amoy-404{padding:clamp(56px,10vw,100px) var(--gutter)}
+
+/* Calculator */
+:root .amoy-calc__intro{padding-top:clamp(36px,6vw,64px)}
+:root .amoy-calc__panel{padding:clamp(22px,4.5vw,40px) clamp(16px,4.5vw,44px)}
+:root .amoy-calc__card-value{font-size:clamp(30px,22px + 2vw,42px)}
+:root .amoy-calc__table td{font-size:clamp(20px,16px + 1vw,26px)}
+:root .amoy-calc__cta{padding:clamp(20px,4vw,34px)}
+:root .amoy-calc__faq-title{font-size:clamp(22px,18px + 1vw,28px)}
+
+/* Footer */
+:root .amoy-footer{padding:clamp(40px,6vw,56px) 0 clamp(24px,3vw,30px)}
+
+/* Blog & articles */
+:root .blog-hero-inner{padding:clamp(48px,9vw,96px) var(--gutter) clamp(36px,6vw,64px)}
+:root .blog-hero-title{font-size:clamp(2rem,1.4rem + 2.6vw,3.25rem)}
+:root .featured-section-inner{padding:clamp(36px,6vw,64px) var(--gutter)}
+:root .featured-content{padding:clamp(22px,4.5vw,48px)}
+:root .featured-title{font-size:clamp(1.5rem,1.1rem + 1.6vw,2.25rem)}
+:root .posts-section-inner{padding:0 var(--gutter) clamp(56px,9vw,96px)}
+:root .posts-grid{gap:clamp(20px,3vw,32px)}
+:root .card-body{padding:clamp(18px,3vw,24px) clamp(18px,3vw,24px) clamp(22px,4vw,32px)}
+:root .cta-strip{padding:clamp(48px,8vw,80px) var(--gutter)}
+:root .cta-strip-title{font-size:clamp(1.6rem,1.2rem + 1.6vw,2.25rem)}
+:root .article-hero{padding:clamp(48px,9vw,96px) var(--gutter) 0}
+:root .article-hero-inner{padding-bottom:clamp(36px,6vw,64px)}
+:root .article-title{font-size:clamp(2.1rem,1.3rem + 3.6vw,4.5rem)}
+:root .article-cover{padding:0 var(--gutter)}
+:root .article-body-wrap{padding:clamp(36px,6vw,64px) var(--gutter) clamp(56px,9vw,96px)}
+:root .article-body p,:root .article-body li{font-size:clamp(1rem,.95rem + .3vw,1.125rem)}
+:root .article-body h2{font-size:clamp(1.6rem,1.2rem + 1.6vw,2.25rem);margin:clamp(32px,5vw,48px) 0 clamp(14px,2vw,20px)}
+:root .article-body h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem)}
+:root .article-body blockquote{padding:clamp(12px,2vw,16px) clamp(18px,4vw,32px);margin:clamp(28px,4vw,40px) 0}
+:root .article-meta,:root .post-meta{flex-wrap:wrap;gap:8px 16px}
+:root .related-posts{margin-top:clamp(48px,8vw,80px)}
+
+/* Fixed UI */
+:root .amoy-toast{max-width:calc(100vw - 32px);text-align:center}
+:root .amoy-drawer__foot{padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+
+/* Tablets and phones */
+@media (max-width:990px){
+  :root .amoy-header__inner{padding-inline:var(--gutter)}
+}
+@media (max-width:768px){
+  :root .amoy-hero__media{height:clamp(300px,105vw,520px)}
+  :root .amoy-why__media{min-height:clamp(260px,75vw,420px)}
+  :root .amoy-collection-card__media{height:clamp(200px,56vw,340px)}
+  /* Featured poses become a swipeable row instead of three tall stacked images. */
+  :root .amoy-grid--3:has(> div > .grace-feat__media),:root .amoy-grid--3:has(> div > .kids-feat__media){grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(72%,300px);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter);scroll-padding-inline:var(--gutter)}
+  :root .amoy-grid--3:has(> div > .grace-feat__media)::-webkit-scrollbar,:root .amoy-grid--3:has(> div > .kids-feat__media)::-webkit-scrollbar{display:none}
+  :root .amoy-grid--3 > div:has(> .grace-feat__media),:root .amoy-grid--3 > div:has(> .kids-feat__media){scroll-snap-align:start}
+  :root .grace-feat__media,:root .kids-feat__media{height:clamp(300px,95vw,400px)}
+  /* Stop iOS Safari zooming the page when a field under 16px gets focus. */
+  :root .amoy-input,:root .amoy-search__input,:root .amoy-header__search input,:root .amoy-mobile-nav__search input,:root .amoy-footer__news-input,:root .amoy-qty__val,:root .amoy-calc__stepper input,:root .amoy-cart__note textarea,:root .amoy-customer input,:root .article-comments input,:root .article-comments textarea{font-size:16px}
+  :root .amoy-drawer__head{padding:16px var(--gutter)}
+  :root .amoy-drawer__body{padding:8px var(--gutter)}
+  :root .amoy-drawer__foot{padding-inline:var(--gutter)}
+}
+@media (max-width:600px){
+  :root .amoy-header,:root .amoy-header__inner{min-height:min(var(--header-h,78px),64px)}
+  :root .amoy-header__logo{max-width:min(var(--header-logo-w,220px),40vw);max-height:calc(min(var(--header-h,78px),64px) - 18px)}
+  :root .amoy-header__right{gap:8px}
+  /* The country picker lives in the menu drawer on phones; the EN / عربي toggle stays. */
+  :root .amoy-header__right .amoy-country-select{display:none}
+  :root .amoy-collection__banner{aspect-ratio:16/8}
+  :root .amoy-cart__line-img{width:84px;height:110px}
+  :root .amoy-pdp__trust{gap:12px 20px}
+  :root .amoy-tiers__row,:root .amoy-tiers__head{padding-inline:12px}
+}
+@media (max-width:480px){
+  /* Two products per row reads better on a phone than one oversized card. */
+  :root .amoy-grid--4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  :root .amoy-grid--2{grid-template-columns:1fr 1fr}
+  :root .amoy-grid--2:has(> .amoy-card){grid-template-columns:1fr}
+  :root .grace-char__media{height:clamp(280px,90vw,380px)}
+  :root .amoy-hero__btns .amoy-btn{flex:1 1 auto}
+  :root .amoy-btn--lg{padding:13px 22px}
+  :root .amoy-cta__btns{gap:10px}
+}
+@media (max-width:360px){
+  :root .amoy-grid--4,:root .amoy-recs__grid,:root .amoy-cart__recs-grid{grid-template-columns:1fr}
+  :root .amoy-header__right .amoy-header__icon-link{display:none}
+}
+@media (pointer:coarse){
+  :root .amoy-btn:not(.amoy-card__add){min-height:44px}
+  :root .amoy-header__icon-link,:root .amoy-drawer__close,:root .amoy-mobile-nav__close{min-width:40px;min-height:40px}
+}

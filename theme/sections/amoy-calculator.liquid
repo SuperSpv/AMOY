@@ -1,0 +1,43 @@
+{%- comment -%}
+  Retail display mannequin calculator.
+
+  Replaces the embedded third-party iframe: the whole tool is rendered here,
+  so it follows the store language (English on /, Arabic on /ar), the theme's
+  right-to-left layout and the WhatsApp number in Theme settings. The
+  estimation model in assets/amoy-calculator.js mirrors the original tool.
+{%- endcomment -%}
+{%- render 'amoy-calculator',
+  calc_id: section.id,
+  show_intro: section.settings.show_intro,
+  show_faq: section.settings.show_faq,
+  show_page_content: section.settings.show_page_content,
+  quote_link: section.settings.quote_link,
+  cta_scheme: section.settings.cta_color_scheme,
+  women_collection: section.settings.women_collection,
+  men_collection: section.settings.men_collection,
+  kids_collection: section.settings.kids_collection,
+  forms_collection: section.settings.forms_collection
+-%}
+
+{% schema %}
+{
+  "name": "Mannequin calculator",
+  "tag": "section",
+  "class": "amoy-calc-section",
+  "settings": [
+    { "type": "paragraph", "content": "All wording comes from the theme language files (Content → Languages), so the calculator is fully translated on the Arabic store." },
+    { "type": "checkbox", "id": "show_intro", "label": "Show heading and introduction", "default": true },
+    { "type": "checkbox", "id": "show_faq", "label": "Show planning guide and FAQ", "default": true },
+    { "type": "checkbox", "id": "show_page_content", "label": "Also show the page's own content", "default": false, "info": "Leave off if the page content still contains the old embedded calculator." },
+    { "type": "header", "content": "Buttons" },
+    { "type": "url", "id": "quote_link", "label": "Quote button link", "info": "Defaults to the contact page. The estimate is copied into the contact form message." },
+    { "type": "color_scheme", "id": "cta_color_scheme", "label": "Next-step box colour scheme", "default": "scheme-5" },
+    { "type": "header", "content": "Shop links" },
+    { "type": "collection", "id": "women_collection", "label": "Women collection", "info": "Defaults to the collection with the handle women." },
+    { "type": "collection", "id": "men_collection", "label": "Men collection", "info": "Defaults to the collection with the handle men." },
+    { "type": "collection", "id": "kids_collection", "label": "Kids collection", "info": "Defaults to the collection with the handle kids." },
+    { "type": "collection", "id": "forms_collection", "label": "Display forms collection", "info": "Defaults to the collection with the handle display-forms-accessories." }
+  ],
+  "presets": [{ "name": "Mannequin calculator" }]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "amoy-announcement",
+      "blocks": {
+        "msg-1": { "type": "message", "settings": { "text": "<p>Made in Jeddah · Delivered across the Kingdom</p>" } },
+        "msg-2": { "type": "message", "settings": { "text": "<p>Use code <strong>WELCOME10</strong> for 10% off your first order</p>" } }
+      },
+      "block_order": ["msg-1", "msg-2"],
+      "settings": {
+        "color_scheme": "scheme-5",
+        "accent_color": "#D9B45B",
+        "autorotate": true,
+        "rotate_speed": 6
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "logo": "shopify://shop_images/logo-amoy-navy-2.png",
+        "logo_width": 220,
+        "header_height": 78,
+        "sticky": true,
+        "background_color": "#FBFBFD",
+        "text_color": "#1C1B4D",
+        "show_search": true,
+        "show_account": true,
+        "show_localization": true
+      }
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}

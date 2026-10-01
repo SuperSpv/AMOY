@@ -1,0 +1,171 @@
+{{ 'section-cart.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign threshold = settings.volume_threshold
+  assign percent = settings.volume_percent | append: '%'
+-%}
+{%- capture quote_url -%}{% render 'amoy-url', url: section.settings.quote_link, fallback: '/pages/contact' %}{%- endcapture -%}
+
+<div class="amoy-cart amoy-container">
+  <div class="amoy-eyebrow">{{ 'cart.eyebrow' | t }}</div>
+  <h1 class="amoy-display amoy-display--lg amoy-cart__title">{{ 'cart.title' | t }}</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="amoy-cart__empty">
+      <p>{{ 'cart.empty' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="amoy-btn amoy-btn--primary">{{ 'cart.browse' | t }}</a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate class="amoy-cart__grid" data-cart-form>
+      <div class="amoy-cart__items">
+        {%- for item in cart.items -%}
+          <div class="amoy-cart__line" data-cart-line="{{ forloop.index }}">
+            <a href="{{ item.url }}" class="amoy-cart__line-img">
+              {%- if item.image -%}
+                {{ item.image | image_url: width: 260 | image_tag: loading: 'lazy', alt: item.image.alt | default: item.product.title }}
+              {%- endif -%}
+            </a>
+            <div class="amoy-cart__line-body">
+              <div class="amoy-cart__line-top">
+                <div>
+                  {%- if item.product.type != blank -%}
+                    <div class="amoy-cart__line-type">{{ item.product.type }}</div>
+                  {%- endif -%}
+                  <div class="amoy-cart__line-title"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
+                  {%- unless item.product.has_only_default_variant -%}
+                    <div class="amoy-cart__line-variant">{{ item.variant.title }}</div>
+                  {%- endunless -%}
+                  {%- if item.selling_plan_allocation -%}
+                    <div class="amoy-cart__line-variant">{{ item.selling_plan_allocation.selling_plan.name }}</div>
+                  {%- endif -%}
+                  {%- for property in item.properties -%}
+                    {%- unless property.last == blank or property.first[0] == '_' -%}
+                      <div class="amoy-cart__line-variant">{{ property.first }}: {{ property.last }}</div>
+                    {%- endunless -%}
+                  {%- endfor -%}
+                  {%- for allocation in item.line_level_discount_allocations -%}
+                    <div class="amoy-cart__line-discount">{{ allocation.discount_application.title }} (&minus;{{ allocation.amount | money }})</div>
+                  {%- endfor -%}
+                </div>
+                <a
+                  href="{{ item.url_to_remove }}"
+                  class="amoy-cart__remove"
+                  data-cart-qty="{{ forloop.index }}"
+                  data-qty-value="0"
+                  aria-label="{{ 'accessibility.remove_item' | t }}"
+                >{% render 'icon', icon: 'close', size: 17 %}</a>
+              </div>
+
+              <div class="amoy-cart__line-bottom">
+                <div class="amoy-qty">
+                  <button type="button" class="amoy-qty__btn" data-cart-qty="{{ forloop.index }}" data-qty-value="{{ item.quantity | minus: 1 }}" aria-label="{{ 'accessibility.decrease_quantity' | t }}">{% render 'icon', icon: 'minus', size: 15 %}</button>
+                  <label class="amoy-visually-hidden" for="CartQty-{{ forloop.index }}">{{ 'cart.quantity' | t }}</label>
+                  <input class="amoy-qty__val" id="CartQty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" data-cart-qty-input="{{ forloop.index }}">
+                  <button type="button" class="amoy-qty__btn" data-cart-qty="{{ forloop.index }}" data-qty-value="{{ item.quantity | plus: 1 }}" aria-label="{{ 'accessibility.increase_quantity' | t }}">{% render 'icon', icon: 'plus', size: 15 %}</button>
+                </div>
+                <span class="amoy-cart__line-price">
+                  {%- if item.original_line_price != item.final_line_price -%}
+                    <s>{{ item.original_line_price | money }}</s>
+                  {%- endif -%}
+                  {{ item.final_line_price | money }}
+                </span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+
+        <noscript>
+          <button type="submit" name="update" class="amoy-btn amoy-btn--secondary" style="margin-top:16px">{{ 'cart.update' | t }}</button>
+        </noscript>
+
+        <a href="{{ routes.all_products_collection_url }}" class="amoy-cart__continue">
+          {% render 'icon', icon: 'arrow-left', size: 16 %}{{ 'general.continue_shopping' | t }}
+        </a>
+
+        {%- if settings.cart_show_note -%}
+          <div class="amoy-cart__note">
+            <label class="amoy-label" for="CartNote">{{ 'cart.note' | t }}</label>
+            <textarea id="CartNote" name="note" rows="3" class="amoy-input" placeholder="{{ 'cart.note_placeholder' | t }}">{{ cart.note }}</textarea>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_upsell -%}
+          <div class="amoy-cart__recs" data-cart-recs data-seed="{{ cart.items.last.product.id }}" data-limit="{{ section.settings.upsell_count }}" hidden>
+            <div class="amoy-cart__recs-title">{{ 'cart.add_to_display' | t }}</div>
+            <div class="amoy-cart__recs-grid" data-cart-recs-grid></div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <aside class="amoy-cart__summary">
+        <h2 class="amoy-cart__summary-title">{{ 'cart.summary' | t }}</h2>
+
+        {%- if settings.volume_bar_enabled -%}
+          {%- if cart.item_count < threshold -%}
+            {%- assign remaining = threshold | minus: cart.item_count -%}
+            <div class="amoy-cart__volume">
+              {{ 'cart.unlock_discount_html' | t: count: remaining, percent: percent }}
+              <div class="amoy-cart__volume-track">
+                <div class="amoy-cart__volume-fill" style="width:{{ cart.item_count | times: 100 | divided_by: threshold }}%"></div>
+              </div>
+            </div>
+          {%- else -%}
+            <div class="amoy-cart__volume amoy-cart__volume--done">{{ 'cart.discount_unlocked' | t }}</div>
+          {%- endif -%}
+        {%- endif -%}
+
+        <div class="amoy-cart__row">
+          <span>{{ 'cart.subtotal' | t }} ({{ cart.item_count }})</span>
+          <span class="amoy-cart__row-val">{{ cart.items_subtotal_price | money }}</span>
+        </div>
+
+        {%- for discount in cart.cart_level_discount_applications -%}
+          <div class="amoy-cart__row amoy-cart__row--discount">
+            <span>{{ discount.title }}</span>
+            <span class="amoy-cart__row-val">&minus;{{ discount.total_allocated_amount | money }}</span>
+          </div>
+        {%- endfor -%}
+
+        <div class="amoy-cart__row">
+          <span>{{ 'cart.delivery' | t }}</span>
+          <span>{{ 'cart.delivery_quoted' | t }}</span>
+        </div>
+
+        <div class="amoy-cart__total">
+          <span class="amoy-cart__total-label">{{ 'cart.estimated_total' | t }}</span>
+          <span class="amoy-cart__total-value">{{ cart.total_price | money }}</span>
+        </div>
+        <p class="amoy-cart__fine">{{ 'cart.fine_print' | t }}</p>
+
+        <button type="submit" name="checkout" class="amoy-btn amoy-btn--primary amoy-btn--full amoy-btn--lg">{{ 'cart.checkout' | t }}</button>
+
+        {%- if additional_checkout_buttons -%}
+          <div class="amoy-cart__accelerated">{{ content_for_additional_checkout_buttons }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.show_quote_link -%}
+          <div class="amoy-cart__quote">
+            {{ 'cart.ordering_bulk' | t }}
+            <a href="{{ quote_url }}">{{ 'cart.request_quote' | t }}</a>
+          </div>
+        {%- endif -%}
+      </aside>
+    </form>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    { "type": "paragraph", "content": "Order notes and the volume discount bar are configured in Theme settings → Cart." },
+    { "type": "header", "content": "Upsell" },
+    { "type": "checkbox", "id": "show_upsell", "label": "Show recommended products", "default": true },
+    { "type": "range", "id": "upsell_count", "min": 2, "max": 6, "step": 1, "label": "Number of products", "default": 3 },
+    { "type": "header", "content": "Bulk quote" },
+    { "type": "checkbox", "id": "show_quote_link", "label": "Show bulk quote link", "default": true },
+    { "type": "url", "id": "quote_link", "label": "Quote link", "info": "Defaults to /pages/contact when empty." }
+  ],
+  "presets": [{ "name": "Cart" }]
+}
+{% endschema %}

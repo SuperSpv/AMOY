@@ -1,0 +1,47 @@
+{%- comment -%}
+  Renders a price, using Shopify's native money filters, unit pricing and
+  compare-at handling.
+
+  Accepts:
+  - product: {Object} product
+  - variant: {Object} variant (optional — overrides product price)
+  - size: {String} sm | md | lg
+{%- endcomment -%}
+
+{%- liquid
+  assign target = variant | default: product
+  assign cls = size | default: 'md'
+
+  if variant
+    assign price = variant.price
+    assign compare = variant.compare_at_price
+    assign varies = false
+  else
+    assign price = product.price
+    assign compare = product.compare_at_price
+    assign varies = product.price_varies
+  endif
+
+  assign on_sale = false
+  if compare > price
+    assign on_sale = true
+  endif
+-%}
+
+<span class="amoy-price amoy-price--{{ cls }}{% if on_sale %} amoy-price--sale{% endif %}">
+  {%- if on_sale -%}
+    <s class="amoy-price__compare">{{ compare | money }}</s>
+  {%- endif -%}
+  <span class="amoy-price__current">
+    {%- if varies -%}
+      {{ 'products.from' | t }} {{ product.price_min | money }}
+    {%- else -%}
+      {{ price | money }}
+    {%- endif -%}
+  </span>
+  {%- if target.unit_price_measurement -%}
+    <span class="amoy-price__unit">
+      {{ target.unit_price | money }}/{% if target.unit_price_measurement.reference_value != 1 %}{{ target.unit_price_measurement.reference_value }} {% endif %}{{ target.unit_price_measurement.reference_unit }}
+    </span>
+  {%- endif -%}
+</span>

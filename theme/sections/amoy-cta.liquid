@@ -1,0 +1,101 @@
+<section class="amoy-block amoy-cta-band color-{{ section.settings.color_scheme }}">
+  <div class="amoy-container amoy-cta-band__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="amoy-eyebrow amoy-eyebrow--brass amoy-cta-band__eyebrow">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+    <h2 class="amoy-display amoy-display--lg amoy-cta-band__title">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="amoy-cta-band__sub">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+    <div class="amoy-cta__btns">
+      {%- capture cta_primary_url -%}{% render 'amoy-url', url: section.settings.primary_url, fallback: '/pages/contact' %}{%- endcapture -%}
+      {%- capture cta_secondary_url -%}{% render 'amoy-url', url: section.settings.secondary_url, fallback: '/pages/contact' %}{%- endcapture -%}
+      {%- if section.settings.primary_label != blank -%}
+        <a href="{{ cta_primary_url }}" class="amoy-btn amoy-btn--inverse amoy-btn--lg">{{ section.settings.primary_label }}</a>
+      {%- endif -%}
+      {%- if section.settings.secondary_label != blank -%}
+        <a href="{{ cta_secondary_url }}" class="amoy-btn amoy-btn--brass amoy-btn--lg">{{ section.settings.secondary_label }}</a>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.contact_line != blank -%}
+      {%- comment -%} Phone numbers and e-mail addresses keep left-to-right order inside Arabic text. {%- endcomment -%}
+      <p class="amoy-cta-band__line">
+        {%- assign line_parts = section.settings.contact_line | split: '·' -%}
+        {%- for part in line_parts -%}
+          {%- assign part = part | strip -%}
+          {%- assign first_char = part | slice: 0 -%}
+          {%- if part contains '@' or first_char == '+' or '0123456789' contains first_char -%}
+            <span class="amoy-ltr">{{ part }}</span>
+          {%- else -%}
+            {{ part }}
+          {%- endif -%}
+          {%- unless forloop.last %} &middot; {% endunless -%}
+        {%- endfor -%}
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "CTA Band",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-5"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Start a project"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Request the 2026 catalog."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Tell us about your store and we'll send the full collection, finishes and lead times for Saudi Arabia."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button",
+      "default": "Request a catalog"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "Primary URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button",
+      "default": "Book a consultation"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary URL"
+    },
+    {
+      "type": "text",
+      "id": "contact_line",
+      "label": "Contact line",
+      "default": "support@amoylimited.com · amoylimited.com · Jeddah, Saudi Arabia"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA Band"
+    }
+  ]
+}
+{% endschema %}

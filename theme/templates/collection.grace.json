@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "grace_hero": {
+      "type": "amoy-grace-hero",
+      "settings": {
+        "eyebrow": "Grace Collection",
+        "heading": "Grace",
+        "intro": "The Grace Collection by AMOY is crafted to reflect elegance, softness and modern femininity. With smooth lines and poised silhouettes, each mannequin brings a refined presence to displays of loungewear and delicate fashion — made from high-quality fiberglass, perfect for women's fashion, lingerie and nightwear.",
+        "quote_label": "Request quotation",
+        "hero_image": "shopify://shop_images/erasebg-transformed-25.png",
+        "contact_label": "Contact us"
+      }
+    },
+    "grace_features": {
+      "type": "amoy-grace-features",
+      "settings": {
+        "f1_image": "shopify://shop_images/A_Dual_Silhouette_in_Metallic_Grace.png",
+        "f1_label": "FA-05",
+        "f2_image": "shopify://shop_images/Seated_20Elegance.png",
+        "f2_label": "FD-01",
+        "f3_image": "shopify://shop_images/Spotlight_Elegance.png",
+        "f3_label": "FA-09"
+      }
+    },
+    "grace_details": {
+      "type": "amoy-grace-details",
+      "settings": {
+        "heading": "Crafted to last",
+        "card1_title": "Materials",
+        "card1_text": "Crafted from high-quality fiberglass — durable, lightweight and premium-finished for long-term use in retail environments.",
+        "card2_title": "Finish & colour",
+        "card2_text": "Default finish is semi-matte white for a clean, modern look. Customise colour and finish to match your brand.",
+        "card3_title": "Base type",
+        "card3_text": "Tempered glass base with calf support for a clean, stable look. Custom base types available on request."
+      }
+    },
+    "grace_characters": {
+      "type": "amoy-grace-characters",
+      "settings": {
+        "char1_image": "shopify://shop_images/Nova.png",
+        "char1_name": "Nova",
+        "char1_desc": "Confident stance, strong presence.",
+        "char2_image": "shopify://shop_images/Lira.png",
+        "char2_name": "Lira",
+        "char2_desc": "Elegant lines, poised grace.",
+        "heading": "The faces of Grace"
+      }
+    },
+    "grace_products": {
+      "type": "amoy-grace-products",
+      "settings": {
+        "eyebrow": "The collection",
+        "heading": "Full body & forms",
+        "subtext": "Every piece can be tailored to your store concept. Pieces shown are from the Grace collection."
+      }
+    },
+    "grace_cta": {
+      "type": "amoy-grace-cta",
+      "settings": {
+        "eyebrow": "Contact us",
+        "heading": "Bring Grace to your store",
+        "subtext": "Tell us about your boutique and we'll share finishes, lead times and pricing across Saudi Arabia.",
+        "quote_label": "Request quotation",
+        "email_label": "Email us"
+      }
+    }
+  },
+  "order": [
+    "grace_hero",
+    "grace_features",
+    "grace_details",
+    "grace_characters",
+    "grace_products",
+    "grace_cta"
+  ]
+}

@@ -1,0 +1,34 @@
+{%- comment -%}
+  Social links. URLs live in Theme settings → Contact & social, so they are
+  edited once and reused everywhere.
+{%- endcomment -%}
+
+{%- liquid
+  assign has_any = false
+  if settings.social_instagram != blank or settings.social_tiktok != blank or settings.social_snapchat != blank or settings.social_x != blank or settings.social_linkedin != blank or settings.social_youtube != blank
+    assign has_any = true
+  endif
+-%}
+
+{%- if has_any -%}
+  <ul class="amoy-footer__social {{ class }}">
+    {%- if settings.social_instagram != blank -%}
+      <li><a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon', icon: 'instagram', size: 17 %}</a></li>
+    {%- endif -%}
+    {%- if settings.social_tiktok != blank -%}
+      <li><a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'icon', icon: 'tiktok', size: 16 %}</a></li>
+    {%- endif -%}
+    {%- if settings.social_snapchat != blank -%}
+      <li><a href="{{ settings.social_snapchat }}" target="_blank" rel="noopener" aria-label="Snapchat">{% render 'icon', icon: 'snapchat', size: 17 %}</a></li>
+    {%- endif -%}
+    {%- if settings.social_x != blank -%}
+      <li><a href="{{ settings.social_x }}" target="_blank" rel="noopener" aria-label="X">{% render 'icon', icon: 'x', size: 15 %}</a></li>
+    {%- endif -%}
+    {%- if settings.social_linkedin != blank -%}
+      <li><a href="{{ settings.social_linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn">{% render 'icon', icon: 'linkedin', size: 16 %}</a></li>
+    {%- endif -%}
+    {%- if settings.social_youtube != blank -%}
+      <li><a href="{{ settings.social_youtube }}" target="_blank" rel="noopener" aria-label="YouTube">{% render 'icon', icon: 'youtube', size: 17 %}</a></li>
+    {%- endif -%}
+  </ul>
+{%- endif -%}

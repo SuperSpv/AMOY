@@ -1,0 +1,38 @@
+{%- comment -%}
+  Rendered by Shopify's Product Recommendations API:
+  /recommendations/products?section_id=product-recommendations&product_id=X&intent=related
+
+  Because the markup is Liquid, the cards here are the same product-card
+  snippet the rest of the theme uses — no HTML built in JavaScript.
+{%- endcomment -%}
+
+{{ 'section-product.css' | asset_url | stylesheet_tag }}
+
+{%- if recommendations.performed and recommendations.products_count > 0 -%}
+  <div class="amoy-recs amoy-container amoy-recs--{{ recommendations.intent }}">
+    <div class="amoy-recs__head">
+      <h2 class="amoy-recs__title">
+        {%- if recommendations.intent == 'complementary' -%}
+          {{ 'products.complete_display' | t }}
+        {%- else -%}
+          {{ 'products.you_may_like' | t }}
+        {%- endif -%}
+      </h2>
+      {%- if recommendations.intent == 'complementary' -%}
+        <span class="amoy-recs__eyebrow">{{ 'products.recommended' | t }}</span>
+      {%- endif -%}
+    </div>
+    <div class="amoy-recs__grid">
+      {%- for product in recommendations.products -%}
+        {% render 'product-card', card_product: product %}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product recommendations",
+  "settings": []
+}
+{% endschema %}

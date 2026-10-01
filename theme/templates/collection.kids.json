@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "kids_hero": {
+      "type": "amoy-kids-hero",
+      "settings": {
+        "eyebrow": "Kids Collection",
+        "heading": "Kids",
+        "intro": "The Kids Collection by AMOY brings playful precision to children's retail displays. Lightweight, durable fiberglass forms designed to showcase childrenswear beautifully — from toddler sizes to teens.",
+        "contact_label": "Contact us",
+        "quote_label": "Request quotation",
+        "hero_image": "shopify://shop_images/Sunlit_Playroom_with_Mannequin_and_Toys.png"
+      }
+    },
+    "kids_features": {
+      "type": "amoy-kids-features",
+      "settings": {}
+    },
+    "kids_details": {
+      "type": "amoy-kids-details",
+      "settings": {
+        "heading": "Built for children's retail",
+        "card1_title": "Materials",
+        "card1_text": "Lightweight, durable fiberglass with smooth edges — safe and built to last in busy retail environments.",
+        "card2_title": "Size range",
+        "card2_text": "Available in toddler through teen sizes. Custom sizing available on request to match your specific garment range.",
+        "card3_title": "Finish options",
+        "card3_text": "Semi-matte white as standard. Full customisation of colour, finish and skin tone available for any order."
+      }
+    },
+    "kids_fullbody": {
+      "type": "amoy-kids-fullbody",
+      "settings": {
+        "eyebrow": "Full body mannequins",
+        "heading": "Complete forms",
+        "subtext": "Full standing and posed mannequins for children's apparel displays. Each form is fully customisable."
+      }
+    },
+    "kids_bodyparts": {
+      "type": "amoy-kids-bodyparts",
+      "settings": {
+        "eyebrow": "Body parts & forms",
+        "heading": "Display forms & parts",
+        "subtext": "Torsos, busts, arms and leg forms — ideal for focused displays of accessories, footwear and childrenswear."
+      }
+    },
+    "kids_cta": {
+      "type": "amoy-kids-cta",
+      "settings": {
+        "eyebrow": "Contact us",
+        "heading": "Bring the Kids Collection to your store",
+        "subtext": "Tell us about your children's boutique and we'll share finishes, sizes, lead times and pricing across Saudi Arabia.",
+        "quote_label": "Request quotation",
+        "email_label": "Email us"
+      }
+    }
+  },
+  "order": [
+    "kids_hero",
+    "kids_features",
+    "kids_details",
+    "kids_fullbody",
+    "kids_bodyparts",
+    "kids_cta"
+  ]
+}

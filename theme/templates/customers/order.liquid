@@ -1,0 +1,53 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<div class="amoy-customer">
+  <a href="{{ routes.account_url }}" class="amoy-customer__link">&larr; {{ 'customer.account' | t }}</a>
+  <h1 class="amoy-display amoy-display--md amoy-customer__title">{{ 'customer.order_number' | t }} {{ order.name }}</h1>
+  <p style="color:var(--text-muted);font-size:14px;margin-bottom:24px">{{ order.created_at | date: format: 'date_at_time' }}</p>
+
+  <table class="amoy-customer__table">
+    <thead>
+      <tr>
+        <th>{{ 'cart.product' | t }}</th>
+        <th>{{ 'cart.quantity' | t }}</th>
+        <th>{{ 'cart.total' | t }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for line_item in order.line_items -%}
+        <tr>
+          <td>
+            <a href="{{ line_item.product.url }}" class="amoy-customer__link">{{ line_item.title }}</a>
+            {%- if line_item.fulfillment -%}
+              <div style="font-size:12.5px;color:var(--text-muted)">{{ line_item.fulfillment.tracking_company }} {{ line_item.fulfillment.tracking_number }}</div>
+            {%- endif -%}
+          </td>
+          <td>{{ line_item.quantity }}</td>
+          <td>{{ line_item.final_line_price | money }}</td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px">
+    <div class="amoy-customer__card">
+      <h2 style="font-family:var(--font-display);font-size:20px;font-weight:600;margin-bottom:12px">{{ 'cart.summary' | t }}</h2>
+      <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px"><span>{{ 'cart.subtotal' | t }}</span><span>{{ order.line_items_subtotal_price | money }}</span></div>
+      {%- for discount in order.cart_level_discount_applications -%}
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px;color:var(--brass-600)"><span>{{ discount.title }}</span><span>&minus;{{ discount.total_allocated_amount | money }}</span></div>
+      {%- endfor -%}
+      {%- for shipping_method in order.shipping_methods -%}
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px"><span>{{ shipping_method.title }}</span><span>{{ shipping_method.price | money }}</span></div>
+      {%- endfor -%}
+      {%- for tax_line in order.tax_lines -%}
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px"><span>{{ tax_line.title }}</span><span>{{ tax_line.price | money }}</span></div>
+      {%- endfor -%}
+      <div style="display:flex;justify-content:space-between;font-weight:700;padding-top:12px;border-top:1px solid var(--border-subtle)"><span>{{ 'cart.total' | t }}</span><span>{{ order.total_price | money }}</span></div>
+    </div>
+    <div class="amoy-customer__card">
+      <h2 style="font-family:var(--font-display);font-size:20px;font-weight:600;margin-bottom:12px">{{ 'customer.addresses' | t }}</h2>
+      {%- if order.shipping_address -%}
+        <address class="amoy-customer__address">{{ order.shipping_address | format_address }}</address>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

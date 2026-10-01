@@ -1,0 +1,19 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<div class="amoy-customer amoy-customer--narrow">
+  <h1 class="amoy-display amoy-display--md amoy-customer__title">Activate your account</h1>
+  {%- form 'activate_customer_password' -%}
+    {%- if form.errors -%}<div class="amoy-customer__errors">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <div class="amoy-customer__field">
+      <label class="amoy-label" for="ActivatePassword">Password</label>
+      <input class="amoy-input" type="password" name="customer[password]" id="ActivatePassword" autocomplete="new-password" required>
+    </div>
+    <div class="amoy-customer__field">
+      <label class="amoy-label" for="ActivatePasswordConfirm">Confirm password</label>
+      <input class="amoy-input" type="password" name="customer[password_confirmation]" id="ActivatePasswordConfirm" autocomplete="new-password" required>
+    </div>
+    <div class="amoy-customer__actions">
+      <button type="submit" class="amoy-btn amoy-btn--primary">Activate account</button>
+      <button type="submit" name="decline" class="amoy-btn amoy-btn--secondary">Decline invitation</button>
+    </div>
+  {%- endform -%}
+</div>
