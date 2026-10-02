@@ -1,0 +1,770 @@
+{
+ "gid://shopify/OnlineStoreThemeJsonTemplate/collection.grace?theme_id=159824969982": [
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_hero.eyebrow:3qru157087iq0",
+   "value": "مجموعة جريس",
+   "translatableContentDigest": "8ea1ef79ac504f1b1f3192b2a451f83a525dcb581a56f179d70901d81780a90b"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_hero.intro:1iflnuce9mvyv",
+   "value": "صُممت مجموعة جريس من أموي AMOY لتعكس الأناقة والنعومة والأنوثة العصرية. بخطوطها الانسيابية وقوامها الرشيق، يمنح كل مانيكان نسائي حضورًا راقيًا لعروض العبايات وملابس الاسترخاء والأزياء الرقيقة — مصنوع من فايبر جلاس عالي الجودة، ومثالي للأزياء النسائية والملابس الداخلية وملابس النوم.",
+   "translatableContentDigest": "384aa1786e75a154badcf5ca1927b60cb3a95778356a6a98af0c9e877f866b33"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_hero.quote_label:1j56n84harbp6",
+   "value": "اطلب عرض سعر",
+   "translatableContentDigest": "309218e146d988e91ac40c8bf9d2c2ab492b8b27a02f0e9f9c35a619606bf0b9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_characters.char1_desc:6hucnp4ktr1g",
+   "value": "وقفة واثقة وحضور قوي.",
+   "translatableContentDigest": "55862ea70dce5e75b87ef62d43285a18aac8ebb5728a752b6451da9d5a042146"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_characters.char2_desc:6huco7ju1y4n",
+   "value": "خطوط أنيقة ورشاقة متزنة.",
+   "translatableContentDigest": "646068a420264b5c49aa440106d4d3fef5f5aa6963538006c26115bc373594c6"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_hero.contact_label:1yaek8s178edc",
+   "value": "تواصل معنا",
+   "translatableContentDigest": "47aaf31b83d6bfd705b80bcd5b6269be4caa3cf54cfa546b0ae7bc4078b39b0f"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_details.heading:3njb872mn5f0j",
+   "value": "مصنوعة لتدوم",
+   "translatableContentDigest": "7d8153406c092ed5945ac6536bdf3829b1cbf6072cc5cde6aac0e53ad828f318"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_details.card1_title:36ktvznkqc78x",
+   "value": "الخامات",
+   "translatableContentDigest": "fd10a146e9625bfd3f69639eeb5fbee0eae7e4633222f1ee3d3d36395844303e"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_details.card1_text:1ifojw0f34jqk",
+   "value": "مصنوعة من فايبرجلاس عالي الجودة — متينة وخفيفة الوزن وبتشطيب فاخر للاستخدام الطويل في متاجر التجزئة.",
+   "translatableContentDigest": "ba4f13412a601028fa66861f40dea6e2a5ba9a789f5e770e5767ee316943e6b3"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_details.card2_title:36ktuit0y5p4i",
+   "value": "التشطيب واللون",
+   "translatableContentDigest": "fd7146ad960ff57668f3b9c7e31410cba9e62f020f32b15fa4662df5c0d3801a"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_details.card2_text:1ifojuerktci7",
+   "value": "التشطيب الافتراضي أبيض نصف مطفي لمظهر عصري ونظيف، ويمكنك تخصيص اللون والتشطيب ليتناسبا مع علامتك.",
+   "translatableContentDigest": "006033d22c1b5ebb2867c7828554988496ae5e97f540e449ee973333e6a87d03"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_details.card3_title:36ktuzp2yezw3",
+   "value": "نوع القاعدة",
+   "translatableContentDigest": "a994fe102bd3559101f88e9c647d7019f23453e651102c7913fc03fa66fe907a"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_details.card3_text:1ifojux6wtq26",
+   "value": "قاعدة من الزجاج المقوّى مع دعامة للساق لمظهر ثابت وأنيق، وتتوفر أنواع قواعد مخصّصة عند الطلب.",
+   "translatableContentDigest": "9fc116f5c388b41432ccb3f98f36729a2fc9536f2290333b5430f3cd54ccf445"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_characters.heading:2uplfky6fwpsb",
+   "value": "وجوه جريس",
+   "translatableContentDigest": "b66492b7af9b641a9eec892e73bc1526a4eb06d72acda2eacac88e487048c271"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_products.eyebrow:1coaqgp2mpfnk",
+   "value": "المجموعة",
+   "translatableContentDigest": "e49841024c216eda1ee6bf869777a7885d80dd1740d515b9527785c776231fcd"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_products.heading:1coaoq3b8nam1",
+   "value": "مانيكانات كاملة وأنصاف أجسام",
+   "translatableContentDigest": "e254ede25f0a4b246084f2c346c98b47b56082663e5424722e77dc0bb26889c9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_products.subtext:1coax2wcw0ay0",
+   "value": "يمكن تخصيص كل مانيكان ليناسب مفهوم متجرك. القطع المعروضة من مجموعة جريس.",
+   "translatableContentDigest": "1a7f4ffde6c976f6d63e22f8769952d320ebc6acaad69e2544fa8b38e7bcd867"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_cta.eyebrow:3vh30grizwzji",
+   "value": "تواصل معنا",
+   "translatableContentDigest": "47aaf31b83d6bfd705b80bcd5b6269be4caa3cf54cfa546b0ae7bc4078b39b0f"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_cta.heading:3vh32ln0y2lhz",
+   "value": "أضف مانيكانات جريس إلى متجرك",
+   "translatableContentDigest": "e4929a9e839b1fda7d9c236b60a0d996613cd0e678c2b352a79130ca713465e5"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_cta.subtext:3vh38u43krhom",
+   "value": "أخبرنا عن متجرك وسنشاركك التشطيبات ومدد التنفيذ والأسعار في جميع أنحاء السعودية.",
+   "translatableContentDigest": "780a61539366271ec5788f66b058e329683fd13777dedc607fcac23c2ec7fb0e"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_cta.quote_label:3bpaw89sx37ks",
+   "value": "اطلب عرض سعر",
+   "translatableContentDigest": "309218e146d988e91ac40c8bf9d2c2ab492b8b27a02f0e9f9c35a619606bf0b9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_cta.email_label:35t5sz67nblka",
+   "value": "راسلنا بالبريد",
+   "translatableContentDigest": "d9172c43bec620b2f327bc61666c5225489d09ce0341fd2becc3a9889de8531a"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.grace.json.grace_hero.heading:3qru751i2vbzl",
+   "value": "جريس – مانيكان نسائي",
+   "translatableContentDigest": "f2465f78e06e9352f9f851e5268a84a24fcb51ffef792fca1196e5d9c2c9559b"
+  }
+ ],
+ "gid://shopify/OnlineStoreThemeJsonTemplate/collection.kids?theme_id=159824969982": [
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_hero.eyebrow:3df5rim4fmclk",
+   "value": "مجموعة KLOS للأطفال",
+   "translatableContentDigest": "be5cd8bf4f23e78591275664d87c8ade9d467b2717ae13e77929ba8498856301"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_hero.heading:3df5xmoi286k1",
+   "value": "مانيكان أطفال",
+   "translatableContentDigest": "8f5abd926df783c80f04e88b470ce8c267ec27cc488c6e535c99663456d3d94d"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_hero.intro:zw01s3rg5jx3",
+   "value": "تقدّم مجموعة الأطفال من أموي AMOY مانيكانات أطفال من الفايبر جلاس الخفيف والمتين، مصممة لإبراز ملابس الأطفال بأجمل صورة في محلات ملابس الأطفال — من مقاسات الصغار حتى المراهقين.",
+   "translatableContentDigest": "82603f6cb020571c83d21c4aae2f35688df93b8df4d102c0294a3297213ed156"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_hero.contact_label:1t03qg9ye6yrk",
+   "value": "تواصل معنا",
+   "translatableContentDigest": "47aaf31b83d6bfd705b80bcd5b6269be4caa3cf54cfa546b0ae7bc4078b39b0f"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_hero.quote_label:2vwwmhmy4q18a",
+   "value": "اطلب عرض سعر",
+   "translatableContentDigest": "309218e146d988e91ac40c8bf9d2c2ab492b8b27a02f0e9f9c35a619606bf0b9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_details.heading:3g97rpz1gtoxv",
+   "value": "مصمّمة لمتاجر الأطفال",
+   "translatableContentDigest": "e428ceed53bfa2eaae200f7ba6aab361f36474f34f5da9858d56dd38ba7908b9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_details.card1_title:1btv8bw0gt4h",
+   "value": "الخامات",
+   "translatableContentDigest": "fd10a146e9625bfd3f69639eeb5fbee0eae7e4633222f1ee3d3d36395844303e"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_details.card1_text:24hha8gtmuhws",
+   "value": "فايبرجلاس خفيف ومتين بحواف ناعمة — آمن ومصمّم ليدوم في المتاجر المزدحمة.",
+   "translatableContentDigest": "4f562a6d6647772bb94a8e2c387ce2cec7afdd81862e4ebc37020112bbc065d8"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_details.card2_title:1btxmtxtd2cy",
+   "value": "نطاق المقاسات",
+   "translatableContentDigest": "131fb459b1a7b11480496dd3825028e25a0a5022a790eb0d28e10a60a5a74786"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_details.card2_text:24hhab36s37bj",
+   "value": "متوفرة من مقاسات الصغار حتى المراهقين، مع مقاسات مخصّصة عند الطلب لتناسب تشكيلة ملابسك.",
+   "translatableContentDigest": "58d529e47a97f824f652c21ceb65be01a1bf0ed447d3f3867e6e7e1492b94982"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_details.card3_title:1bty3q4ujgfn",
+   "value": "خيارات التشطيب",
+   "translatableContentDigest": "d84e516e2a874191ea3b17dd998cfeeb7322f189df39cdc287f2ad4d906ac5dc"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_details.card3_text:24hhablm9krji",
+   "value": "أبيض نصف مطفي كخيار قياسي، مع إمكانية تخصيص اللون والتشطيب ولون البشرة بالكامل لأي طلب.",
+   "translatableContentDigest": "322e00e809daa51eb043efa2992f12a5b9e5e732114aff06ff3837367fc5a872"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_fullbody.eyebrow:3g74jz1cq4xyz",
+   "value": "مانيكانات كاملة",
+   "translatableContentDigest": "4be655970e19eea1e2b57e0bf25131c12834b12b1c52d611d9b80befd4201086"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_fullbody.heading:3g74pkm1i5r0i",
+   "value": "مانيكان أطفال كامل",
+   "translatableContentDigest": "5802bfd0058fa4130bd2738f2df667be3be6cfba03bdbecead066bfc7bab30f6"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_fullbody.subtext:3g74dcpgmib9v",
+   "value": "مانيكانات واقفة وبوضعيات متنوعة لعروض ملابس الأطفال، وكل قطعة قابلة للتخصيص بالكامل.",
+   "translatableContentDigest": "338c95e75b7835da5f2668bd09a0058fe6778217740c2b5c323a7cbd5b2024b4"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_bodyparts.eyebrow:oxqt2ck4hebw",
+   "value": "أجزاء وأجسام العرض",
+   "translatableContentDigest": "7534e8447fc96b251856793654710641101a948a6be6551886fd214b4c655727"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_bodyparts.heading:oxqvbbeo9wad",
+   "value": "نصف مانيكان وقطع عرض للأطفال",
+   "translatableContentDigest": "5edd54007d60dedbf99806cb77e407ab44cd53cd176e83308c8848f1943664de"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_bodyparts.subtext:oxqzfugdrxyc",
+   "value": "أنصاف أجسام وصدور وأذرع وأرجل — مثالية للعروض المركّزة للإكسسوارات والأحذية وملابس الأطفال.",
+   "translatableContentDigest": "25c2759af94d1923e5a3573b9c4fbfb05b6b4690f4cc21103a127f9f73976d74"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_cta.eyebrow:1m7amqxcid6i6",
+   "value": "تواصل معنا",
+   "translatableContentDigest": "47aaf31b83d6bfd705b80bcd5b6269be4caa3cf54cfa546b0ae7bc4078b39b0f"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_cta.heading:1m7al4nzs44gn",
+   "value": "أضِف مجموعة الأطفال إلى متجرك",
+   "translatableContentDigest": "9c549bee449f6cde5239554694160e6e4ad1f6d5e5c7a12a1db2fbc5f4f64786"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_cta.subtext:1m7ar91ng9rba",
+   "value": "أخبرنا عن متجر ملابس الأطفال لديك وسنشاركك التشطيبات والمقاسات ومدد التنفيذ والأسعار في جميع أنحاء السعودية.",
+   "translatableContentDigest": "bf9184f119ea94aefbe21e0d0ea806977defe1597ca6b4a9614ee600a4ebfd21"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_cta.quote_label:6w90rdvelhzw",
+   "value": "اطلب عرض سعر",
+   "translatableContentDigest": "309218e146d988e91ac40c8bf9d2c2ab492b8b27a02f0e9f9c35a619606bf0b9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.collection.kids.json.kids_cta.email_label:13d0ufdkle0a",
+   "value": "راسلنا بالبريد",
+   "translatableContentDigest": "d9172c43bec620b2f327bc61666c5225489d09ce0341fd2becc3a9889de8531a"
+  }
+ ],
+ "gid://shopify/OnlineStoreThemeJsonTemplate/page.about?theme_id=159824969982": [
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.heading:1756smk0z2725",
+   "value": "نصنع شخصيات، لا مجرّد أشكال.",
+   "translatableContentDigest": "cb2b7cc2807f6892d01cce3b1620569ee8a50fc43f25da45f6165631fcd7c879"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.body:271ao9r4cgp9h",
+   "value": "أموي AMOY Limited هي الشركة الرائدة في تصنيع مانيكانات الفايبر جلاس في المملكة العربية السعودية، ومقرها جدة، وتخدم محلات الأزياء في جميع أنحاء المملكة. من الأزياء الفاخرة والملابس الداخلية إلى الملابس الرياضية وأزياء الأطفال، نصنع مانيكانات تحمل الوضعية — وهوية العلامة — بثقة هادئة.",
+   "translatableContentDigest": "6bac6258aea5ee89d45f8a682074fe432bcbe7a9d5d3f01f53c46c3eafa91048"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.process_eyebrow:1mfqut74w8gb4",
+   "value": "كيف نعمل",
+   "translatableContentDigest": "44d3c48911c8ad51fc6cf932d8c609894c23330490090abf77b1d9392a5a68ba"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.img1.caption:n094agdl2ro2",
+   "value": "الورشة · النحت",
+   "translatableContentDigest": "875d2026799b691a036c86027397ae920dfa06afd741a6c850475c805d076862"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.img2.caption:3geklglc7pp2p",
+   "value": "التشطيب · نصف مطفي",
+   "translatableContentDigest": "f64d691075fb478c1e6168a7ca80dfc8ae89c54e605e0e90fbd0e83d1744593c"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.img3.caption:3w4rl2hipf3yo",
+   "value": "الواجهة · بعد التركيب",
+   "translatableContentDigest": "d966b0faff596170fd4151c8ad840491f378c8a8d9085fd13f416fcf7ea1d69d"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.eyebrow:1756y41fnznes",
+   "value": "عن أموي AMOY",
+   "translatableContentDigest": "10f2368aaffb1f06199d248bdd882f5497d16444d3ed250b6c2d3defd78db84c"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.step1_title:3eaccxmtvehrd",
+   "value": "التصميم والنحت",
+   "translatableContentDigest": "06d1ebe95126f45cf8d2cf8e3e26b0897d6798f0e10157ad26e52d3fde842eb0"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.step1_body:3pek112xy3cp",
+   "value": "أشكال مطوّرة لتناسب هوية علامتك وقوامها.",
+   "translatableContentDigest": "fc1236de457d7379194ac28e3bcabcffe9b015e27eaf1c0cb7bc9b7f7cd6c8d6"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.step2_title:3eacfc4voaqzu",
+   "value": "تشطيب حسب المواصفات",
+   "translatableContentDigest": "0aa147535d376410068b7e4a85e64b1fefa4d673ef1a2f5dcc9a0cc49a919d61"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.step2_body:3pek3ndq4hsq",
+   "value": "أبيض نصف مطفي افتراضيًا، أو أي لون وتشطيب مخصّص.",
+   "translatableContentDigest": "1c6d1588cebd5fa893917063fabf72f0ba75f3a6dd3b0321e03f2be92346105f"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.step3_title:3eacft12ph52j",
+   "value": "التوصيل في جميع أنحاء المملكة",
+   "translatableContentDigest": "4a3e9afce897afbfb9c30571b84f9a4cb764fc17b52cc712e87983ac244308ac"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.about.json.main.step3_body:3pek45t24tob",
+   "value": "الرياض وجدة والدمام وكل مدينة بينها.",
+   "translatableContentDigest": "0a47b66ce85232446526b6356d6ca9d8c7153c34068720f08a5961ee92cc914d"
+  }
+ ],
+ "gid://shopify/OnlineStoreThemeJsonTemplate/page.contact?theme_id=159824969982": [
+  {
+   "locale": "ar",
+   "key": "section.page.contact.json.main.heading:37mlfihksplcg",
+   "value": "اطلب عرض سعر",
+   "translatableContentDigest": "724f2336bf690001bb8b255444114158e8e9a692b0af2171da53622d03c93746"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.contact.json.main.body:2c0sllkl8wi94",
+   "value": "أخبرنا عن مفهوم متجرك — التشطيبات والوضعيات والكميات. سنُعدّ لك عرض سعر مخصّصًا ونؤكّد التوصيل إلى جميع أنحاء المملكة.",
+   "translatableContentDigest": "5e27829fa8d07ff14b18a29e0aa53739430f9c5526aec53467b922e1ba90aa3a"
+  },
+  {
+   "locale": "ar",
+   "key": "section.page.contact.json.main.address:37mlc3ljkcosu",
+   "value": "طريق المدينة المنورة، الرويس 8278، وحدة 2، جدة 23215، المملكة العربية السعودية",
+   "translatableContentDigest": "732db307907029289558cd9af12aca815dbf978060bc13d1e751c4e1dfeb76a1"
+  }
+ ],
+ "gid://shopify/OnlineStoreThemeJsonTemplate/product?theme_id=159824969982": [
+  {
+   "locale": "ar",
+   "key": "section.product.json.main.price.price_note:kgw42v7e27kq",
+   "value": "للقطعة الواحدة · خصومات على الكميات من 4 قطع",
+   "translatableContentDigest": "b0a45259818e02245eef9ed2dfd912ed0cfc60e765d7412226580a0310b7e910"
+  },
+  {
+   "locale": "ar",
+   "key": "section.product.json.main.quote_link.label:32s5ea2zwgkmu",
+   "value": "اطلب عرض سعر للجملة بدلًا من ذلك",
+   "translatableContentDigest": "da79fd582797b43a138886e9633adbe6a1179832ef9f685c1934624c42662aaf"
+  },
+  {
+   "locale": "ar",
+   "key": "section.product.json.main.specs.heading:2rznk0xq5vtuz",
+   "value": "المواصفات",
+   "translatableContentDigest": "015b4e0a76e504586ded7886495f58f5aae4e8ddfff25402a59c53771c7e6923"
+  },
+  {
+   "locale": "ar",
+   "key": "section.product.json.main.specs.rows:2thbue8yyuvdm",
+   "value": "الخامة | فايبرجلاس مركّب\nالتشطيب الافتراضي | أبيض نصف مطفي\nالقاعدة | زجاج مقوّى\nبلد الصنع | المملكة العربية السعودية",
+   "translatableContentDigest": "b0478bb18b9332b5a19d59112f8d28024741abc07156a746802cadf9c865b463"
+  },
+  {
+   "locale": "ar",
+   "key": "section.product.json.main.trust.item_1:1mxnxpiwlhr3u",
+   "value": "التوصيل لجميع مناطق المملكة",
+   "translatableContentDigest": "e5705b05012d2152528a1be8b3d811df56cc6c19fd4cd4337e0263c8fc170a05"
+  },
+  {
+   "locale": "ar",
+   "key": "section.product.json.main.trust.item_2:1mxnxpiwlhq7t",
+   "value": "تشطيب مخصّص متاح",
+   "translatableContentDigest": "06c5cec3820ce21a220cb923794f959d8f7abec2295b8a595701678f4e582fd8"
+  }
+ ],
+ "gid://shopify/OnlineStoreThemeJsonTemplate/index?theme_id=159824969982": [
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.eyebrow:g6qiakt1hwqu",
+   "value": "مانيكان عرض ملابس فايبر جلاس · السعودية",
+   "translatableContentDigest": "700ec253c3ccd823c4429dba0cbb59bcf977e6a7d6efc5d52b94cbf844a97dc0"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.heading_line1:190exnftvd8an",
+   "value": "مانيكانات عرض",
+   "translatableContentDigest": "b22666d99289276bb46bbb5d99d564a8dd0d608e4b26a2b62cbf4c5747b72cf7"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.heading_em:2ix81qyaeq4so",
+   "value": "فاخرة",
+   "translatableContentDigest": "66a424a9a958b152c1c3ba65a2ac6c33ad03333e2e41e7d770b5758d46dd3ef5"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.heading_line2:190exnftvdccc",
+   "value": "لكل واجهة.",
+   "translatableContentDigest": "e759e9a9f19dea5c560f5db755dd0656623190074775920e67a665248ca328f8"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.subheading:2tvarv6d5p0or",
+   "value": "مانيكانات فايبر جلاس عالية الجودة — مانيكان نسائي ورجالي وأطفال ونصف مانيكان — لعلامات الأزياء ومحلات الملابس في جميع أنحاء المملكة. اشترِ أونلاين أو اطلب عرض سعر مخصص لمتجرك.",
+   "translatableContentDigest": "bb4fd98892021dc8a7d5dadd4a4343f7861f839dd7920d7e356102af761fde4a"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.primary_label:g8o2r7hn2iua",
+   "value": "تسوق المانيكانات",
+   "translatableContentDigest": "b9badcafc3396e8c63df2d869c5315df02162fffd55604f70bd8e8edd21f5000"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.secondary_label:37f0od8lyzoic",
+   "value": "قصتنا",
+   "translatableContentDigest": "9247cb620a1c322140959500a5ed4d0dd6a65b433344565a10a354c53f1a2500"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.image_caption:2l7by13s7k4xt",
+   "value": "مانيكان نسائي Grace 04 · أبيض نصف مطفي",
+   "translatableContentDigest": "5cb24fbb6db01c8cfa7afb307856a200e6cdc7a4361f3335a9e2b61251212d13"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.stat-1.label:1klg2gpyqyc4k",
+   "value": "سنوات من الحِرفة",
+   "translatableContentDigest": "28520e1dd2c0342586ad953d477599756039aebcced01c759ea4f2f3f6b364f9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.stat-2.label:2z1fc3ii71b7r",
+   "value": "مدينة نخدمها",
+   "translatableContentDigest": "53a016700cec405784b718e2d1d0a6e5361f63947f2e75f1deb9372b0367731c"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.eyebrow:327mt58adiss3",
+   "value": "المجموعات",
+   "translatableContentDigest": "244b4be2b4242c2f751f4317457d635aefd4214695516fc3d9a9f3746eb4ae8e"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.heading:327murhkleatm",
+   "value": "مانيكان يناسب شخصية كل علامة",
+   "translatableContentDigest": "6b6347b649bc3a284a7ce4e6895e7b8deacc9b7ab136f92dd9e5ad2289016416"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.col-1.tag:2dsterk7h45yv",
+   "value": "مانيكان نسائي",
+   "translatableContentDigest": "e8cca808ae5aaa03a7fc3060856e6d4ad776fb1cb8cfe441a9bd240988cde151"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.col-1.desc:sf5yobqarnf8",
+   "value": "للعبايات والملابس الداخلية وملابس النوم والأزياء الفاخرة.",
+   "translatableContentDigest": "0a2db00ca89e02c20cd86a02fc9f203218672118b042614e7f15395f0bb3dd1b"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.col-1.caption:2w55icq10xeq3",
+   "value": "مجموعة جريس – مانيكان نسائي",
+   "translatableContentDigest": "af791a5c99efbd65ba1115205f0b8585e15eb5af687f1e507ff7928f08e4b1b2"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.col-2.name:173oudppbu0ch",
+   "value": "أطفال",
+   "translatableContentDigest": "8f5abd926df783c80f04e88b470ce8c267ec27cc488c6e535c99663456d3d94d"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.col-2.tag:2v8e87qclb6xg",
+   "value": "مانيكان أطفال",
+   "translatableContentDigest": "8053321281f5d162ee6c1c1263a0d1a88ee2d500e4c30c65dc343f37240aaefd"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.col-2.desc:173oudpqm1mfr",
+   "value": "أشكال مرحة لملابس الأطفال والصغار.",
+   "translatableContentDigest": "8b728cb75ff9fcf70b5f9e4afb03bf28db702796d10eb9e3eab4edfc9b6ba694"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.col-2.caption:140np1aeknyy0",
+   "value": "مجموعة الأطفال – مانيكان أطفال",
+   "translatableContentDigest": "0b625af51c758260a1103c3b6e09d694f54fbb19f73177a5e8b7786d47084870"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.eyebrow:10f8gk8ebaa7k",
+   "value": "لماذا أموي AMOY",
+   "translatableContentDigest": "3d374c593c81425215b7325d15fc81c2bde9240ef62f27cf277203b6f378cc56"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.heading:10f8ffdmcwop5",
+   "value": "مصنوعة يدويًا، ومُنهاة كقطعة أثاث.",
+   "translatableContentDigest": "bf515d93770c140c44d9d047c6d4b523541143de28ba2037e062906d598db0b9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.body:160sovwf28d1t",
+   "value": "يبدأ كل مانيكان من أموي AMOY من الفايبر جلاس وينتهي قطعةً مدروسة — مصقولة ومحكمة ومُشطبة بلون أبيض نصف مطفي هادئ. جودةٌ تليق بواجهات متجرك.",
+   "translatableContentDigest": "b1592db6b5d4e1deff6d7dbf97a8a5e4aba62896de1da8194f43ffd5bfdfd19c"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.image_caption:1kswug3p5u7zr",
+   "value": "الورشة · التشطيب اليدوي للسطح نصف المطفي",
+   "translatableContentDigest": "17418db4e60b20cbf8706fc0bbbc293dea4f51802286d407b93cf643df7c7328"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.f1.title:1x1qcujpcd3sd",
+   "value": "فايبر جلاس بتشطيب يدوي",
+   "translatableContentDigest": "df49651df00e9ccf45b38ae0bf71d6025ea31f4b3f5d8ab37129d0d5b8c0455b"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.f1.body:2f14xqnzbik1p",
+   "value": "أشكال متينة وخفيفة الوزن بسطح لا تشوبه شائبة يليق بالمعارض.",
+   "translatableContentDigest": "5c714579900181e4f3ab8f5bf3ae64e47d114fc90b84399499fac42c5607b550"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.f2.title:ilr37r5yn6ku",
+   "value": "أي تشطيب تختاره",
+   "translatableContentDigest": "9cdc8ba2b2dd6889f5b56ff46abd60a226691c107673fb03d65f6f94b421cff9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.f2.body:2yqk6byae1f3y",
+   "value": "أبيض نصف مطفي افتراضيًا — أو أي لون ولمعان يناسب مفهومك.",
+   "translatableContentDigest": "c4395610a3949db82575d5cdefb120c888c1f587bcd95e0ac30d5588062ab544"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.f3.title:qwra4g3wealr",
+   "value": "قواعد من الزجاج المقوّى",
+   "translatableContentDigest": "e1955d87357acfefabaf7c9906fd698e33c591878c62ecbce5851ba53b7eedf5"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.f3.body:ujl993gdd4e7",
+   "value": "دعامة ثابتة تكاد لا تُرى مع تثبيت عند الساق يحافظ على نقاء الوضعيات.",
+   "translatableContentDigest": "b3f005dcb9dc964a66980f0683844ea4e90c82d852e7e013152969baa842bef3"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.f4.title:2eq36oxc25jgo",
+   "value": "صُنع في المملكة العربية السعودية",
+   "translatableContentDigest": "aa37faa7cf5cd018d4a74892825b321a9cdbadd3c2996728bd0d0d5e1b858e5d"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-why.f4.body:1ykuwc6ocnebc",
+   "value": "تُصنّع في جدة وتُوصّل إلى جميع أنحاء المملكة، بمُدد تنفيذ قصيرة.",
+   "translatableContentDigest": "c3a143292f262f6d1b641502c7ce586bd67b6403b3aee2da58f1eeb873473858"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.eyebrow:2ldfdbakru1mu",
+   "value": "كيف نعمل",
+   "translatableContentDigest": "9c870aa6e5e93270170d5a81277ad3e623afe8d4efd186d3e28f3d2b646d52e6"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.heading:2ldf7tt3kj1a7",
+   "value": "من الفكرة إلى الواجهة في أربع خطوات.",
+   "translatableContentDigest": "023bf024f5909052ad4c9213d5522fd9892907d46466453bd2d5d90fd2525912"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.s1.title:3vtryybiffi8e",
+   "value": "الاستشارة",
+   "translatableContentDigest": "0206b8b7794e677f6c1d14db26becc6a3b91f37cd2c47244748e9b51e0db0387"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.s1.body:2h6cmes1405a6",
+   "value": "شاركنا مفهوم متجرك ومزيج مجموعاتك والمظهر الذي تسعى إليه.",
+   "translatableContentDigest": "cea1aeec253683be09cdd461aa0257ed646ff2745064fd84263633a70cc299e3"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.s2.title:1e4d7k1vocynh",
+   "value": "التخصيص",
+   "translatableContentDigest": "c5276e27afba47df67704ededdb5cf2cfaaf0a9d7d1be1eabb0d4087dd2b724b"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.s2.body:1xgxdthq1ha7x",
+   "value": "نُفصّل الشكل والوضعية والتشطيب والقاعدة وفقًا لمواصفات علامتك بدقّة.",
+   "translatableContentDigest": "aff371463ac7df5c11578088bb1615b3f08d120e1c9ee09e34ef6d3d33038201"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.s3.title:15td0ncxqlumk",
+   "value": "التصنيع",
+   "translatableContentDigest": "57f64bf9715866ab48f46478ad5c82c1180031954ae27aadfbbbfc7be96e0427"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.s3.body:5ii9vadxd458",
+   "value": "تُصنع يدويًا في ورشتنا بجدة، ثم تُنهى وتخضع لفحص الجودة.",
+   "translatableContentDigest": "3f57327222c0d7a9c7eb27643d0ea608cac2a571dad821d7f0879bcca9a08599"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.s4.title:xyr5l0uvxp63",
+   "value": "التوصيل",
+   "translatableContentDigest": "a62b8fdf7f62ef72c0ba7ba2e8625c031cd13e868c4989b119d9a5f44e46550b"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-how.s4.body:1ohirvn88kuwr",
+   "value": "تُغلّف وتُعتمد وتُوصّل إلى الرياض وجدة والدمام وما بعدها.",
+   "translatableContentDigest": "1cf204f079deb2506045fd6d3a89b9068ef7b82b243441e5fa3a79faa879ccc6"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-featured.eyebrow:1bb1osj0tdht2",
+   "value": "مانيكانات مختارة",
+   "translatableContentDigest": "7064b886702bf6bd5271ac386db4733f18e6fde040ce807fafd08d45ed39141b"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-featured.heading:1bb1j6y9it5gf",
+   "value": "جاهزة للشحن",
+   "translatableContentDigest": "d42ef15edf7b7865ded8b7bfb8bfd31937b4d88eb08f58c40b0d141ae823e86a"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-clients.eyebrow:2wpgtptpdy1cs",
+   "value": "عملاؤنا",
+   "translatableContentDigest": "bb139440c69d6c0926ca442e631c3d31ed319ba0ad829964332ab54cdfa81621"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-clients.heading:2wpgwg71wme5h",
+   "value": "موثوقة من تجّار التجزئة والعلامات في جميع أنحاء المملكة",
+   "translatableContentDigest": "bf8c169c5471cb22103aa8d83f4914dd69936e426fd301eb7b427b5ed1cf372e"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-clients.client_7Rrhi7.name:37g05yv9amf9y",
+   "value": "La Senza",
+   "translatableContentDigest": "f249f06197d8d4cdc1d13336e5fe2cec77601d88face7e1a90252715821a7e81"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-latest-blogs.eyebrow:3iwxs3hjxnf11",
+   "value": "مدونة أموي",
+   "translatableContentDigest": "d53afe147259d9705fb2aaf65f7440ad06cc9259362a1d8b8ebbb4eb1baa95ed"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-latest-blogs.heading:3iwxlzf8tf52k",
+   "value": "نصائح العرض المرئي والمانيكانات.",
+   "translatableContentDigest": "8fe47c422a44080199d500964a5bad7d140554a12afdb89dc7279fb57ebe625d"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-cta.eyebrow:35oz5v86bpw9s",
+   "value": "ابدأ مشروعًا",
+   "translatableContentDigest": "58265cc0115114af3ec42321bb52acb2a558d55063059ccd5fa52e44b3b7c67c"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-cta.heading:35oz48ywegfx5",
+   "value": "اطلب كتالوج مانيكانات 2026.",
+   "translatableContentDigest": "0dc192715c9b9046bfcc24e7cf1d02500ddb7edc99d38f6da45f3fbc1c6f0d57"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-cta.subheading:11iprw4yu0hct",
+   "value": "أخبرنا عن متجرك وسنرسل لك المجموعة الكاملة والتشطيبات ومُدد التنفيذ للمملكة العربية السعودية.",
+   "translatableContentDigest": "f3a5adcab7ccf2b640012dadb4a54ebb888f9447e356735482be4357563e9cc9"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-cta.primary_label:11hmj18pwart0",
+   "value": "اطلب الكتالوج",
+   "translatableContentDigest": "107eb6eb8a3340550271f14419718d6f8b153160132641f05f5afabc6d330242"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-cta.secondary_label:eajeic9lk5yq",
+   "value": "احجز استشارة",
+   "translatableContentDigest": "7bc3a813dbe87008ab8bcac9f338c8d24d74275c7eed3ea1041cd80433b92c45"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-cta.contact_line:ayorc18rj468",
+   "value": "support@amoylimited.com · +966 54 727 5228 · جدة، المملكة العربية السعودية",
+   "translatableContentDigest": "ac5e7bb9f865cd3bff4ea3efc0106160a2bd5e785cf044432a6f6ad8d4962324"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.stat-3.label:2qqf56tk3xhye",
+   "value": "فايبر جلاس صناعة سعودية",
+   "translatableContentDigest": "07f4dd5c4b47685c9b365dfbce7cecfa33da35c3668c4ac7762f974782a84d3d"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.stat-1.value:1klg2gk3n0qqx",
+   "value": "+13",
+   "translatableContentDigest": "87e3a9c40570851f5166da78394d52bd23a3e45a50914bfad23e724a74e205b2"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-hero.stat-2.value:2z1fc3evf5jii",
+   "value": "+25",
+   "translatableContentDigest": "ee9c87784f285845d163c9087183b669b2f472df619dcd0bf75fb739563d0817"
+  },
+  {
+   "locale": "ar",
+   "key": "section.index.json.amoy-collections.col-1.name:sf5yobheooua",
+   "value": "جريس",
+   "translatableContentDigest": "f2465f78e06e9352f9f851e5268a84a24fcb51ffef792fca1196e5d9c2c9559b"
+  }
+ ]
+}

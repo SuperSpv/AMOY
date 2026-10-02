@@ -34,6 +34,11 @@
 
   assign meta_description = page_description | default: shop.description
 
+  assign brand_name = shop.name
+  if request.locale.iso_code == 'ar'
+    assign brand_name = 'أموي AMOY'
+  endif
+
   assign body_font = settings.type_body_font
   assign body_bold = body_font | font_modify: 'weight', 'bolder'
   assign body_italic = body_font | font_modify: 'style', 'italic'
@@ -87,7 +92,7 @@
       {{- page_title -}}
       {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
       {%- if current_page != 1 %} &ndash; {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- unless page_title contains 'AMOY' or page_title contains 'أموي' %} &ndash; {{ brand_name }}{% endunless -%}
     </title>
     {%- if meta_description != blank -%}
       <meta name="description" content="{{ meta_description | escape }}">
@@ -109,9 +114,9 @@
     {%- endif -%}
 
     {%- comment -%} Open Graph / social {%- endcomment -%}
-    <meta property="og:site_name" content="{{ shop.name }}">
+    <meta property="og:site_name" content="{{ brand_name }}">
     <meta property="og:type" content="{% if request.page_type == 'product' %}product{% elsif request.page_type == 'article' %}article{% else %}website{% endif %}">
-    <meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
+    <meta property="og:title" content="{{ page_title | default: brand_name | escape }}">
     {%- if meta_description != blank -%}<meta property="og:description" content="{{ meta_description | escape }}">{%- endif -%}
     <meta property="og:url" content="{{ canonical_url }}">
     <meta property="og:locale" content="{{ og_locale }}">
@@ -186,7 +191,7 @@
     {%- endif -%}
 
     {%- if settings.enable_structured_data -%}
-      {%- render 'structured-data' -%}
+      {%- render 'structured-data', brand_name: brand_name, meta_description: meta_description -%}
     {%- endif -%}
 
     {{ settings.custom_css }}

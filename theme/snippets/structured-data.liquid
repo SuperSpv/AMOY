@@ -3,12 +3,40 @@
   Every value comes from shop data or theme settings — nothing is hardcoded.
 {%- endcomment -%}
 
+{%- liquid
+  assign home_url = shop.url | append: routes.root_url
+  if routes.root_url == '/'
+    assign home_url = shop.url
+  endif
+  assign store_description = shop.description
+  if request.page_type == 'index' and meta_description != blank
+    assign store_description = meta_description
+  endif
+-%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ brand_name | default: shop.name | json }},
+  "alternateName": ["أموي", "AMOY", "AMOY Mannequins", "أموي للمانيكانات"],
+  "url": {{ home_url | json }},
+  "inLanguage": {{ request.locale.iso_code | json }},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ home_url | append: '/search?q=' }}{search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Store",
-  "name": {{ shop.name | json }},
-  "url": {{ shop.url | json }},
+  "name": {{ brand_name | default: shop.name | json }},
+  "alternateName": ["أموي", "AMOY Mannequins", "مانيكانات أموي"],
+  "url": {{ home_url | json }},
   {%- if settings.logo != blank -%}
     "logo": {{ settings.logo | image_url: width: 400 | prepend: 'https:' | json }},
   {%- elsif settings.share_image != blank -%}
@@ -17,7 +45,7 @@
   {%- if settings.share_image != blank -%}
     "image": {{ settings.share_image | image_url: width: 1200 | prepend: 'https:' | json }},
   {%- endif -%}
-  {%- if shop.description != blank -%}"description": {{ shop.description | json }},{%- endif -%}
+  {%- if store_description != blank -%}"description": {{ store_description | json }},{%- endif -%}
   {%- if settings.contact_email != blank -%}"email": {{ settings.contact_email | json }},{%- endif -%}
   {%- if settings.contact_phone != blank -%}"telephone": {{ settings.contact_phone | remove: ' ' | json }},{%- endif -%}
   "areaServed": {{ settings.contact_country_code | json }},
@@ -49,7 +77,12 @@
       "image": [{{ product.featured_image | image_url: width: 1200 | prepend: 'https:' | json }}],
     {%- endif -%}
     "description": {{ product.description | strip_html | truncate: 300 | json }},
+    "url": {{ canonical_url | json }},
     "sku": {{ pvar.sku | default: product.handle | json }},
+    "mpn": {{ pvar.sku | default: product.handle | upcase | json }},
+    "material": "{% if request.locale.iso_code == 'ar' %}فايبر جلاس{% else %}Fiberglass{% endif %}",
+    "category": {{ product.type | default: 'Mannequins' | json }},
+    "countryOfOrigin": "SA",
     "brand": { "@type": "Brand", "name": {{ product.vendor | default: shop.name | json }} },
     {%- if product.price_varies -%}
       "offers": {
@@ -59,6 +92,8 @@
         "highPrice": {{ product.price_max | divided_by: 100.0 | json }},
         "offerCount": {{ product.variants.size }},
         "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": { "@type": "Organization", "name": {{ brand_name | default: shop.name | json }} },
         "url": {{ canonical_url | json }}
       }
     {%- else -%}
@@ -68,6 +103,8 @@
         "price": {{ pvar.price | divided_by: 100.0 | json }},
         "priceValidUntil": "{{ 'now' | date: '%Y' | plus: 1 }}-12-31",
         "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": { "@type": "Organization", "name": {{ brand_name | default: shop.name | json }} },
         "url": {{ canonical_url | json }}
       }
     {%- endif -%}
@@ -96,6 +133,45 @@
     },
     "mainEntityOfPage": {{ canonical_url | json }},
     "description": {{ article.excerpt_or_content | strip_html | truncate: 300 | json }}
+  }
+  </script>
+{%- endif -%}
+
+{%- if request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'article' -%}
+  {%- liquid
+    if request.locale.iso_code == 'ar'
+      assign bc_home = 'الرئيسية'
+    else
+      assign bc_home = 'Home'
+    endif
+    assign bc_parent = collection
+    if request.page_type == 'product' and bc_parent == blank
+      assign bc_parent = product.collections | where: 'handle', 'women' | first
+      if bc_parent == blank
+        assign bc_parent = product.collections | first
+      endif
+    endif
+  -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": {{ bc_home | json }}, "item": {{ home_url | json }} }
+      {%- if request.page_type == 'article' -%}
+        , { "@type": "ListItem", "position": 2, "name": {{ blog.title | json }}, "item": {{ shop.url | append: blog.url | json }} }
+        , { "@type": "ListItem", "position": 3, "name": {{ article.title | json }}, "item": {{ canonical_url | json }} }
+      {%- elsif request.page_type == 'collection' -%}
+        , { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": {{ canonical_url | json }} }
+      {%- else -%}
+        {%- if bc_parent != blank -%}
+          , { "@type": "ListItem", "position": 2, "name": {{ bc_parent.title | json }}, "item": {{ shop.url | append: bc_parent.url | json }} }
+          , { "@type": "ListItem", "position": 3, "name": {{ product.title | json }}, "item": {{ canonical_url | json }} }
+        {%- else -%}
+          , { "@type": "ListItem", "position": 2, "name": {{ product.title | json }}, "item": {{ canonical_url | json }} }
+        {%- endif -%}
+      {%- endif -%}
+    ]
   }
   </script>
 {%- endif -%}
